@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>御智录 — AI协作能力精进指南</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --vermillion: #8B0000;
+            --gold: #C8A951;
+            --gold-light: #D4B96A;
+            --ink-dark: #1a0f08;
+            --ink-medium: #2c1810;
+            --ink-light: #5a1c0c;
+            --silk-1: #f5efe0;
+            --silk-2: #e8dcc8;
+            --silk-3: #ddd0b8;
+            --card-bg: rgba(255,255,255,0.4);
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'SimSun', serif;
+            background: linear-gradient(135deg, #3a0a0a 0%, #1a0505 50%, #2d0808 100%);
+            color: var(--ink-medium);
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        .scroll-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .silk-sheet {
+            background:
+                linear-gradient(45deg, var(--silk-1) 0%, var(--silk-2) 50%, var(--silk-3) 100%),
+                radial-gradient(circle at 20% 30%, rgba(139,0,0,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(200,169,81,0.08) 0%, transparent 50%);
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+            padding: 60px;
+            margin-bottom: 40px;
+        }
+
+        .silk-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.02 0"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.3"/></svg>');
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .silk-edges {
+            position: absolute;
+            top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border: 3px solid var(--vermillion);
+            border-radius: 12px;
+            pointer-events: none;
+        }
+        .silk-edges::before {
+            content: '';
+            position: absolute;
+            top: 5px; left: 5px; right: 5px; bottom: 5px;
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+        }
+        .silk-edges::after {
+            content: '';
+            position: absolute;
+            top: 9px; left: 9px; right: 9px; bottom: 9px;
+            border: 1px solid rgba(139,0,0,0.3);
+            border-radius: 6px;
+        }
+
+        /* ===== HEADER ===== */
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--vermillion);
+            letter-spacing: 12px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: var(--ink-light);
+            font-style: italic;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .english-title {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 1rem;
+            color: #8B6331;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .seal-stamp {
+            display: inline-block;
+            border: 2px solid var(--vermillion);
+            color: var(--vermillion);
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transform: rotate(-3deg);
+            opacity: 0.7;
+            margin-left: 10px;
+        }
+
+        .construction-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 15px 25px;
+            background: rgba(139,0,0,0.06);
+            border-radius: 6px;
+            border: 1px solid rgba(139,0,0,0.2);
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: var(--vermillion);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ink-medium);
+        }
+
+        /* ===== MAIN IMAGE ===== */
+        .main-image-container {
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(139,0,0,0.2);
+            border: 3px solid var(--silk-2);
+        }
+
+        .image-caption {
+            margin-top: 20px;
+            font-style: italic;
+            color: var(--ink-light);
+            font-size: 1.1rem;
+        }
+
+        /* ===== DIVIDERS ===== */
+        .cloud-divider {
+            text-align: center;
+            margin: 40px 0;
+            color: var(--gold);
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            opacity: 0.6;
+        }
+
+        /* ===== SECTION TITLES ===== */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--vermillion);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            letter-spacing: 6px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--vermillion), var(--gold), var(--vermillion), transparent);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--ink-light);
+            font-size: 1.05rem;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        /* ===== PHILOSOPHY QUOTE ===== */
+        .philosophy-quote {
+            background: linear-gradient(135deg, rgba(139,0,0,0.1), rgba(200,169,81,0.08));
+            padding: 40px;
+            border-radius: 8px;
+            margin: 50px 0;
+            border: 1px solid rgba(139,0,0,0.2);
+            position: relative;
+        }
+
+        .philosophy-quote::before {
+            content: '❝';
+            font-size: 4rem;
+            color: var(--vermillion);
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            opacity: 0.4;
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--ink-medium);
+            text-align: center;
+            line-height: 2;
+        }
+
+        .quote-source {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--vermillion);
+        }
+
+        /* ===== SKILL GRID ===== */
+        .details-section {
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(139,0,0,0.15);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .skill-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--vermillion);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--vermillion), #a00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--silk-1);
+            font-size: 0.85rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .skill-description {
+            color: #3d2c18;
+            margin-bottom: 15px;
+            line-height: 1.9;
+        }
+
+        .skill-specs {
+            background: rgba(139,0,0,0.06);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--vermillion);
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .spec-label {
+            color: var(--ink-light);
+            font-weight: 500;
+        }
+
+        .spec-value {
+            color: var(--ink-medium);
+            font-weight: 600;
+        }
+
+        /* ===== PROMPT TEMPLATE BOX ===== */
+        .prompt-template {
+            background: rgba(44,24,16,0.05);
+            border: 1px dashed rgba(139,0,0,0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 0.92rem;
+            line-height: 1.8;
+            color: var(--ink-medium);
+            position: relative;
+        }
+
+        .prompt-template::before {
+            content: '模板';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--silk-2);
+            padding: 0 10px;
+            color: var(--vermillion);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .prompt-highlight {
+            color: var(--vermillion);
+            font-weight: 600;
+        }
+
+        .prompt-placeholder {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        /* ===== LEVEL SYSTEM ===== */
+        .level-system {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .level-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(139,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .level-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .level-card.level-1 {
+            background: linear-gradient(135deg, rgba(200,169,81,0.1), rgba(200,169,81,0.05));
+            border-color: rgba(200,169,81,0.3);
+        }
+        .level-card.level-2 {
+            background: linear-gradient(135deg, rgba(139,0,0,0.08), rgba(139,0,0,0.03));
+            border-color: rgba(139,0,0,0.2);
+        }
+        .level-card.level-3 {
+            background: linear-gradient(135deg, rgba(139,0,0,0.15), rgba(139,0,0,0.05));
+            border-color: rgba(139,0,0,0.3);
+        }
+        .level-card.level-4 {
+            background: linear-gradient(135deg, rgba(139,0,0,0.2), rgba(200,169,81,0.1));
+            border-color: rgba(200,169,81,0.4);
+        }
+
+        .level-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .level-1 .level-number { color: var(--gold); }
+        .level-2 .level-number { color: #b33; }
+        .level-3 .level-number { color: var(--vermillion); }
+        .level-4 .level-number { color: var(--ink-dark); }
+
+        .level-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ink-medium);
+            margin-bottom: 8px;
+        }
+
+        .level-desc {
+            font-size: 0.9rem;
+            color: var(--ink-light);
+            line-height: 1.6;
+        }
+
+        /* ===== MISTAKE LIST ===== */
+        .mistake-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .mistake-item {
+            display: flex;
+            gap: 15px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(139,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .mistake-item:hover {
+            transform: translateX(5px);
+        }
+
+        .mistake-mark {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            background: rgba(139,0,0,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--vermillion);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .mistake-content h4 {
+            color: var(--vermillion);
+            margin-bottom: 5px;
+            font-size: 1.05rem;
+        }
+
+        .mistake-content p {
+            color: #3d2c18;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .mistake-fix {
+            margin-top: 8px;
+            padding: 10px 15px;
+            background: rgba(200,169,81,0.1);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--ink-medium);
+            border-left: 2px solid var(--gold);
+        }
+
+        .mistake-fix strong {
+            color: var(--gold);
+        }
+
+        /* ===== PRACTICE SECTION ===== */
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .practice-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(139,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .practice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--vermillion), var(--gold));
+        }
+
+        .practice-difficulty {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .diff-easy {
+            background: rgba(200,169,81,0.2);
+            color: #8B6331;
+        }
+        .diff-medium {
+            background: rgba(139,0,0,0.1);
+            color: var(--vermillion);
+        }
+        .diff-hard {
+            background: rgba(44,24,16,0.1);
+            color: var(--ink-dark);
+        }
+
+        .practice-card h4 {
+            color: var(--ink-medium);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .practice-card p {
+            color: #3d2c18;
+            font-size: 0.93rem;
+            line-height: 1.7;
+        }
+
+        .practice-steps {
+            margin-top: 12px;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: var(--ink-light);
+        }
+
+        .practice-steps li {
+            margin-bottom: 5px;
+        }
+
+        /* ===== TOOL COMPARISON TABLE ===== */
+        .tool-table-wrapper {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+
+        .tool-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .tool-table th {
+            background: linear-gradient(135deg, var(--vermillion), #a00);
+            color: var(--silk-1);
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .tool-table td {
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(139,0,0,0.1);
+            font-size: 0.93rem;
+            color: var(--ink-medium);
+        }
+
+        .tool-table tr:hover td {
+            background: rgba(139,0,0,0.04);
+        }
+
+        .tool-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 2px;
+        }
+
+        .tag-writing { background: rgba(139,0,0,0.1); color: var(--vermillion); }
+        .tag-coding { background: rgba(0,100,0,0.1); color: #2d5a2d; }
+        .tag-image { background: rgba(200,169,81,0.2); color: #8B6331; }
+        .tag-data { background: rgba(0,0,139,0.1); color: #333; }
+        .tag-research { background: rgba(139,69,19,0.1); color: #8B4513; }
+
+        /* ===== TIPS CALLOUT ===== */
+        .tip-callout {
+            background: linear-gradient(135deg, rgba(200,169,81,0.15), rgba(200,169,81,0.05));
+            border: 1px solid rgba(200,169,81,0.3);
+            border-radius: 8px;
+            padding: 25px 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .tip-callout::before {
+            content: '💡';
+            position: absolute;
+            top: -12px;
+            left: 25px;
+            font-size: 1.2rem;
+        }
+
+        .tip-callout h4 {
+            color: #8B6331;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .tip-callout p {
+            color: var(--ink-medium);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer-section {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(139,0,0,0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-text {
+            color: var(--ink-light);
+            font-size: 0.95rem;
+        }
+
+        .ornament {
+            display: inline-block;
+            margin: 0 15px;
+            color: var(--gold);
+        }
+
+        /* ===== ZOOM CONTROLS ===== */
+        .zoom-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .zoom-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(139,0,0,0.9);
+            color: var(--silk-1);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(44,24,16,0.9);
+            transform: scale(1.1);
+        }
+
+        /* ===== PROGRESS TRACKER ===== */
+        .progress-tracker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--vermillion), var(--gold));
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .silk-sheet { padding: 30px 20px; }
+            h1 { font-size: 2.5rem; letter-spacing: 6px; }
+            .construction-info { flex-direction: column; align-items: center; gap: 20px; }
+            .skill-grid { grid-template-columns: 1fr; gap: 20px; }
+            .skill-card { padding: 20px; }
+            .level-system { grid-template-columns: repeat(2, 1fr); }
+            .practice-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-tracker" id="progressTracker"></div>
+
+    <div class="scroll-container">
+        <div class="silk-sheet">
+            <div class="silk-edges"></div>
+
+            <!-- ===== HEADER ===== -->
+            <div class="header-section">
+                <h1>御 智 录</h1>
+                <p class="subtitle">AI 协作能力精进指南</p>
+                <p class="english-title">The Art of AI Collaboration · A Practical Mastery Guide</p>
+                <p style="font-size: 1.05rem; color: #5a1c0c; margin-top: 15px;">
+                    不是教你怎么用AI，而是教你怎么<span style="color: var(--vermillion); font-weight: 700;">和AI一起思考</span>
+                    <span class="seal-stamp">实用手册</span>
+                </p>
+
+                <div class="construction-info">
+                    <div class="info-item">
+                        <div class="info-label">核心技能</div>
+                        <div class="info-value">六 大 境</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">实战练习</div>
+                        <div class="info-value">六 组</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">常见误区</div>
+                        <div class="info-value">六 条</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">适用人群</div>
+                        <div class="info-value">所 有 人</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== MAIN IMAGE ===== -->
+            <div class="main-image-container">
+                <img src="ai_mastery_scroll.jpg" alt="AI协作能力知识图谱" class="main-image">
+                <p class="image-caption">
+                    知识之树 — AI协作能力的六大根基与成长路径
+                </p>
+            </div>
+
+            <div class="cloud-divider">☁ ☁ ☁</div>
+
+            <!-- ===== PHILOSOPHY ===== -->
+            <div class="philosophy-quote">
+                <p class="quote-text">
+                    AI不会取代善于思考的人，但善于借助AI思考的人，会取代不用AI的人。<br>
+                    关键不在于你问了多少问题，而在于你问了什么问题、如何追问、以及如何判断答案。
+                </p>
+                <p class="quote-source">— 写给每一位想要真正掌握AI的人</p>
+            </div>
+
+            <!-- ===== LEVEL SYSTEM ===== -->
+            <div class="details-section">
+                <h2 class="section-title">能力进阶</h2>
+                <p class="section-subtitle">从"试试看"到"离不开"，你的AI协作处于哪个阶段？</p>
+
+                <div class="level-system">
+                    <div class="level-card level-1">
+                        <div class="level-number">壹</div>
+                        <div class="level-name">初识 · 试探</div>
+                        <div class="level-desc">偶尔使用AI，主要问简单问题。对AI的能力边界没有清晰认知，容易过度信任或过度怀疑。</div>
+                    </div>
+                    <div class="level-card level-2">
+                        <div class="level-number">贰</div>
+                        <div class="level-name">入门 · 依赖</div>
+                        <div class="level-desc">日常使用AI辅助工作，但习惯把完整任务直接丢给AI，缺乏拆解和引导能力，产出质量不稳定。</div>
+                    </div>
+                    <div class="level-card level-3">
+                        <div class="level-number">叁</div>
+                        <div class="level-name">进阶 · 协作</div>
+                        <div class="level-desc">能拆解复杂任务、设计提示词、验证输出质量。AI成为可靠的搭档，而非简单的工具。</div>
+                    </div>
+                    <div class="level-card level-4">
+                        <div class="level-number">肆</div>
+                        <div class="level-name">精通 · 融合</div>
+                        <div class="level-desc">将AI深度融入工作流，能设计多步骤AI流程、组合多种工具、持续优化协作方式。人机协同成为本能。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-divider">✦ ✦ ✦</div>
+
+            <!-- ===== SIX CORE SKILLS ===== -->
+            <div class="details-section">
+                <h2 class="section-title">六大核心技能</h2>
+                <p class="section-subtitle">真正拉开差距的，从来不是"会不会用AI"，而是这六项底层能力</p>
+
+                <div class="skill-grid">
+                    <!-- SKILL 1 -->
+                    <div class="skill-card">
+                        <h3 class="skill-title">
+                            <span class="skill-icon">壹</span>
+                            提示词工程
+                        </h3>
+                        <p class="skill-description">
+                            提示词不是"打字聊天"，而是一种<strong>精确表达需求</strong>的能力。好的提示词 = 清晰的目标 + 充足的上下文 + 明确的约束 + 合理的期望。
+                        </p>
+
+                        <div class="prompt-template">
+                            <span class="prompt-highlight">角色设定：</span>你是一位<span class="prompt-placeholder">[领域专家]</span>，擅长<span class="prompt-placeholder">[具体能力]</span>。<br><br>
+                            <span class="prompt-highlight">任务目标：</span>请帮我<span class="prompt-placeholder">[具体要做的事]</span>。<br><br>
+                            <span class="prompt-highlight">约束条件：</span>要求<span class="prompt-placeholder">[格式/长度/风格/禁忌]</span>。<br><br>
+                            <span class="prompt-highlight">参考信息：</span><span class="prompt-placeholder">[提供相关背景或素材]</span>。
+                        </div>
+
+                        <div class="skill-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">核心原则：</span>
+                                <span class="spec-value">具体 > 模糊，示例 > 描述</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">进阶技巧：</span>
+                                <span class="spec-value">让AI先提问，再回答</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">常见错误：</span>
+                                <span class="spec-value">一句话丢需求，期望完美输出</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SKILL 2 -->
+                    <div class="skill-card">
+                        <h3 class="skill-title">
+                            <span class="skill-icon">贰</span>
+                            任务拆解
+                        </h3>
+                        <p class="skill-description">
+                            AI擅长处理<strong>明确、边界清晰</strong>的单一任务，而非模糊的宏大目标。"帮我写个方案"永远不如"先列出方案大纲，再逐节展开"效果好。
+                        </p>
+
+                        <div class="prompt-template">
+                            <span class="prompt-highlight">第一步：</span>先不要执行，帮我分析这个任务可以拆成哪些子步骤。<br><br>
+                            <span class="prompt-highlight">第二步：</span>我们逐一确认每个步骤的目标和标准。<br><br>
+                            <span class="prompt-highlight">第三步：</span>从第一步开始执行，每完成一步让我确认后再继续。
+                        </div>
+
+                        <div class="skill-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">思维模型：</span>
+                                <span class="spec-value">大任务 → 子任务 → 原子操作</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">关键动作：</span>
+                                <span class="spec-value">先规划后执行，分步确认</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">效率提升：</span>
+                                <span class="spec-value">可减少60%的返工</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SKILL 3 -->
+                    <div class="skill-card">
+                        <h3 class="skill-title">
+                            <span class="skill-icon">叁</span>
+                            批判性验证
+                        </h3>
+                        <p class="skill-description">
+                            AI的输出<strong>看起来总是自信且流畅</strong>，但这不代表正确。你必须建立一套验证习惯：事实核查、逻辑审查、交叉验证。永远不要直接使用未经审核的AI输出。
+                        </p>
+
+                        <div class="prompt-template">
+                            <span class="prompt-highlight">自我审查：</span>请检查你刚才的回答，指出其中可能存在的错误、遗漏或不准确之处。<br><br>
+                            <span class="prompt-highlight">事实标注：</span>请在回答中标注哪些是确定的事实，哪些是你的推测或常见说法。<br><br>
+                            <span class="prompt-highlight">替代方案：</span>对于关键结论，请给出不同的观点或可能的反面论据。
+                        </div>
+
+                        <div class="skill-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">验证三问：</span>
+                                <span class="spec-value">对吗？完整吗？适用吗？</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">高风险领域：</span>
+                                <span class="spec-value">数据、法律、医疗、金融</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">黄金法则：</span>
+                                <span class="spec-value">AI是草稿机，不是打印机</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SKILL 4 -->
+                    <div class="skill-card">
+                        <h3 class="skill-title">
+                            <span class="skill-icon">肆</span>
+                            上下文管理
+                        </h3>
+                        <p class="skill-description">
+                            AI的"记忆力"有限且不稳定。学会<strong>主动管理上下文</strong>——在关键节点总结对话、提供背景摘要、引用之前的结论——能让长对话保持连贯。
+                        </p>
+
+                        <div class="prompt-template">
+                            <span class="prompt-highlight">阶段总结：</span>到目前为止，我们讨论了<span class="prompt-placeholder">[核心要点]</span>，得出了<span class="prompt-placeholder">[关键结论]</span>。<br><br>
+                            <span class="prompt-highlight">现在进入下一阶段：</span>基于以上背景，请<span class="prompt-placeholder">[新任务]</span>。<br><br>
+                            <span class="prompt-highlight">注意保持：</span>风格和术语与之前一致。
+                        </div>
+
+                        <div class="skill-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">上下文窗口：</span>
+                                <span class="spec-value">有限，需主动管理</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">最佳实践：</span>
+                                <span class="spec-value">每5-10轮对话做一次总结</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">高级技巧：</span>
+                                <span class="spec-value">用结构化格式传递背景</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SKILL 5 -->
+                    <div class="skill-card">
+                        <h3 class="skill-title">
+                            <span class="skill-icon">伍</span>
+                            迭代优化
+                        </h3>
+                        <p class="skill-description">
+                            第一次的输出几乎不可能完美。<strong>高手和菜手的区别在于迭代能力</strong>——精准定位问题、给出明确修改方向、逐步逼近理想结果。而不是"重新来一遍"。
+                        </p>
+
+                        <div class="prompt-template">
+                            <span class="prompt-highlight">精准反馈：</span>这段内容整体不错，但<span class="prompt-placeholder">[具体位置]</span>需要修改，因为<span class="prompt-placeholder">[具体原因]</span>。<br><br>
+                            <span class="prompt-highlight">方向指引：</span>请将这部分改为<span class="prompt-placeholder">[期望的效果]</span>，其他部分保持不变。<br><br>
+                            <span class="prompt-highlight">对比优化：</span>请给出修改前后的对比，并解释修改的理由。
+                        </div>
+
+                        <div class="skill-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">迭代公式：</span>
+                                <span class="spec-value">定位问题 → 指明方向 → 局部修改</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">反面教材：</span>
+                                <span class="spec-value">"不太好，重写"（无信息量）</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">效率法则：</span>
+                                <span class="spec-value">3次精准迭代 > 1次重新生成</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SKILL 6 -->
+                    <div class="skill-card">
+                        <h3 class="skill-title">
+                            <span class="skill-icon">陆</span>
+                            工具选择与组合
+                        </h3>
+                        <p class="skill-description">
+                            没有任何AI工具是万能的。不同任务需要不同工具，<strong>高手的核心能力是知道什么时候用什么工具</strong>，以及如何让多个工具协同工作。
+                        </p>
+
+                        <div class="tool-table-wrapper">
+                            <table class="tool-table">
+                                <thead>
+                                    <tr>
+                                        <th>任务类型</th>
+                                        <th>推荐工具</th>
+                                        <th>适用场景</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="tag tag-writing">文案写作</span></td>
+                                        <td>ChatGPT / Claude</td>
+                                        <td>长文创作、润色、翻译</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag tag-coding">编程开发</span></td>
+                                        <td>Claude / Cursor</td>
+                                        <td>代码生成、调试、重构</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag tag-image">图像生成</span></td>
+                                        <td>Midjourney / DALL·E</td>
+                                        <td>设计稿、插图、概念图</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag tag-data">数据分析</span></td>
+                                        <td>ChatGPT + Python</td>
+                                        <td>表格处理、可视化、统计</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="tag tag-research">信息检索</span></td>
+                                        <td>Perplexity / Kimi</td>
+                                        <td>资料调研、文献综述</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="skill-specs" style="margin-top: 15px;">
+                            <div class="spec-item">
+                                <span class="spec-label">选择原则：</span>
+                                <span class="spec-value">任务匹配 > 品牌偏好</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">组合策略：</span>
+                                <span class="spec-value">一个主工具 + 多个专项工具</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-divider">☁ ☁ ☁</div>
+
+            <!-- ===== COMMON MISTAKES ===== -->
+            <div class="details-section">
+                <h2 class="section-title">六大常见误区</h2>
+                <p class="section-subtitle">这些坑，几乎每个人都踩过。看看你中了几个？</p>
+
+                <ul class="mistake-list">
+                    <li class="mistake-item">
+                        <div class="mistake-mark">✗</div>
+                        <div class="mistake-content">
+                            <h4>误区一：把AI当搜索引擎用</h4>
+                            <p>直接问"XXX是什么"，得到的是泛泛而谈的百科式回答，而非针对你需求的有价值信息。</p>
+                            <div class="mistake-fix"><strong>正解：</strong>先说明你的身份和场景，再提问。例如："我是一名产品经理，正在做一个面向老年人的健康App，请帮我分析XXX功能的设计要点。"</div>
+                        </div>
+                    </li>
+                    <li class="mistake-item">
+                        <div class="mistake-mark">✗</div>
+                        <div class="mistake-content">
+                            <h4>误区二：一次对话解决所有问题</h4>
+                            <p>把一个复杂项目从头到尾丢给AI，期望一次对话就得到完美结果。结果往往是：方向偏了、细节错了、格式乱了。</p>
+                            <div class="mistake-fix"><strong>正解：</strong>拆成多个小对话，每个对话聚焦一个子任务。完成一步，验证一步，再进入下一步。</div>
+                        </div>
+                    </li>
+                    <li class="mistake-item">
+                        <div class="mistake-mark">✗</div>
+                        <div class="mistake-content">
+                            <h4>误区三：盲目信任AI的输出</h4>
+                            <p>AI的回答总是自信、流畅、看起来很专业。但"看起来对"和"真的对"是两回事。AI会编造不存在的引用、数据和案例。</p>
+                            <div class="mistake-fix"><strong>正解：</strong>对关键信息做事实核查。让AI自己标注不确定性。对数据类信息，始终用权威来源交叉验证。</div>
+                        </div>
+                    </li>
+                    <li class="mistake-item">
+                        <div class="mistake-mark">✗</div>
+                        <div class="mistake-content">
+                            <h4>误区四：只会用，不会教</h4>
+                            <p>能熟练使用AI完成自己的工作，但无法把这套方法教给别人。说明你对AI的理解停留在"手感"层面，而非系统认知。</p>
+                            <div class="mistake-fix"><strong>正解：</strong>尝试把你的AI使用流程写成SOP（标准操作流程）。写不出来的地方，就是你理解不够深的地方。</div>
+                        </div>
+                    </li>
+                    <li class="mistake-item">
+                        <div class="mistake-mark">✗</div>
+                        <div class="mistake-content">
+                            <h4>误区五：追求"最强模型"，忽视"最佳实践"</h4>
+                            <p>总觉得换个更贵的模型就能解决问题，但同样的提示词，在不同模型上的效果差异远小于"好提示词 vs 差提示词"的差异。</p>
+                            <div class="mistake-fix"><strong>正解：</strong>先优化你的使用方法，再考虑升级工具。一个会用GPT-3.5的人，往往比不会用GPT-4的人产出更好。</div>
+                        </div>
+                    </li>
+                    <li class="mistake-item">
+                        <div class="mistake-mark">✗</div>
+                        <div class="mistake-content">
+                            <h4>误区六：用AI替代思考，而非增强思考</h4>
+                            <p>把AI当成"代脑"，自己不动脑筋就直接用AI的答案。长期下来，独立思考能力反而退化。</p>
+                            <div class="mistake-fix"><strong>正解：</strong>让AI做你的"思考伙伴"——让它提供多个视角、挑战你的假设、补充你的盲区，但最终决策和判断永远由你来做。</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="cloud-divider">✦ ✦ ✦</div>
+
+            <!-- ===== PRACTICE EXERCISES ===== -->
+            <div class="details-section">
+                <h2 class="section-title">实战练习</h2>
+                <p class="section-subtitle">光看不练假把式。以下是六组循序渐进的练习，建议从第一组开始</p>
+
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <span class="practice-difficulty diff-easy">入门</span>
+                        <h4>练习一：角色扮演提示词</h4>
+                        <p>选择你熟悉的一个工作场景，用"角色+背景+任务+约束"的框架写一段提示词，对比"简单提问"和"结构化提示词"的输出差异。</p>
+                        <ol class="practice-steps">
+                            <li>同一个需求，先用一句话问AI</li>
+                            <li>再用结构化模板重新提问</li>
+                            <li>对比两次输出的质量差距</li>
+                            <li>记录：差距体现在哪些方面？</li>
+                        </ol>
+                    </div>
+
+                    <div class="practice-card">
+                        <span class="practice-difficulty diff-easy">入门</span>
+                        <h4>练习二：AI自我审查</h4>
+                        <p>让AI生成一段专业内容，然后要求它自己找出问题。观察AI能发现多少问题，以及哪些问题它发现不了。</p>
+                        <ol class="practice-steps">
+                            <li>让AI写一篇500字的专业分析</li>
+                            <li>要求："请审查这段内容，找出事实性错误和逻辑漏洞"</li>
+                            <li>你自己再审查一遍，对比差异</li>
+                            <li>思考：AI的盲区在哪里？</li>
+                        </ol>
+                    </div>
+
+                    <div class="practice-card">
+                        <span class="practice-difficulty diff-medium">进阶</span>
+                        <h4>练习三：分步任务拆解</h4>
+                        <p>选择一个你工作中的真实复杂任务（如写方案、做调研、设计流程），练习用AI把它拆解成可执行的子任务序列。</p>
+                        <ol class="practice-steps">
+                            <li>描述你的最终目标</li>
+                            <li>让AI生成任务拆解方案</li>
+                            <li>评估拆解是否合理，调整优化</li>
+                            <li>按拆解方案逐步执行</li>
+                        </ol>
+                    </div>
+
+                    <div class="practice-card">
+                        <span class="practice-difficulty diff-medium">进阶</span>
+                        <h4>练习四：精准迭代修改</h4>
+                        <p>刻意练习"不说重写"的能力。面对不满意的AI输出，尝试用最精准的反馈让它局部修改，而非全部重来。</p>
+                        <ol class="practice-steps">
+                            <li>让AI生成一份初稿</li>
+                            <li>找出3个具体需要改进的点</li>
+                            <li>用"位置+问题+期望"格式反馈</li>
+                            <li>记录迭代次数和最终质量</li>
+                        </ol>
+                    </div>
+
+                    <div class="practice-card">
+                        <span class="practice-difficulty diff-hard">挑战</span>
+                        <h4>练习五：多工具协作流</h4>
+                        <p>完成一个需要多种能力的任务（如"做一份带图表的市场分析报告"），练习组合使用2-3个AI工具。</p>
+                        <ol class="practice-steps">
+                            <li>规划任务流程和工具分工</li>
+                            <li>用工具A完成信息收集</li>
+                            <li>用工具B完成内容创作</li>
+                            <li>用工具C完成格式优化</li>
+                        </ol>
+                    </div>
+
+                    <div class="practice-card">
+                        <span class="practice-difficulty diff-hard">挑战</span>
+                        <h4>练习六：写你的AI使用手册</h4>
+                        <p>把你日常使用AI的经验整理成一份个人AI使用手册（SOP），包含常用提示词模板、工具组合方案、避坑清单。</p>
+                        <ol class="practice-steps">
+                            <li>列出你最常用的3个AI场景</li>
+                            <li>为每个场景写出最佳提示词模板</li>
+                            <li>记录踩过的坑和解决方案</li>
+                            <li>持续更新，形成个人知识库</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-divider">☁ ☁ ☁</div>
+
+            <!-- ===== PRO TIPS ===== -->
+            <div class="details-section">
+                <h2 class="section-title">进阶心法</h2>
+                <p class="section-subtitle">从"会用"到"精通"的关键思维转变</p>
+
+                <div class="tip-callout">
+                    <h4>心法一：把AI当作"能力不稳定的实习生"</h4>
+                    <p>它能做很多事，但需要你给出清晰的指令、检查它的成果、指出它的错误、教它你的标准。你对AI越有耐心，AI给你的回报越丰厚。</p>
+                </div>
+
+                <div class="tip-callout">
+                    <h4>心法二：建立你的"提示词库"</h4>
+                    <p>每次得到满意的结果时，保存那个提示词。每次迭代优化后，更新保存。三个月后，你会拥有一套极具个人价值的AI协作资产。</p>
+                </div>
+
+                <div class="tip-callout">
+                    <h4>心法三：学会"反问"AI</h4>
+                    <p>不要只让AI回答你的问题。试着问它："关于这个话题，你觉得我还需要了解什么？""我的思路有什么盲区？""如果从反面看，有什么不同的观点？"——这才是AI真正的价值所在。</p>
+                </div>
+
+                <div class="tip-callout">
+                    <h4>心法四：关注"AI不能做什么"</h4>
+                    <p>了解AI的边界比了解AI的能力更重要。AI不擅长：承担法律责任、做道德判断、理解弦外之音、处理高度模糊的情感问题。知道什么时候不用AI，和知道什么时候用AI一样重要。</p>
+                </div>
+
+                <div class="tip-callout">
+                    <h4>心法五：保持"人的不可替代性"</h4>
+                    <p>AI能生成内容，但<strong>决定生成什么内容</strong>的是人。AI能分析数据，但<strong>定义分析框架</strong>的是人。AI能给出方案，但<strong>做最终决策</strong>的是人。持续提升你的判断力、审美力和决策力——这些才是真正的核心竞争力。</p>
+                </div>
+            </div>
+
+            <div class="cloud-divider">✦ ✦ ✦</div>
+
+            <!-- ===== CLOSING QUOTE ===== -->
+            <div class="philosophy-quote" style="margin-bottom: 0;">
+                <p class="quote-text">
+                    学会与AI协作，不是让你变得更像机器，<br>
+                    而是让机器帮你腾出时间与精力，<br>
+                    去做那些只有人才能做的事——<br>
+                    <strong>创造、判断、感受、连接。</strong>
+                </p>
+                <p class="quote-source">— 御智录 · 卷末</p>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer-section">
+            <p class="footer-text">
+                御智录 · AI协作能力精进指南
+                <span class="ornament">❦</span>
+                内容持续更新中
+                <span class="ornament">❦</span>
+                真正的进步来自实践
+            </p>
+        </div>
+    </div>
+
+    <!-- ===== ZOOM CONTROLS ===== -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomIn()" title="放大">+</button>
+        <button class="zoom-btn" onclick="zoomOut()" title="缩小">−</button>
+        <button class="zoom-btn" onclick="resetZoom()" title="重置" style="font-size: 1rem;">⌂</button>
+    </div>
+
+    <script>
+        // ===== ZOOM =====
+        let currentZoom = 1;
+        const container = document.querySelector('.scroll-container');
+
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.1, 2);
+            applyZoom();
+        }
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+            applyZoom();
+        }
+        function resetZoom() {
+            currentZoom = 1;
+            applyZoom();
+        }
+        function applyZoom() {
+            container.style.transform = `scale(${currentZoom})`;
+            container.style.transformOrigin = 'top center';
+            container.style.transition = 'transform 0.3s ease';
+        }
+
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                e.deltaY > 0 ? zoomOut() : zoomIn();
+            }
+        }, { passive: false });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomIn(); }
+            else if (e.key === '-') { e.preventDefault(); zoomOut(); }
+            else if (e.key === '0') { e.preventDefault(); resetZoom(); }
+        });
+
+        // ===== READING PROGRESS =====
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressTracker').style.width = progress + '%';
+        });
+
+        // ===== LOAD ANIMATION =====
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => { document.body.style.opacity = '1'; }, 100);
+        });
+
+        // ===== SMOOTH SCROLL FOR INTERNAL LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

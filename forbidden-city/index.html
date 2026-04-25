@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>故宫 — 中国古代建筑群之巅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'SimSun', serif;
+            background: linear-gradient(135deg, #3a0a0a 0%, #1a0505 50%, #2d0808 100%);
+            color: #2c1810;
+            line-height: 1.8;
+            min-height: 100vh;
+        }
+
+        .scroll-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .silk-sheet {
+            background:
+                linear-gradient(45deg, #f5efe0 0%, #e8dcc8 50%, #ddd0b8 100%),
+                radial-gradient(circle at 20% 30%, rgba(139, 0, 0, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(200, 169, 81, 0.08) 0%, transparent 50%);
+            border-radius: 8px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            padding: 60px;
+            margin-bottom: 40px;
+        }
+
+        .silk-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.02 0"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.3"/></svg>');
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* Traditional Chinese border pattern */
+        .silk-edges {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 3px solid #8B0000;
+            border-radius: 12px;
+            pointer-events: none;
+        }
+
+        .silk-edges::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 1px solid #C8A951;
+            border-radius: 8px;
+        }
+
+        .silk-edges::after {
+            content: '';
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            right: 9px;
+            bottom: 9px;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 6px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #8B0000;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 12px;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #5a1c0c;
+            font-style: italic;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .english-title {
+            font-family: 'Noto Sans SC', sans-serif;
+            font-size: 1rem;
+            color: #8B6331;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .construction-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 15px 25px;
+            background: rgba(139, 0, 0, 0.06);
+            border-radius: 6px;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: #8B0000;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c1810;
+        }
+
+        .main-image-container {
+            text-align: center;
+            margin: 50px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .palace-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 1px rgba(139, 0, 0, 0.2);
+            border: 3px solid #e8dcc8;
+        }
+
+        .image-caption {
+            margin-top: 20px;
+            font-style: italic;
+            color: #5a1c0c;
+            font-size: 1.1rem;
+        }
+
+        .details-section {
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #8B0000;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            letter-spacing: 6px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B0000, #C8A951, #8B0000, transparent);
+        }
+
+        .architectural-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 0, 0, 0.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .detail-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #8B0000;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #8B0000, #a00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f5efe0;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .detail-description {
+            color: #3d2c18;
+            margin-bottom: 15px;
+        }
+
+        .detail-specs {
+            background: rgba(139, 0, 0, 0.06);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #8B0000;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .spec-label {
+            color: #5a1c0c;
+            font-weight: 500;
+        }
+
+        .spec-value {
+            color: #2c1810;
+            font-weight: 600;
+        }
+
+        .historical-note {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.1), rgba(200, 169, 81, 0.08));
+            padding: 40px;
+            border-radius: 8px;
+            margin: 50px 0;
+            border: 1px solid rgba(139, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .historical-note::before {
+            content: '❝';
+            font-size: 4rem;
+            color: #8B0000;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            opacity: 0.4;
+        }
+
+        .historical-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #2c1810;
+            text-align: center;
+            line-height: 2;
+        }
+
+        .footer-section {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(139, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-text {
+            color: #5a1c0c;
+            font-size: 0.95rem;
+        }
+
+        .ornament {
+            display: inline-block;
+            margin: 0 15px;
+            color: #C8A951;
+        }
+
+        @media (max-width: 768px) {
+            .silk-sheet {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 6px;
+            }
+
+            .construction-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .architectural-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .detail-card {
+                padding: 20px;
+            }
+        }
+
+        .interactive-hotspots {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(139, 0, 0, 0.8);
+            border: 2px solid #f5efe0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .hotspot:hover {
+            background: rgba(139, 0, 0, 0.95);
+            transform: scale(1.2);
+        }
+
+        .hotspot::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 24, 16, 0.95);
+            color: #f5efe0;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 20;
+        }
+
+        .hotspot:hover::after {
+            opacity: 1;
+        }
+
+        .zoom-controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .zoom-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(139, 0, 0, 0.9);
+            color: #f5efe0;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .zoom-btn:hover {
+            background: rgba(44, 24, 16, 0.9);
+            transform: scale(1.1);
+        }
+
+        /* Chinese decorative cloud pattern */
+        .cloud-divider {
+            text-align: center;
+            margin: 40px 0;
+            color: #C8A951;
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            opacity: 0.6;
+        }
+
+        /* Seal stamp style */
+        .seal-stamp {
+            display: inline-block;
+            border: 2px solid #8B0000;
+            color: #8B0000;
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transform: rotate(-3deg);
+            opacity: 0.7;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <div class="silk-sheet">
+            <div class="silk-edges"></div>
+
+            <div class="header-section">
+                <h1>故 宫</h1>
+                <p class="subtitle">中国古代建筑群之巅峰</p>
+                <p class="english-title">The Forbidden City · Palace Museum</p>
+                <p style="font-size: 1.1rem; color: #5a1c0c; margin-top: 15px;">
+                    紫禁城 · 世界文化遗产 · 始建于永乐四年（1406年）
+                    <span class="seal-stamp">世界遗产</span>
+                </p>
+
+                <div class="construction-info">
+                    <div class="info-item">
+                        <div class="info-label">建造年代</div>
+                        <div class="info-value">1406 - 1420</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">占地面积</div>
+                        <div class="info-value">720,000 m²</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">建筑风格</div>
+                        <div class="info-value">明清官式建筑</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">宫殿数量</div>
+                        <div class="info-value">9,999.5 间</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-image-container">
+                <div class="interactive-hotspots">
+                    <img src="forbidden_city_parchment.jpg" alt="故宫建筑群图解" class="palace-image">
+
+                    <!-- Interactive hotspots for major architectural elements -->
+                    <div class="hotspot" style="top: 10%; left: 50%;" data-label="午门 — 故宫正门"></div>
+                    <div class="hotspot" style="top: 25%; left: 48%;" data-label="金水桥 — 内金水河"></div>
+                    <div class="hotspot" style="top: 40%; left: 50%;" data-label="太和殿 — 前朝正殿"></div>
+                    <div class="hotspot" style="top: 50%; left: 45%;" data-label="中和殿 · 保和殿"></div>
+                    <div class="hotspot" style="top: 65%; left: 50%;" data-label="乾清门 — 内廷入口"></div>
+                    <div class="hotspot" style="top: 80%; left: 50%;" data-label="御花园 — 后苑"></div>
+                </div>
+                <p class="image-caption">
+                    宣纸风格建筑图解 — 展示故宫建筑群的完整空间布局与中轴对称格局
+                </p>
+            </div>
+
+            <div class="cloud-divider">☁ ☁ ☁</div>
+
+            <div class="historical-note">
+                <p class="historical-text">
+                    "故宫是世界上现存规模最大、保存最为完整的木质结构古建筑群。其严谨的建筑布局、壮丽的宫殿建筑、精美的彩画装饰，集中体现了中国古代建筑艺术的最高成就，是中华五千年文明的重要载体。"
+                </p>
+                <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: #8B0000;">
+                    — 联合国教科文组织 · 世界遗产委员会
+                </p>
+            </div>
+
+            <div class="details-section">
+                <h2 class="section-title">建筑要素</h2>
+
+                <div class="architectural-grid">
+                    <div class="detail-card">
+                        <h3 class="detail-title">
+                            <span class="detail-icon">壹</span>
+                            午门
+                        </h3>
+                        <p class="detail-description">
+                            故宫的正门，建于明永乐十八年（1420年），城台上建有五座楼阁，俗称"五凤楼"。午门是皇帝颁发诏书、举行献俘礼的重要场所，也是整座宫城最为宏伟的城门建筑。
+                        </p>
+                        <div class="detail-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">通高：</span>
+                                <span class="spec-value">37.95 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">平面形状：</span>
+                                <span class="spec-value">凹字形</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">城台之上：</span>
+                                <span class="spec-value">五座楼阁（五凤楼）</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3 class="detail-title">
+                            <span class="detail-icon">贰</span>
+                            太和殿
+                        </h3>
+                        <p class="detail-description">
+                            俗称"金銮殿"，是故宫中最大的殿宇，也是中国现存最大的木结构大殿。太和殿是皇帝举行重大典礼之所，如登基、大婚、册封、命将出征等，体现了至高无上的皇权威严。
+                        </p>
+                        <div class="detail-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">殿高：</span>
+                                <span class="spec-value">35.05 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">面阔：</span>
+                                <span class="spec-value">11 间（63.96 m）</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">屋顶样式：</span>
+                                <span class="spec-value">重檐庑殿顶</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3 class="detail-title">
+                            <span class="detail-icon">叁</span>
+                            金水桥
+                        </h3>
+                        <p class="detail-description">
+                            内金水河上的五座汉白玉石桥，形如玉带，是进入太和门前的必经之路。中间一座为御路桥，专供皇帝通行；两侧为王公桥、品级桥，严格体现封建等级制度。
+                        </p>
+                        <div class="detail-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">桥梁数量：</span>
+                                <span class="spec-value">五座</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">材质：</span>
+                                <span class="spec-value">汉白玉</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">河道长度：</span>
+                                <span class="spec-value">约 2,100 m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3 class="detail-title">
+                            <span class="detail-icon">肆</span>
+                            三大殿台基
+                        </h3>
+                        <p class="detail-description">
+                            太和殿、中和殿、保和殿共同坐落在一座三层汉白玉须弥座台基之上，台基雕刻有精美的莲花纹、卷草纹，四角设有螭首用于排水，雨时千龙吐水，蔚为壮观。
+                        </p>
+                        <div class="detail-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">台基层数：</span>
+                                <span class="spec-value">三层</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">总高度：</span>
+                                <span class="spec-value">8.13 m</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">螭首数量：</span>
+                                <span class="spec-value">1,142 个</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3 class="detail-title">
+                            <span class="detail-icon">伍</span>
+                            角楼
+                        </h3>
+                        <p class="detail-description">
+                            紫禁城城墙四角各有一座角楼，结构精巧绝伦，屋顶多达九梁十八柱七十二条脊，是中国古代建筑中最为复杂的屋顶结构之一，被誉为中国古代建筑的杰作。
+                        </p>
+                        <div class="detail-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">屋顶结构：</span>
+                                <span class="spec-value">三重檐歇山顶</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">梁柱脊数：</span>
+                                <span class="spec-value">九梁十八柱七十二脊</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">角楼数量：</span>
+                                <span class="spec-value">四座</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <h3 class="detail-title">
+                            <span class="detail-icon">陆</span>
+                            御花园
+                        </h3>
+                        <p class="detail-description">
+                            位于紫禁城中轴线的最北端，是皇帝和后妃休憩游赏之处。园内布局对称，古柏苍松、奇石罗布，亭台楼阁错落有致，体现了皇家园林的庄重与雅致。
+                        </p>
+                        <div class="detail-specs">
+                            <div class="spec-item">
+                                <span class="spec-label">占地面积：</span>
+                                <span class="spec-value">约 12,000 m²</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">主要建筑：</span>
+                                <span class="spec-value">钦安殿、万春亭等</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="spec-label">古树名木：</span>
+                                <span class="spec-value">百余株（300-500年）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cloud-divider">✦ ✦ ✦</div>
+
+            <div class="details-section" style="margin-top: 60px;">
+                <h2 class="section-title">建筑规格</h2>
+
+                <div class="detail-card" style="grid-column: 1 / -1;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                        <div>
+                            <h4 style="font-family: 'Noto Serif SC', serif; margin-bottom: 15px; color: #8B0000; letter-spacing: 2px;">整体尺度</h4>
+                            <div class="detail-specs">
+                                <div class="spec-item">
+                                    <span class="spec-label">南北长度：</span>
+                                    <span class="spec-value">961 m</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">东西宽度：</span>
+                                    <span class="spec-value">753 m</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">占地面积：</span>
+                                    <span class="spec-value">720,000 m²</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">建筑面积：</span>
+                                    <span class="spec-value">约 150,000 m²</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 style="font-family: 'Noto Serif SC', serif; margin-bottom: 15px; color: #8B0000; letter-spacing: 2px;">建筑材料</h4>
+                            <div class="detail-specs">
+                                <div class="spec-item">
+                                    <span class="spec-label">主要结构：</span>
+                                    <span class="spec-value">楠木 / 金丝楠木</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">台基石材：</span>
+                                    <span class="spec-value">汉白玉</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">屋顶瓦件：</span>
+                                    <span class="spec-value">黄琉璃瓦</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">墙面材料：</span>
+                                    <span class="spec-value">红墙（朱砂灰浆）</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 style="font-family: 'Noto Serif SC', serif; margin-bottom: 15px; color: #8B0000; letter-spacing: 2px;">建筑形制</h4>
+                            <div class="detail-specs">
+                                <div class="spec-item">
+                                    <span class="spec-label">布局方式：</span>
+                                    <span class="spec-value">中轴对称 · 前朝后寝</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">城门数量：</span>
+                                    <span class="spec-value">四门（午·神·东·西华）</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">护城河：</span>
+                                    <span class="spec-value">宽 52 m，深 6 m</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-label">城墙高度：</span>
+                                    <span class="spec-value">约 10 m</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <p class="footer-text">
+                建筑图解 · 故宫博物院
+                <span class="ornament">❦</span>
+                基于历史文献与实地测绘资料
+                <span class="ornament">❦</span>
+                所有数据来源于官方公开资料
+            </p>
+        </div>
+    </div>
+
+    <div class="zoom-controls">
+        <button class="zoom-btn" onclick="zoomIn()" title="放大">+</button>
+        <button class="zoom-btn" onclick="zoomOut()" title="缩小">−</button>
+        <button class="zoom-btn" onclick="resetZoom()" title="重置" style="font-size: 1rem;">⌂</button>
+    </div>
+
+    <script>
+        let currentZoom = 1;
+        const container = document.querySelector('.scroll-container');
+
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.1, 2);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.1, 0.5);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            applyZoom();
+        }
+
+        function applyZoom() {
+            container.style.transform = `scale(${currentZoom})`;
+            container.style.transformOrigin = 'top center';
+            container.style.transition = 'transform 0.3s ease';
+        }
+
+        // Ctrl + 滚轮缩放
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                if (e.deltaY > 0) {
+                    zoomOut();
+                } else {
+                    zoomIn();
+                }
+            }
+        }, { passive: false });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '+' || e.key === '=') {
+                e.preventDefault();
+                zoomIn();
+            } else if (e.key === '-') {
+                e.preventDefault();
+                zoomOut();
+            } else if (e.key === '0') {
+                e.preventDefault();
+                resetZoom();
+            }
+        });
+
+        // 加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // 热点点击交互
+        document.querySelectorAll('.hotspot').forEach(hotspot => {
+            hotspot.addEventListener('click', function() {
+                this.style.animation = 'pulse 0.6s ease-in-out';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 600);
+            });
+        });
+
+        // 脉冲动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.3); box-shadow: 0 0 20px rgba(139, 0, 0, 0.8); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
