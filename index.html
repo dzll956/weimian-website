@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微面 · 作品集</title>
+    <script>
+    (function(){
+        var _0x1a2b=['YWNjZXNz','c2Vzc2lvblN0b3JhZ2U=','Z2V0SXRlbQ==','c2V0SXRlbQ=='];
+        var k=atob('d2VpbWlhbmhhaGE=');
+        if(sessionStorage.getItem(atob(_0x1a2b[2]))!==atob(_0x1a2b[0])){
+        function init(){
+            var ov=document.createElement('div');ov.id='pw-overlay';
+            ov.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(29,33,41,0.6);display:flex;align-items:center;justify-content:center;z-index:99999;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif';
+            var b=document.createElement('div');b.style.cssText='background:#fff;border-radius:12px;padding:40px;text-align:center;box-shadow:0 12px 32px rgba(0,0,0,0.2);max-width:380px;width:90%';
+            var t=document.createElement('h2');t.style.cssText='color:#1D2129;font-size:20px;font-weight:600;margin-bottom:6px;letter-spacing:2px';t.textContent='微面';
+            var s=document.createElement('p');s.style.cssText='color:#86909C;font-size:14px;margin-bottom:24px';s.textContent='请输入访问密码';
+            var inp=document.createElement('input');inp.type='password';inp.placeholder='输入密码';inp.style.cssText='width:100%;padding:8px 12px;border:1px solid #E5E6EB;border-radius:6px;font-size:14px;outline:none;text-align:center;background:#F7F8FA;font-family:inherit;transition:border-color 0.2s';
+            inp.onfocus=function(){inp.style.borderColor='#165DFF'};inp.onblur=function(){inp.style.borderColor='#E5E6EB'};
+            var btn=document.createElement('button');btn.textContent='确认';btn.style.cssText='margin-top:16px;padding:8px 32px;background:#165DFF;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;transition:background 0.2s';
+            btn.onmouseenter=function(){btn.style.background='#4080FF'};btn.onmouseleave=function(){btn.style.background='#165DFF'};
+            var msg=document.createElement('p');msg.style.cssText='color:#F53F3F;font-size:12px;margin-top:12px;min-height:18px';
+            function tryPass(){if(inp.value===k){sessionStorage.setItem(atob(_0x1a2b[2]),atob(_0x1a2b[0]));ov.remove()}else{msg.textContent='密码错误，请重试';inp.value='';inp.focus()}}
+            btn.onclick=tryPass;inp.onkeydown=function(e){if(e.key==='Enter')tryPass()};
+            b.appendChild(t);b.appendChild(s);b.appendChild(inp);b.appendChild(btn);b.appendChild(msg);ov.appendChild(b);document.body.appendChild(ov);inp.focus();
+        }
+        if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+        }})();
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #165DFF;
+            --primary-light: #E8F3FF;
+            --primary-hover: #4080FF;
+            --primary-active: #0E42D2;
+            --text-1: #1D2129;
+            --text-2: #4E5969;
+            --text-3: #86909C;
+            --text-4: #C9CDD4;
+            --border: #E5E6EB;
+            --border-2: #C9CDD4;
+            --fill-1: #F7F8FA;
+            --fill-2: #F2F3F5;
+            --fill-3: #E5E6EB;
+            --bg-1: #FFFFFF;
+            --bg-2: #F7F8FA;
+            --bg-3: #F2F3F5;
+            --shadow-1: 0 4px 10px rgba(0, 0, 0, 0.1);
+            --shadow-2: 0 8px 16px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1);
+            --shadow-3: 0 12px 24px rgba(0, 0, 0, 0.12);
+            --radius-1: 4px;
+            --radius-2: 6px;
+            --radius-3: 8px;
+            --radius-4: 12px;
+            --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-2);
+            color: var(--text-1);
+            line-height: 1.5715;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px; z-index: 100;
+        }
+        .navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-1); }
+        .navbar-logo { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), #6AA1FF); border-radius: var(--radius-2); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
+        .navbar-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; }
+        .navbar-subtitle { font-size: 13px; color: var(--text-3); margin-left: 8px; font-weight: 400; }
+        .navbar-links { display: flex; gap: 24px; }
+        .navbar-links a { color: var(--text-2); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .navbar-links a:hover { color: var(--primary); }
+
+        .hero { padding: 140px 40px 60px; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; background: var(--primary-light); color: var(--primary); border-radius: 100px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
+        .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
+        .hero h1 { font-size: 42px; font-weight: 700; color: var(--text-1); margin-bottom: 16px; letter-spacing: 2px; line-height: 1.3; }
+        .hero h1 span { background: linear-gradient(135deg, var(--primary), #6AA1FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 16px; color: var(--text-3); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+        .section { max-width: 1100px; margin: 0 auto; padding: 20px 40px 80px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .section-title { font-size: 18px; font-weight: 600; color: var(--text-1); }
+        .section-desc { font-size: 13px; color: var(--text-3); }
+        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-4); padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), #6AA1FF); opacity: 0; transition: opacity 0.25s; }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
+        .card:hover::after { opacity: 1; }
+        .card-icon { width: 44px; height: 44px; border-radius: var(--radius-3); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; flex-shrink: 0; }
+        .card-icon.blue { background: #E8F3FF; }
+        .card-icon.purple { background: #F5E8FF; }
+        .card-icon.orange { background: #FFF3E8; }
+        .card-tag { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 12px; font-weight: 500; margin-bottom: 12px; width: fit-content; }
+        .card-tag.blue { background: #E8F3FF; color: #165DFF; }
+        .card-tag.purple { background: #F5E8FF; color: #722ED1; }
+        .card-tag.orange { background: #FFF3E8; color: #FF7D00; }
+        .card h2 { font-size: 18px; font-weight: 600; color: var(--text-1); margin-bottom: 8px; letter-spacing: 1px; }
+        .card p { color: var(--text-3); font-size: 14px; line-height: 1.6; flex-grow: 1; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--fill-2); }
+        .card-action { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--primary); font-weight: 500; transition: gap 0.2s; }
+        .card:hover .card-action { gap: 8px; }
+        .card-action svg { width: 14px; height: 14px; transition: transform 0.2s; }
+        .card:hover .card-action svg { transform: translateX(2px); }
+        .card-meta { font-size: 12px; color: var(--text-4); }
+
+        .footer { text-align: center; padding: 32px 40px; border-top: 1px solid var(--border); color: var(--text-4); font-size: 13px; }
+        .footer a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
+        .footer a:hover { color: var(--primary); }
+
+        @media (max-width: 900px) {
+            .card-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+            .navbar { padding: 0 20px; }
+            .navbar-links { display: none; }
+            .hero { padding: 120px 20px 40px; }
+            .hero h1 { font-size: 30px; }
+            .section { padding: 20px 20px 60px; }
+        }
+        @media (max-width: 640px) { .navbar-subtitle { display: none; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">
+            <div class="navbar-logo">微</div>
+            <span class="navbar-title">微面</span>
+            <span class="navbar-subtitle">weimian.store</span>
+        </a>
+        <div class="navbar-links">
+            <a href="https://weimian.store/forbidden-city/">故宫</a>
+            <a href="https://weimian.store/ai-mastery/">御智录</a>
+            <a href="https://weimian.store/production-report/">生产汇报</a>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-badge">作品集 Portfolio</div>
+        <h1>用心呈现<span>每一个作品</span></h1>
+        <p>从建筑设计到 AI 协作指南，从生产管理到数据可视化 — 探索我们精心打造的数字作品。</p>
+    </section>
+    <section class="section">
+        <div class="section-header">
+            <span class="section-title">全部作品</span>
+            <span class="section-desc">共 3 个项目</span>
+        </div>
+        <div class="card-grid">
+            <a href="forbidden-city/" class="card">
+                <div class="card-icon blue">🏛️</div>
+                <span class="card-tag blue">建筑图解</span>
+                <h2>故宫</h2>
+                <p>中国古代建筑群之巅峰 — 紫禁城建筑图解网站，展示故宫的完整空间布局、建筑要素与规格数据。</p>
+                <div class="card-footer">
+                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    <span class="card-meta">Web</span>
+                </div>
+            </a>
+            <a href="ai-mastery/" class="card">
+                <div class="card-icon purple">📘</div>
+                <span class="card-tag purple">实用指南</span>
+                <h2>御智录</h2>
+                <p>AI 协作能力精进指南 — 六大核心技能、六大常见误区、六组实战练习，真正帮助你提升与 AI 协作的能力。</p>
+                <div class="card-footer">
+                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    <span class="card-meta">Web</span>
+                </div>
+            </a>
+            <a href="production-report/" class="card">
+                <div class="card-icon orange">📊</div>
+                <span class="card-tag orange">生产管理</span>
+                <h2>生产周汇报</h2>
+                <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
+                <div class="card-footer">
+                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    <span class="card-meta">Web</span>
+                </div>
+            </a>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>© 2025 微面 · 用心呈现 · Powered by <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+    </footer>
+</body>
+</html>
