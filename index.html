@@ -96,7 +96,7 @@
         .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
         .section-title { font-size: 18px; font-weight: 600; color: var(--text-1); }
         .section-desc { font-size: 13px; color: var(--text-3); }
-        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 740px; margin: 0 auto; }
+        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
         .card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-4); padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
         .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), #6AA1FF); opacity: 0; transition: opacity 0.25s; }
         .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
@@ -104,9 +104,11 @@
         .card-icon { width: 44px; height: 44px; border-radius: var(--radius-3); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; flex-shrink: 0; }
         .card-icon.blue { background: #E8F3FF; }
         .card-icon.orange { background: #FFF3E8; }
+        .card-icon.green { background: #E8FFF5; }
         .card-tag { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 12px; font-weight: 500; margin-bottom: 12px; width: fit-content; }
         .card-tag.blue { background: #E8F3FF; color: #165DFF; }
         .card-tag.orange { background: #FFF3E8; color: #FF7D00; }
+        .card-tag.green { background: #E8FFF5; color: #0d9e7e; }
         .card h2 { font-size: 18px; font-weight: 600; color: var(--text-1); margin-bottom: 8px; letter-spacing: 1px; }
         .card p { color: var(--text-3); font-size: 14px; line-height: 1.6; flex-grow: 1; }
         .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--fill-2); }
@@ -138,6 +140,7 @@
         <div class="navbar-links" role="navigation">
             <a href="https://weimian.store/forbidden-city/">故宫</a>
             <a href="https://weimian.store/production-report/">生产汇报</a>
+            <a href="https://weimian.store/kanban/">看板</a>
         </div>
     </nav>
     </header>
@@ -150,10 +153,10 @@
     <section class="section" aria-labelledby="works-title">
         <div class="section-header">
             <span class="section-title" id="works-title">全部作品</span>
-            <span class="section-desc" aria-live="polite">共 2 个项目</span>
+            <span class="section-desc" aria-live="polite">共 3 个项目</span>
         </div>
         <div class="card-grid" role="list">
-            <a href="forbidden-city/" class="card" role="listitem" aria-label="故宫 — 中国古代建筑群之巅峰">
+            <a href="https://weimian.store/forbidden-city/" class="card" role="listitem" aria-label="故宫 — 中国古代建筑群之巅峰">
                 <div class="card-icon blue" aria-hidden="true">🏛️</div>
                 <span class="card-tag blue">建筑图解</span>
                 <h2>故宫</h2>
@@ -163,11 +166,21 @@
                     <span class="card-meta">Web</span>
                 </div>
             </a>
-            <a href="production-report/" class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报">
+            <a href="https://weimian.store/production-report/" class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报">
                 <div class="card-icon orange" aria-hidden="true">📊</div>
                 <span class="card-tag orange">生产管理</span>
                 <h2>生产周汇报</h2>
                 <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
+                <div class="card-footer">
+                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    <span class="card-meta">Web</span>
+                </div>
+            </a>
+            <a href="https://weimian.store/kanban/" class="card" role="listitem" aria-label="打样看板 — 圆机打样生产数据看板">
+                <div class="card-icon green" aria-hidden="true">📋</div>
+                <span class="card-tag green">数据看板</span>
+                <h2>打样看板</h2>
+                <p>圆机打样生产数据看板 — 接单、生产、余单、回修、报废等核心数据实时录入，支持拖拽排序、Excel 导出与快照恢复。</p>
                 <div class="card-footer">
                     <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                     <span class="card-meta">Web</span>
