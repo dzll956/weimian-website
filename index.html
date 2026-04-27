@@ -38,1140 +38,144 @@
         if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
         }})();
     </script>
-
-    <!-- Google Fonts for kanban -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-    /* ═══════════════════════════════════════════════════════════════
-       SECTION 1: Portfolio (首页) Styles
-       ═══════════════════════════════════════════════════════════════ */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-        --primary: #165DFF;
-        --primary-light: #E8F3FF;
-        --text-1: #1D2129;
-        --text-2: #4E5969;
-        --text-3: #86909C;
-        --text-4: #C9CDD4;
-        --border: #E5E6EB;
-        --fill-2: #F2F3F5;
-        --bg-1: #FFFFFF;
-        --bg-2: #F7F8FA;
-        --shadow-2: 0 8px 16px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1);
-        --radius-2: 6px;
-        --radius-3: 8px;
-        --radius-4: 12px;
-        --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-
-    body {
-        font-family: var(--font-family);
-        background: var(--bg-2);
-        color: var(--text-1);
-        line-height: 1.5715;
-        min-height: 100vh;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-
-    /* ── Navbar ── */
-    .navbar {
-        position: fixed; top: 0; left: 0; right: 0; height: 60px;
-        background: rgba(255, 255, 255, 0.85);
-        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border);
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 0 40px; z-index: 100;
-    }
-    .navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-1); }
-    .navbar-logo { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), #6AA1FF); border-radius: var(--radius-2); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
-    .navbar-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; }
-    .navbar-subtitle { font-size: 13px; color: var(--text-3); margin-left: 8px; font-weight: 400; }
-    .navbar-links { display: flex; gap: 24px; }
-    .navbar-links a {
-        color: var(--text-2); text-decoration: none; font-size: 14px;
-        transition: color 0.2s; cursor: pointer; padding-bottom: 2px;
-        border-bottom: 2px solid transparent;
-    }
-    .navbar-links a:hover { color: var(--primary); }
-    .navbar-links a.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-    /* ── Hero ── */
-    .hero { padding: 140px 40px 60px; text-align: center; max-width: 800px; margin: 0 auto; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; background: var(--primary-light); color: var(--primary); border-radius: 100px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
-    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
-    .hero h1 { font-size: 42px; font-weight: 700; color: var(--text-1); margin-bottom: 16px; letter-spacing: 2px; line-height: 1.3; }
-    .hero h1 span { background: linear-gradient(135deg, var(--primary), #6AA1FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero p { font-size: 16px; color: var(--text-3); max-width: 480px; margin: 0 auto; line-height: 1.7; }
-
-    /* ── Section & Cards ── */
-    .section { max-width: 1100px; margin: 0 auto; padding: 20px 40px 80px; }
-    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-    .section-title { font-size: 18px; font-weight: 600; color: var(--text-1); }
-    .section-desc { font-size: 13px; color: var(--text-3); }
-    .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 740px; margin: 0 auto; }
-    .card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-4); padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-    .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), #6AA1FF); opacity: 0; transition: opacity 0.25s; }
-    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
-    .card:hover::after { opacity: 1; }
-    .card-icon { width: 44px; height: 44px; border-radius: var(--radius-3); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; flex-shrink: 0; }
-    .card-icon.blue { background: #E8F3FF; }
-    .card-icon.orange { background: #FFF3E8; }
-    .card-tag { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 12px; font-weight: 500; margin-bottom: 12px; width: fit-content; }
-    .card-tag.blue { background: #E8F3FF; color: #165DFF; }
-    .card-tag.orange { background: #FFF3E8; color: #FF7D00; }
-    .card h2 { font-size: 18px; font-weight: 600; color: var(--text-1); margin-bottom: 8px; letter-spacing: 1px; }
-    .card p { color: var(--text-3); font-size: 14px; line-height: 1.6; flex-grow: 1; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--fill-2); }
-    .card-action { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--primary); font-weight: 500; transition: gap 0.2s; }
-    .card:hover .card-action { gap: 8px; }
-    .card-action svg { width: 14px; height: 14px; transition: transform 0.2s; }
-    .card:hover .card-action svg { transform: translateX(2px); }
-    .card-meta { font-size: 12px; color: var(--text-4); }
-
-    /* ── Portfolio responsive ── */
-    @media (max-width: 900px) {
-        .card-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-        .navbar { padding: 0 20px; }
-        .navbar-links { display: none; }
-        .hero { padding: 120px 20px 40px; }
-        .hero h1 { font-size: 30px; }
-        .section { padding: 20px 20px 60px; }
-    }
-    @media (max-width: 640px) { .navbar-subtitle { display: none; } }
-
-
-    /* ═══════════════════════════════════════════════════════════════
-       SECTION 2: Kanban (生产汇报) Styles — scoped under #view-kanban
-       ═══════════════════════════════════════════════════════════════ */
-
-    /* Kanban CSS Variables */
-    #view-kanban {
-        --mint: #0d9e7e;
-        --mint-dim: rgba(13,158,126,0.08);
-        --mint-glow: rgba(13,158,126,0.18);
-        --amber: #c27a08;
-        --amber-dim: rgba(194,122,8,0.08);
-        --coral: #d43d3d;
-        --coral-dim: rgba(212,61,61,0.08);
-        --sky: #2b7ab8;
-        --sky-dim: rgba(43,122,184,0.08);
-        --violet: #7c5cc4;
-        --violet-dim: rgba(124,92,196,0.08);
-        --rose: #c44e8a;
-        --rose-dim: rgba(196,78,138,0.08);
-        --kanban-bg: #f4f5f7;
-        --kanban-bg-raised: #ffffff;
-        --kanban-bg-overlay: #f0f1f4;
-        --kanban-bg-hover: #e8e9ed;
-        --kanban-text-1: #1a1a2e;
-        --kanban-text-2: #5a5a70;
-        --kanban-text-3: #9898a8;
-        --kanban-border: rgba(0,0,0,0.07);
-        --kanban-border-strong: rgba(0,0,0,0.12);
-        --kanban-s1: 6px; --kanban-s2: 12px; --kanban-s3: 18px; --kanban-s4: 24px;
-        --kanban-s5: 32px; --kanban-s6: 48px; --kanban-s7: 64px;
-        --kanban-r1: 8px; --kanban-r2: 12px; --kanban-r3: 16px;
-        --kanban-font-ui: "Noto Sans SC", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-        --kanban-font-mono: "Avenir", "Avenir Next", -apple-system, "Segoe UI", sans-serif;
-    }
-
-    /* Kanban body-like styles applied to #view-kanban */
-    #view-kanban {
-        font-family: var(--kanban-font-ui);
-        background: var(--kanban-bg);
-        color: var(--kanban-text-1);
-        min-height: 100vh;
-        padding: var(--kanban-s5) var(--kanban-s5) 120px;
-        max-width: 1440px;
-        margin: 0 auto;
-        -webkit-font-smoothing: antialiased;
-        line-height: 1.5;
-        overflow-x: hidden;
-    }
-
-    /* Kanban reset scoped */
-    #view-kanban *, #view-kanban *::before, #view-kanban *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    /* ── Kanban animations ── */
-    @keyframes kanbanSlideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-
-    #view-kanban .kanban-header   { animation: kanbanSlideUp 0.5s ease-out both; }
-    #view-kanban .kanban-stats-panel { animation: kanbanSlideUp 0.5s ease-out 0.08s both; }
-    #view-kanban .kanban-board    { animation: kanbanSlideUp 0.5s ease-out 0.16s both; }
-    #view-kanban .kanban-note     { animation: kanbanSlideUp 0.5s ease-out 0.24s both; }
-
-    @keyframes kanbanCountUp {
-        from { opacity: 0; transform: translateY(8px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes kanbanNumberRoll {
-        0%   { transform: translateY(0); opacity: 1; }
-        40%  { transform: translateY(-10px); opacity: 0.2; }
-        60%  { transform: translateY(10px); opacity: 0.2; }
-        100% { transform: translateY(0); opacity: 1; }
-    }
-    .kanban-num-animate { animation: kanbanCountUp 0.25s ease-out; }
-    .kanban-num-rolling { animation: kanbanNumberRoll 0.3s ease-out; display: inline-block; }
-
-    /* ── Kanban Header ── */
-    #view-kanban .kanban-header {
-        background: var(--kanban-bg-raised);
-        border: 1px solid var(--kanban-border);
-        border-radius: var(--kanban-r3);
-        padding: var(--kanban-s4) var(--kanban-s5);
-        margin-bottom: var(--kanban-s5);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: var(--kanban-s3);
-    }
-
-    #view-kanban #kanbanTitleEdit {
-        font-family: var(--kanban-font-ui);
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--kanban-text-1);
-        border: none;
-        outline: none;
-        background: transparent;
-        cursor: pointer;
-        transition: color 0.2s;
-        letter-spacing: -0.3px;
-    }
-    #view-kanban #kanbanTitleEdit:hover { color: var(--mint); }
-    #view-kanban #kanbanTitleEdit:focus  { color: var(--mint); }
-
-    #view-kanban .kanban-header-right {
-        display: flex;
-        align-items: center;
-        gap: var(--kanban-s2);
-    }
-
-    #view-kanban .kanban-date-chip {
-        display: flex;
-        align-items: center;
-        gap: var(--kanban-s1);
-        padding: var(--kanban-s1) var(--kanban-s2);
-        background: var(--kanban-bg-overlay);
-        border-radius: var(--kanban-r1);
-        border: 1px solid var(--kanban-border);
-        cursor: pointer;
-        transition: border-color 0.2s;
-    }
-    #view-kanban .kanban-date-chip:hover { border-color: var(--mint-glow); }
-    #view-kanban .kanban-date-chip svg { width: 14px; height: 14px; fill: var(--kanban-text-3); transition: fill 0.2s; }
-    #view-kanban .kanban-date-chip:hover svg { fill: var(--mint); }
-    #view-kanban .kanban-date-chip input {
-        border: none; background: transparent; cursor: pointer;
-        font-family: var(--kanban-font-mono); font-size: 12px; color: var(--kanban-text-1); font-weight: 400;
-    }
-    #view-kanban .kanban-date-chip label {
-        font-size: 11px; color: var(--kanban-text-3); font-weight: 500;
-        text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    #view-kanban .kanban-date-sep {
-        font-family: var(--kanban-font-mono); font-size: 11px;
-        color: var(--kanban-text-3); font-weight: 400;
-    }
-
-    /* ── Kanban Stats Panel ── */
-    #view-kanban .kanban-stats-panel {
-        background: var(--kanban-bg-raised);
-        border: 1px solid var(--kanban-border);
-        border-radius: var(--kanban-r3);
-        padding: var(--kanban-s4) var(--kanban-s5);
-        margin-bottom: var(--kanban-s5);
-    }
-
-    #view-kanban .kanban-stats-header {
-        display: flex;
-        align-items: center;
-        gap: var(--kanban-s2);
-        margin-bottom: var(--kanban-s4);
-    }
-    #view-kanban .kanban-stats-header .kanban-dot {
-        width: 8px; height: 8px; border-radius: 50%;
-        background: var(--violet);
-        box-shadow: 0 0 8px rgba(124,92,196,0.3);
-    }
-    #view-kanban .kanban-stats-header span {
-        font-size: 11px; font-weight: 600; color: var(--kanban-text-3);
-        text-transform: uppercase; letter-spacing: 1.5px;
-    }
-
-    #view-kanban .kanban-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: var(--kanban-s2);
-    }
-
-    #view-kanban .kanban-stat-item {
-        padding: var(--kanban-s3);
-        border-radius: var(--kanban-r2);
-        background: var(--kanban-bg-overlay);
-        border: 1px solid var(--kanban-border);
-        transition: all 0.25s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    #view-kanban .kanban-stat-item::before {
-        content: '';
-        position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        opacity: 0.6;
-        transition: opacity 0.25s;
-    }
-    #view-kanban .kanban-stat-item:hover { border-color: var(--kanban-border-strong); }
-    #view-kanban .kanban-stat-item:hover::before { opacity: 1; }
-
-    #view-kanban .kanban-stat-item:nth-child(1)::before { background: var(--mint); }
-    #view-kanban .kanban-stat-item:nth-child(2)::before { background: var(--violet); }
-    #view-kanban .kanban-stat-item:nth-child(3)::before { background: var(--coral); }
-    #view-kanban .kanban-stat-item:nth-child(4)::before { background: var(--sky); }
-    #view-kanban .kanban-stat-item:nth-child(5)::before { background: var(--amber); }
-    #view-kanban .kanban-stat-item:nth-child(6)::before { background: var(--rose); }
-
-    #view-kanban .kanban-stat-item.success { background: var(--mint-dim); border-color: rgba(0,212,170,0.2); }
-    #view-kanban .kanban-stat-item.success::before { background: var(--mint) !important; opacity: 1 !important; }
-    #view-kanban .kanban-stat-item.warning { background: var(--amber-dim); border-color: rgba(240,160,48,0.2); }
-    #view-kanban .kanban-stat-item.warning::before { background: var(--amber) !important; opacity: 1 !important; }
-    #view-kanban .kanban-stat-item.danger  { background: var(--coral-dim); border-color: rgba(255,92,92,0.2); }
-    #view-kanban .kanban-stat-item.danger::before  { background: var(--coral) !important; opacity: 1 !important; }
-
-    #view-kanban .kanban-stat-label {
-        font-size: 11px; color: var(--kanban-text-3); font-weight: 500;
-        letter-spacing: 0.3px; margin-bottom: var(--kanban-s1);
-    }
-    #view-kanban .kanban-stat-value {
-        font-family: var(--kanban-font-mono);
-        font-size: 20px; font-weight: 700;
-        color: var(--kanban-text-1);
-        font-variant-numeric: tabular-nums;
-        line-height: 1.2;
-    }
-    #view-kanban .kanban-stat-item.success .kanban-stat-value { color: var(--mint); }
-    #view-kanban .kanban-stat-item.warning .kanban-stat-value { color: var(--amber); }
-    #view-kanban .kanban-stat-item.danger  .kanban-stat-value { color: var(--coral); }
-
-    /* ── Kanban Board ── */
-    #view-kanban .kanban-board {
-        background: var(--kanban-bg-raised);
-        border: 1px solid var(--kanban-border);
-        border-radius: var(--kanban-r3);
-        padding: var(--kanban-s4) var(--kanban-s5);
-        margin-bottom: var(--kanban-s5);
-    }
-
-    #view-kanban .kanban-board-header {
-        display: flex;
-        align-items: center;
-        gap: var(--kanban-s2);
-        margin-bottom: var(--kanban-s4);
-    }
-    #view-kanban .kanban-board-header .kanban-dot {
-        width: 8px; height: 8px; border-radius: 50%;
-        background: var(--sky);
-        box-shadow: 0 0 8px rgba(43,122,184,0.3);
-    }
-    #view-kanban .kanban-board-header span {
-        font-size: 11px; font-weight: 600; color: var(--kanban-text-3);
-        text-transform: uppercase; letter-spacing: 1.5px;
-    }
-
-    #view-kanban .kanban-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: var(--kanban-s2);
-    }
-
-    /* ── Kanban Card ── */
-    #view-kanban .kanban-card {
-        background: var(--kanban-bg-overlay);
-        border: 1px solid var(--kanban-border);
-        border-radius: var(--kanban-r2);
-        padding: var(--kanban-s3) var(--kanban-s3) var(--kanban-s2);
-        min-height: 116px;
-        cursor: grab;
-        user-select: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: all 0.25s ease;
-        position: relative;
-    }
-    #view-kanban .kanban-card:hover {
-        border-color: var(--kanban-border-strong);
-        background: var(--kanban-bg-hover);
-    }
-    #view-kanban .kanban-card:active { cursor: grabbing; }
-
-    #view-kanban .kanban-card.dragging { opacity: 0.25; }
-    #view-kanban .kanban-card.drag-placeholder {
-        border: 2px dashed var(--kanban-border-strong);
-        background: var(--kanban-bg-overlay);
-        min-height: 116px;
-    }
-    #view-kanban .kanban-card.drop-target {
-        border-color: var(--mint);
-        box-shadow: 0 0 0 3px var(--mint-dim);
-    }
-
-    #view-kanban .kanban-card.warning { background: var(--amber-dim); border-color: rgba(240,160,48,0.2); }
-    #view-kanban .kanban-card.danger  { background: var(--coral-dim); border-color: rgba(255,92,92,0.2); }
-    #view-kanban .kanban-card.warning:hover { border-color: var(--amber); }
-    #view-kanban .kanban-card.danger:hover  { border-color: var(--coral); }
-    #view-kanban .kanban-card.warning .kanban-alert-icon,
-    #view-kanban .kanban-card.danger .kanban-alert-icon { display: block; }
-
-    #view-kanban .kanban-card-label {
-        font-size: 11px; color: var(--kanban-text-3); font-weight: 500;
-        letter-spacing: 0.5px; text-transform: uppercase;
-        margin-bottom: var(--kanban-s2);
-        display: flex; align-items: center; gap: var(--kanban-s1);
-    }
-    #view-kanban .kanban-alert-icon {
-        display: none; width: 13px; height: 13px; flex-shrink: 0;
-        fill: var(--kanban-text-3);
-    }
-    #view-kanban .kanban-card.warning .kanban-alert-icon { fill: var(--amber); }
-    #view-kanban .kanban-card.danger .kanban-alert-icon  { fill: var(--coral); }
-
-    #view-kanban .kanban-card-row {
-        display: flex; align-items: baseline; justify-content: space-between; gap: var(--kanban-s1);
-    }
-
-    #view-kanban .kanban-card input {
-        width: 100%;
-        font-family: var(--kanban-font-mono);
-        font-size: 32px;
-        font-weight: 700;
-        color: var(--kanban-text-1);
-        border: none; outline: none; background: transparent;
-        -moz-appearance: textfield;
-        padding: 0;
-        font-variant-numeric: tabular-nums;
-        line-height: 1;
-    }
-    #view-kanban .kanban-card input:focus { color: var(--mint); }
-    #view-kanban .kanban-card.warning input { color: var(--amber); }
-    #view-kanban .kanban-card.warning input:focus { color: var(--amber); }
-    #view-kanban .kanban-card.danger input { color: var(--coral); }
-    #view-kanban .kanban-card.danger input:focus { color: var(--coral); }
-    #view-kanban .kanban-card input::-webkit-inner-spin-button,
-    #view-kanban .kanban-card input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-
-    #view-kanban .kanban-card-unit {
-        font-family: var(--kanban-font-mono);
-        font-size: 11px; color: var(--kanban-text-3); font-weight: 400;
-        flex-shrink: 0;
-    }
-
-    /* ── Kanban Note ── */
-    #view-kanban .kanban-note {
-        background: var(--kanban-bg-raised);
-        border: 1px solid var(--kanban-border);
-        border-radius: var(--kanban-r3);
-        padding: var(--kanban-s4) var(--kanban-s5);
-    }
-
-    #view-kanban .kanban-note-header {
-        display: flex; align-items: center; gap: var(--kanban-s2);
-        margin-bottom: var(--kanban-s3);
-    }
-    #view-kanban .kanban-note-header .kanban-dot {
-        width: 8px; height: 8px; border-radius: 50%;
-        background: var(--kanban-text-3);
-    }
-    #view-kanban .kanban-note-header span {
-        font-size: 11px; font-weight: 600; color: var(--kanban-text-3);
-        text-transform: uppercase; letter-spacing: 1.5px;
-    }
-
-    #view-kanban .kanban-note textarea {
-        width: 100%; min-height: 64px;
-        padding: var(--kanban-s2) var(--kanban-s3);
-        background: var(--kanban-bg-overlay);
-        border: 1px solid var(--kanban-border);
-        border-radius: var(--kanban-r1);
-        color: var(--kanban-text-1);
-        font-family: var(--kanban-font-ui);
-        font-size: 13px; font-weight: 400;
-        line-height: 1.7;
-        resize: vertical;
-        transition: border-color 0.2s;
-    }
-    #view-kanban .kanban-note textarea:focus { outline: none; border-color: var(--mint-glow); }
-    #view-kanban .kanban-note textarea::placeholder { color: var(--kanban-text-3); }
-
-    /* ── Kanban FAB Toolbar ── */
-    #view-kanban .kanban-fab-wrap {
-        position: fixed; right: var(--kanban-s5); top: 50%;
-        transform: translateY(-50%);
-        z-index: 1000;
-        display: flex; align-items: center;
-    }
-
-    #view-kanban .kanban-fab {
-        width: 46px; height: 46px; border-radius: 50%;
-        background: var(--mint);
-        border: none; cursor: pointer;
-        display: flex; align-items: center; justify-content: center;
-        transition: all 0.25s;
-        box-shadow: 0 4px 20px rgba(13,158,126,0.25);
-    }
-    #view-kanban .kanban-fab svg { width: 18px; height: 18px; fill: #fff; transition: transform 0.25s; }
-    #view-kanban .kanban-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(13,158,126,0.35); }
-    #view-kanban .kanban-fab.open { background: var(--kanban-bg-hover); box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
-    #view-kanban .kanban-fab.open svg { fill: var(--kanban-text-2); }
-
-    #view-kanban .kanban-fab-menu {
-        position: fixed; right: 62px; top: 50%;
-        transform: translateY(-50%) translateX(6px);
-        background: var(--kanban-bg-raised);
-        border: 1px solid var(--kanban-border-strong);
-        border-radius: var(--kanban-r2);
-        padding: var(--kanban-s1);
-        display: flex; flex-direction: column; align-items: center; gap: 2px;
-        opacity: 0; visibility: hidden; pointer-events: none;
-        transition: all 0.25s ease;
-    }
-    #view-kanban .kanban-fab-menu.show {
-        opacity: 1; visibility: visible;
-        transform: translateY(-50%) translateX(0);
-        pointer-events: auto;
-    }
-
-    #view-kanban .kanban-fab-btn {
-        width: 40px; height: 40px; border: none;
-        border-radius: var(--kanban-r1); cursor: pointer;
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center; gap: 1px;
-        background: transparent; color: var(--kanban-text-2);
-        transition: all 0.15s; position: relative;
-    }
-    #view-kanban .kanban-fab-btn svg { width: 17px; height: 17px; }
-    #view-kanban .kanban-fab-btn span { font-size: 8px; color: var(--kanban-text-3); font-weight: 500; letter-spacing: 0.3px; }
-    #view-kanban .kanban-fab-btn:hover { background: var(--mint-dim); color: var(--mint); }
-    #view-kanban .kanban-fab-btn:active { transform: scale(0.93); }
-    #view-kanban .kanban-fab-btn.danger { color: var(--coral); }
-    #view-kanban .kanban-fab-btn.danger:hover { background: var(--coral-dim); color: var(--coral); }
-
-    #view-kanban .kanban-fab-sep { width: 20px; height: 1px; background: var(--kanban-border); margin: 3px 0; }
-
-    /* Tooltip */
-    #view-kanban .kanban-fab-btn::after {
-        content: attr(data-tip);
-        position: absolute; right: calc(100% + 8px); top: 50%;
-        transform: translateY(-50%) translateX(-4px);
-        background: var(--kanban-bg); color: var(--kanban-text-1);
-        padding: 4px 10px; border-radius: var(--kanban-r1);
-        font-size: 11px; font-weight: 500; white-space: nowrap;
-        border: 1px solid var(--kanban-border-strong);
-        opacity: 0; visibility: hidden; transition: all 0.15s;
-        pointer-events: none;
-    }
-    #view-kanban .kanban-fab-btn:hover::after {
-        opacity: 1; visibility: visible;
-        transform: translateY(-50%) translateX(-8px);
-    }
-
-    /* ── Kanban Print ── */
-    @media print {
-        @page { size: A4; margin: 1.5cm 1cm; }
-        #view-portfolio { display: none !important; }
-        .navbar { display: none !important; }
-        #view-kanban {
-            background: #fff !important; color: #1a1a1a !important;
-            padding: 0 !important; max-width: none !important;
-            animation: none !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
+        :root {
+            --primary: #165DFF;
+            --primary-light: #E8F3FF;
+            --text-1: #1D2129;
+            --text-2: #4E5969;
+            --text-3: #86909C;
+            --text-4: #C9CDD4;
+            --border: #E5E6EB;
+            --fill-2: #F2F3F5;
+            --bg-1: #FFFFFF;
+            --bg-2: #F7F8FA;
+            --shadow-2: 0 8px 16px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1);
+            --radius-2: 6px;
+            --radius-3: 8px;
+            --radius-4: 12px;
+            --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
-        #view-kanban .kanban-fab-wrap, #view-kanban .kanban-fab-btn::after { display: none !important; }
-        #view-kanban #kanbanTitleEdit, #view-kanban .kanban-date-chip input[type="date"],
-        #view-kanban .kanban-card input[type="number"], #view-kanban .kanban-note textarea { display: none !important; }
 
-        #view-kanban .kanban-header {
-            box-shadow: none !important; border: 1px solid #ddd;
-            margin-bottom: 20px; padding: 20px 24px; position: relative;
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-2);
+            color: var(--text-1);
+            line-height: 1.5715;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        #view-kanban .kanban-header::after {
-            content: '圆机打样生产数据看板 V3.0';
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%,-50%);
-            font-size: 20px; font-weight: 700; color: #1a1a1a;
+
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; height: 60px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px; z-index: 100;
         }
-        #view-kanban .kanban-header-title { display: none !important; }
-        #view-kanban .kanban-header-right {
-            position: absolute; top: 10px; right: 24px;
+        .navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-1); }
+        .navbar-logo { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), #6AA1FF); border-radius: var(--radius-2); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
+        .navbar-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; }
+        .navbar-subtitle { font-size: 13px; color: var(--text-3); margin-left: 8px; font-weight: 400; }
+        .navbar-links { display: flex; gap: 24px; }
+        .navbar-links a { color: var(--text-2); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+        .navbar-links a:hover { color: var(--primary); }
+
+        .hero { padding: 140px 40px 60px; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; background: var(--primary-light); color: var(--primary); border-radius: 100px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
+        .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
+        .hero h1 { font-size: 42px; font-weight: 700; color: var(--text-1); margin-bottom: 16px; letter-spacing: 2px; line-height: 1.3; }
+        .hero h1 span { background: linear-gradient(135deg, var(--primary), #6AA1FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 16px; color: var(--text-3); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+        .section { max-width: 1100px; margin: 0 auto; padding: 20px 40px 80px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .section-title { font-size: 18px; font-weight: 600; color: var(--text-1); }
+        .section-desc { font-size: 13px; color: var(--text-3); }
+        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 740px; margin: 0 auto; }
+        .card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-4); padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), #6AA1FF); opacity: 0; transition: opacity 0.25s; }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
+        .card:hover::after { opacity: 1; }
+        .card-icon { width: 44px; height: 44px; border-radius: var(--radius-3); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; flex-shrink: 0; }
+        .card-icon.blue { background: #E8F3FF; }
+        .card-icon.orange { background: #FFF3E8; }
+        .card-tag { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 12px; font-weight: 500; margin-bottom: 12px; width: fit-content; }
+        .card-tag.blue { background: #E8F3FF; color: #165DFF; }
+        .card-tag.orange { background: #FFF3E8; color: #FF7D00; }
+        .card h2 { font-size: 18px; font-weight: 600; color: var(--text-1); margin-bottom: 8px; letter-spacing: 1px; }
+        .card p { color: var(--text-3); font-size: 14px; line-height: 1.6; flex-grow: 1; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--fill-2); }
+        .card-action { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--primary); font-weight: 500; transition: gap 0.2s; }
+        .card:hover .card-action { gap: 8px; }
+        .card-action svg { width: 14px; height: 14px; transition: transform 0.2s; }
+        .card:hover .card-action svg { transform: translateX(2px); }
+        .card-meta { font-size: 12px; color: var(--text-4); }
+
+        @media (max-width: 900px) {
+            .card-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+            .navbar { padding: 0 20px; }
+            .navbar-links { display: none; }
+            .hero { padding: 120px 20px 40px; }
+            .hero h1 { font-size: 30px; }
+            .section { padding: 20px 20px 60px; }
         }
-        #view-kanban .kanban-date-chip { background: transparent; border: none; padding: 0; }
-        #view-kanban .kanban-date-chip label, #view-kanban .kanban-date-sep { display: none; }
-
-        #view-kanban .kanban-stats-panel, #view-kanban .kanban-board, #view-kanban .kanban-note {
-            box-shadow: none !important; border: 1px solid #ddd;
-            background: #fff !important; page-break-after: avoid;
-        }
-        #view-kanban .kanban-stats-panel { margin-bottom: 20px; }
-        #view-kanban .kanban-board { margin-bottom: 20px; }
-
-        #view-kanban .kanban-stat-item {
-            background: #f5f5f5 !important; border: 1px solid #e0e0e0 !important;
-            page-break-inside: avoid;
-        }
-        #view-kanban .kanban-stat-value { color: #1a1a1a !important; }
-        #view-kanban .kanban-stat-item.success .kanban-stat-value { color: #00a88a !important; }
-        #view-kanban .kanban-stat-item.warning .kanban-stat-value { color: #d09020 !important; }
-        #view-kanban .kanban-stat-item.danger  .kanban-stat-value { color: #e04040 !important; }
-
-        #view-kanban .kanban-card {
-            background: #fff !important; border: 1px solid #ddd !important;
-            box-shadow: none !important; page-break-inside: avoid;
-        }
-        #view-kanban .kanban-card:hover { border-color: #ddd !important; }
-        #view-kanban .kanban-card.warning { background: #fff8ed !important; border-color: #f0a030 !important; }
-        #view-kanban .kanban-card.danger  { background: #fff0f0 !important; border-color: #ff5c5c !important; }
-
-        #view-kanban .kanban-note textarea { display: none !important; }
-        #view-kanban .kanban-print-header { display: block !important; text-align: center; padding: 10px 0; border-bottom: 1px solid #eee; margin-bottom: 16px; color: #999; font-size: 11px; }
-        #view-kanban .kanban-print-footer { display: block !important; position: fixed; bottom: 0; left: 0; right: 0; text-align: center; padding: 10px; border-top: 1px solid #eee; font-size: 10px; color: #aaa; background: #fafafa; }
-        #view-kanban .kanban-print-footer span { display: inline-block; margin: 0 16px; }
-    }
-    #view-kanban .kanban-print-header, #view-kanban .kanban-print-footer { display: none; }
-
-    /* ── Kanban Responsive ── */
-    @media (max-width: 1024px) {
-        #view-kanban .kanban-stats-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 768px) {
-        #view-kanban { padding: var(--kanban-s4) var(--kanban-s3); }
-        #view-kanban .kanban-header { flex-direction: column; align-items: flex-start; padding: var(--kanban-s3); }
-        #view-kanban #kanbanTitleEdit { font-size: 18px; }
-        #view-kanban .kanban-header-right { width: 100%; flex-wrap: wrap; }
-
-        #view-kanban .kanban-fab-wrap { top: auto !important; bottom: var(--kanban-s4) !important; right: var(--kanban-s4) !important; transform: none !important; }
-        #view-kanban .kanban-fab-menu { right: 54px !important; top: auto !important; bottom: 54px !important; transform: none !important; }
-        #view-kanban .kanban-fab-menu.show { transform: none !important; }
-        #view-kanban .kanban-fab-btn span { display: none !important; }
-        #view-kanban .kanban-fab-btn::after { display: none !important; }
-        #view-kanban .kanban-fab-sep { width: 100% !important; height: 1px !important; }
-
-        #view-kanban .kanban-grid { grid-template-columns: repeat(2, 1fr); gap: var(--kanban-s2); }
-        #view-kanban .kanban-stats-grid { grid-template-columns: repeat(3, 1fr); gap: var(--kanban-s2); }
-        #view-kanban .kanban-card { padding: var(--kanban-s2); min-height: 100px; }
-        #view-kanban .kanban-card input { font-size: 26px; }
-        #view-kanban .kanban-stat-value { font-size: 18px; }
-    }
-    @media (max-width: 480px) {
-        #view-kanban .kanban-grid { grid-template-columns: 1fr; }
-        #view-kanban .kanban-stats-grid { grid-template-columns: repeat(2, 1fr); }
-        #view-kanban .kanban-header-right { flex-direction: column; align-items: flex-start; }
-        #view-kanban .kanban-date-sep { display: none; }
-        #view-kanban .kanban-card input { font-size: 26px; }
-        #view-kanban .kanban-stat-value { font-size: 16px; }
-        #view-kanban .kanban-fab { width: 42px; height: 42px; }
-        #view-kanban .kanban-fab-btn { width: 38px; height: 38px; }
-        #view-kanban .kanban-card, #view-kanban .kanban-fab-btn { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-    }
+        @media (max-width: 640px) { .navbar-subtitle { display: none; } }
     </style>
 </head>
 <body>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         NAVBAR — Tab Navigation
-         ═══════════════════════════════════════════════════════════════ -->
     <header>
     <nav class="navbar" aria-label="主导航">
-        <a href="#" class="navbar-brand" aria-label="微面 - 返回首页" onclick="return false;">
+        <a href="#" class="navbar-brand" aria-label="微面 - 返回首页">
             <div class="navbar-logo" aria-hidden="true">微</div>
             <span class="navbar-title">微面</span>
             <span class="navbar-subtitle">weimian.store</span>
         </a>
         <div class="navbar-links" role="navigation">
-            <a id="nav-portfolio" class="active" onclick="switchTab('portfolio'); return false;">首页</a>
-            <a id="nav-kanban" onclick="switchTab('kanban'); return false;">生产汇报</a>
+            <a href="https://weimian.store/forbidden-city/">故宫</a>
+            <a href="https://weimian.store/production-report/">生产汇报</a>
         </div>
     </nav>
     </header>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         VIEW 1: Portfolio (首页)
-         ═══════════════════════════════════════════════════════════════ -->
-    <div id="view-portfolio">
-        <main>
-        <section class="hero" aria-labelledby="hero-title">
-            <div class="hero-badge" aria-hidden="true">作品集 Portfolio</div>
-            <h1 id="hero-title">用心呈现<span>每一个作品</span></h1>
-            <p>从建筑设计到生产管理 — 探索我们精心打造的数字作品。</p>
-        </section>
-        <section class="section" aria-labelledby="works-title">
-            <div class="section-header">
-                <span class="section-title" id="works-title">全部作品</span>
-                <span class="section-desc" aria-live="polite">共 2 个项目</span>
-            </div>
-            <div class="card-grid" role="list">
-                <a href="https://weimian.store/forbidden-city/" class="card" role="listitem" aria-label="故宫 — 中国古代建筑群之巅峰">
-                    <div class="card-icon blue" aria-hidden="true">&#x1F3DB;&#xFE0F;</div>
-                    <span class="card-tag blue">建筑图解</span>
-                    <h2>故宫</h2>
-                    <p>中国古代建筑群之巅峰 — 紫禁城建筑图解网站，展示故宫的完整空间布局、建筑要素与规格数据。</p>
-                    <div class="card-footer">
-                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-                        <span class="card-meta">Web</span>
-                    </div>
-                </a>
-                <a href="https://weimian.store/production-report/" class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报">
-                    <div class="card-icon orange" aria-hidden="true">&#x1F4CA;</div>
-                    <span class="card-tag orange">生产管理</span>
-                    <h2>生产周汇报</h2>
-                    <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
-                    <div class="card-footer">
-                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-                        <span class="card-meta">Web</span>
-                    </div>
-                </a>
-            </div>
-        </section>
-        </main>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         VIEW 2: Kanban Dashboard (生产汇报)
-         ═══════════════════════════════════════════════════════════════ -->
-    <div id="view-kanban" style="display:none;">
-
-        <div class="kanban-print-header">
-            <span>打印日期：<span id="kanbanPrintDate"></span></span>
-            <span>|</span>
-            <span>数据周期：<span id="kanbanPrintDateRange"></span></span>
+    <main>
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-badge" aria-hidden="true">作品集 Portfolio</div>
+        <h1 id="hero-title">用心呈现<span>每一个作品</span></h1>
+        <p>从建筑设计到生产管理 — 探索我们精心打造的数字作品。</p>
+    </section>
+    <section class="section" aria-labelledby="works-title">
+        <div class="section-header">
+            <span class="section-title" id="works-title">全部作品</span>
+            <span class="section-desc" aria-live="polite">共 2 个项目</span>
         </div>
-
-        <div class="kanban-header">
-            <div class="kanban-header-title">
-                <input id="kanbanTitleEdit" value="圆机打样生产数据看板 V3.0" title="双击修改标题">
-            </div>
-            <div class="kanban-header-right">
-                <div class="kanban-date-chip">
-                    <svg viewBox="0 0 24 24"><path d="M20 4h-2V3a1 1 0 00-2 0v1H8V3a1 1 0 00-2 0v1H4a2 2 0 00-2 2v14a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zM6 9h12v9H6V9z"/></svg>
-                    <label>开始</label>
-                    <input type="date" id="kanbanStart">
+        <div class="card-grid" role="list">
+            <a href="forbidden-city/" class="card" role="listitem" aria-label="故宫 — 中国古代建筑群之巅峰">
+                <div class="card-icon blue" aria-hidden="true">🏛️</div>
+                <span class="card-tag blue">建筑图解</span>
+                <h2>故宫</h2>
+                <p>中国古代建筑群之巅峰 — 紫禁城建筑图解网站，展示故宫的完整空间布局、建筑要素与规格数据。</p>
+                <div class="card-footer">
+                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    <span class="card-meta">Web</span>
                 </div>
-                <span class="kanban-date-sep">&mdash;</span>
-                <div class="kanban-date-chip">
-                    <svg viewBox="0 0 24 24"><path d="M20 4h-2V3a1 1 0 00-2 0v1H8V3a1 1 0 00-2 0v1H4a2 2 0 00-2 2v14a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zM6 9h12v9H6V9z"/></svg>
-                    <label>结束</label>
-                    <input type="date" id="kanbanEnd">
+            </a>
+            <a href="production-report/" class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报">
+                <div class="card-icon orange" aria-hidden="true">📊</div>
+                <span class="card-tag orange">生产管理</span>
+                <h2>生产周汇报</h2>
+                <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
+                <div class="card-footer">
+                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    <span class="card-meta">Web</span>
                 </div>
-            </div>
+            </a>
         </div>
-
-        <section class="kanban-stats-panel">
-            <div class="kanban-stats-header"><div class="kanban-dot"></div><span>数据统计</span></div>
-            <div class="kanban-stats-grid" id="kanbanStatsGrid"></div>
-        </section>
-
-        <section class="kanban-board">
-            <div class="kanban-board-header"><div class="kanban-dot"></div><span>生产数据</span></div>
-            <div class="kanban-grid" id="kanbanGrid"></div>
-        </section>
-
-        <section class="kanban-note">
-            <div class="kanban-note-header"><div class="kanban-dot"></div><span>备注</span></div>
-            <textarea id="kanbanMemo" placeholder="在此输入备注..."></textarea>
-        </section>
-
-        <!-- FAB Toolbar -->
-        <div class="kanban-fab-wrap">
-            <div class="kanban-fab-menu" id="kanbanFabMenu">
-                <button class="kanban-fab-btn" onclick="kanbanExportToExcel()" data-tip="导出Excel">
-                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h6v6h6v10H6zm2-8h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
-                    <span>Excel</span>
-                </button>
-                <button class="kanban-fab-btn" onclick="kanbanExportPage()" data-tip="导出页面">
-                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/></svg>
-                    <span>页面</span>
-                </button>
-                <div class="kanban-fab-sep"></div>
-                <button class="kanban-fab-btn" onclick="kanbanSaveSnapshot()" data-tip="保存快照">
-                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-                    <span>保存</span>
-                </button>
-                <button class="kanban-fab-btn" onclick="kanbanRestoreSnapshot()" data-tip="恢复快照">
-                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
-                    <span>恢复</span>
-                </button>
-                <div class="kanban-fab-sep"></div>
-                <button class="kanban-fab-btn danger" onclick="kanbanClearData()" data-tip="清零数据">
-                    <svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-                    <span>清零</span>
-                </button>
-            </div>
-            <button class="kanban-fab" id="kanbanFab" onclick="kanbanToggleFab()">
-                <svg id="kanbanFabIcon" viewBox="0 0 24 24"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
-            </button>
-        </div>
-
-        <div class="kanban-print-footer">
-            <span>打印时间：<span id="kanbanPrintTimestamp"></span></span>
-            <span>|</span>
-            <span>第 <span id="kanbanPrintPageNum"></span> 页</span>
-        </div>
-
-    </div>
-    <!-- END #view-kanban -->
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         SCRIPTS
-         ═══════════════════════════════════════════════════════════════ -->
-
-    <!-- Tab Switching -->
-    <script>
-    function switchTab(tab) {
-        var vp = document.getElementById('view-portfolio');
-        var vk = document.getElementById('view-kanban');
-        var np = document.getElementById('nav-portfolio');
-        var nk = document.getElementById('nav-kanban');
-        if (tab === 'portfolio') {
-            vp.style.display = '';
-            vk.style.display = 'none';
-            np.classList.add('active');
-            nk.classList.remove('active');
-            document.title = '微面 · 作品集';
-        } else {
-            vp.style.display = 'none';
-            vk.style.display = '';
-            nk.classList.add('active');
-            np.classList.remove('active');
-            document.title = '圆机打样生产数据看板 V3.0';
-            /* Re-render kanban when switching to it to ensure animations replay */
-            kanbanRender();
-        }
-    }
-    </script>
-
-    <!-- Kanban FAB Control -->
-    <script>
-    var kanbanFabOpen = false;
-    function kanbanToggleFab() {
-        kanbanFabOpen = !kanbanFabOpen;
-        var fab = document.getElementById('kanbanFab');
-        var menu = document.getElementById('kanbanFabMenu');
-        var icon = document.getElementById('kanbanFabIcon');
-        fab.classList.toggle('open', kanbanFabOpen);
-        menu.classList.toggle('show', kanbanFabOpen);
-        icon.innerHTML = kanbanFabOpen
-            ? '<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>'
-            : '<path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>';
-    }
-    document.addEventListener('click', function(e) {
-        if (kanbanFabOpen && !document.querySelector('.kanban-fab-wrap').contains(e.target)) kanbanToggleFab();
-    });
-    document.getElementById('kanbanFabMenu').addEventListener('click', function(e) { e.stopPropagation(); });
-    </script>
-
-    <!-- XLSX CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-
-    <!-- Kanban Core Logic -->
-    <script>
-    /* ═══ 基础配置 ═══ */
-    var kanbanCards = [
-        {key:'orders',label:'接单总数'},
-        {key:'production',label:'生产总数'},
-        {key:'remaining',label:'余单总数'},
-        {key:'flatbed',label:'平板机订单'},
-        {key:'urgent',label:'飞机单'},
-        {key:'rework',label:'回修'},
-        {key:'scrap',label:'报废'},
-        {key:'reprint',label:'重打'},
-        {key:'unplanned',label:'未排单'},
-        {key:'flatbedCompleted',label:'平板机已完成'}
-    ];
-    var kanbanDefaultValues = {
-        orders:244,production:230,remaining:12,flatbed:16,urgent:14,
-        rework:43,scrap:11,reprint:12,unplanned:0,flatbedCompleted:0,
-        start:'2025-08-01',end:'2025-08-14'
-    };
-    var kanbanLs = {
-        get: function(k,d){ return JSON.parse(localStorage.getItem(k)??'null') ?? d; },
-        set: function(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
-    };
-
-    /* ═══ 数字动画 ═══ */
-    var kanbanPrevStats = {};
-    function kanbanEaseOut(t){ return 1 - Math.pow(1-t, 4); }
-    function kanbanAnimNum(el, nv, ov) {
-        if(ov === undefined) ov = 0;
-        var o = parseFloat(ov)||0, n = parseFloat(nv)||0;
-        if(o === n){ el.textContent = nv; return; }
-        el.classList.add('kanban-num-rolling');
-        var t0 = performance.now();
-        (function tick(now){
-            var p = Math.min((now-t0)/300, 1), e = kanbanEaseOut(p), c = o+(n-o)*e;
-            el.textContent = nv.includes('%') ? c.toFixed(1)+'%' : Math.round(c);
-            if(p < 1) requestAnimationFrame(tick);
-            else { el.classList.remove('kanban-num-rolling'); el.textContent = nv; }
-        })(t0);
-    }
-
-    /* ═══ 渲染 ═══ */
-    var kanbanTitleEl = document.getElementById('kanbanTitleEdit');
-    kanbanTitleEl.addEventListener('change', function() { kanbanLs.set('title', kanbanTitleEl.value); });
-    kanbanTitleEl.addEventListener('dblclick', function() { kanbanTitleEl.select(); });
-
-    function kanbanRender(){
-        var order = kanbanLs.get('order', kanbanCards.map(function(c){return c.key}));
-        var values = kanbanLs.get('values', kanbanDefaultValues);
-        kanbanTitleEl.value = kanbanLs.get('title','圆机打样生产数据看板 V3.0');
-        document.getElementById('kanbanStart').value = values.start;
-        document.getElementById('kanbanEnd').value = values.end;
-        document.getElementById('kanbanMemo').value = kanbanLs.get('memo','');
-        kanbanRenderStats(values);
-
-        var grid = document.getElementById('kanbanGrid');
-        grid.innerHTML = '';
-        order.forEach(function(key) {
-            var cardDef = kanbanCards.find(function(c){return c.key===key});
-            var label = cardDef.label;
-            var val = values[key] ?? 0;
-            var card = document.createElement('div');
-            card.className = 'kanban-card';
-            card.draggable = true;
-            card.dataset.key = key;
-
-            var alert = kanbanCheckAlert(key, val, values);
-            if(alert.type) card.classList.add(alert.type);
-
-            var icon = alert.type
-                ? '<svg class="kanban-alert-icon" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>'
-                : '';
-
-            card.innerHTML = '<div class="kanban-card-label">' + icon + label + '</div><div class="kanban-card-row"><input type="number" value="' + val + '" data-key="' + key + '"><span class="kanban-card-unit">单</span></div>';
-            grid.appendChild(card);
-        });
-    }
-
-    /* ═══ 统计面板 ═══ */
-    function kanbanCalcStats(v){
-        return [
-            {label:'生产完成率', value: v.orders>0?((v.production/v.orders)*100).toFixed(1)+'%':'0%', type: v.orders>0&&v.production/v.orders>=0.9?'success':''},
-            {label:'平板机完成率', value: v.flatbed>0?((v.flatbedCompleted/v.flatbed)*100).toFixed(1)+'%':'0%', type: v.flatbed>0&&v.flatbedCompleted/v.flatbed>=0.9?'success':''},
-            {label:'异常率', value: v.production>0?(((v.rework+v.scrap+v.reprint)/v.production)*100).toFixed(1)+'%':'0%', type: v.production>0&&(v.rework+v.scrap+v.reprint)/v.production>0.15?'danger':(v.rework+v.scrap+v.reprint)/v.production>0.1?'warning':''},
-            {label:'排单率', value: v.orders>0?(((v.orders-v.unplanned)/v.orders)*100).toFixed(1)+'%':'0%', type: v.unplanned>0?'warning':'success'},
-            {label:'回修率', value: v.production>0?((v.rework/v.production)*100).toFixed(1)+'%':'0%', type: v.production>0&&v.rework/v.production>0.15?'danger':v.rework/v.production>0.1?'warning':''},
-            {label:'报废率', value: v.production>0?((v.scrap/v.production)*100).toFixed(1)+'%':'0%', type: v.production>0&&v.scrap/v.production>0.05?'danger':v.scrap/v.production>0.03?'warning':''}
-        ];
-    }
-
-    function kanbanRenderStats(values){
-        var stats = kanbanCalcStats(values);
-        document.getElementById('kanbanStatsGrid').innerHTML = stats.map(function(s) {
-            return '<div class="kanban-stat-item ' + (s.type||'') + '"><div class="kanban-stat-label">' + s.label + '</div><div class="kanban-stat-value" data-kanban-stat="' + s.label + '">' + s.value + '</div></div>';
-        }).join('');
-        stats.forEach(function(s) {
-            var el = document.querySelector('[data-kanban-stat="' + s.label + '"]');
-            if(el && kanbanPrevStats[s.label] !== undefined) kanbanAnimNum(el, s.value, kanbanPrevStats[s.label]);
-        });
-        stats.forEach(function(s) { kanbanPrevStats[s.label] = s.value; });
-    }
-
-    /* ═══ 告警 ═══ */
-    function kanbanCheckAlert(key, val, v){
-        if(key==='urgent' && val>20) return {type:'warning'};
-        if(key==='unplanned' && val>0) return {type:'warning'};
-        if(key==='rework' && v.production>0 && val/v.production>0.15) return {type:'danger'};
-        if(key==='scrap' && v.production>0 && val/v.production>0.05) return {type:'danger'};
-        return {type:null};
-    }
-
-    /* ═══ Excel导出 ═══ */
-    function kanbanExportToExcel(){
-        var v = kanbanLs.get('values',kanbanDefaultValues), memo = kanbanLs.get('memo',''), stats = kanbanCalcStats(v);
-        var data = [
-            ['圆机打样生产数据看板 V3.0'],[''],
-            ['日期范围',v.start,'至',v.end],[''],
-            ['--- 核心指标 ---'],
-            ...kanbanCards.map(function(c){return [c.label, v[c.key]||0, '单']}),[''],
-            ['--- 统计数据 ---'],
-            ...stats.map(function(s){return [s.label, s.value]}),[''],
-            ['--- 备注 ---'],[memo]
-        ];
-        var ws = XLSX.utils.aoa_to_sheet(data);
-        var wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, '生产数据');
-        XLSX.writeFile(wb, '圆机打样生产数据_' + v.start + '_' + v.end + '.xlsx');
-    }
-
-    /* ═══ 快照 ═══ */
-    function kanbanSaveSnapshot(){
-        var data = { values:kanbanLs.get('values',kanbanDefaultValues), order:kanbanLs.get('order',kanbanCards.map(function(c){return c.key})), title:kanbanLs.get('title','圆机打样生产数据看板 V3.0'), memo:kanbanLs.get('memo',''), date:new Date().toISOString() };
-        var snaps = kanbanLs.get('snapshots',[]);
-        snaps.unshift(data);
-        if(snaps.length>3) snaps.pop();
-        kanbanLs.set('snapshots',snaps);
-        alert('快照已保存（保留最近3次）');
-    }
-    function kanbanRestoreSnapshot(){
-        var snaps = kanbanLs.get('snapshots',[]);
-        if(!snaps.length){alert('暂无快照记录');return;}
-        var str = snaps.map(function(s,i){return (i+1)+'. '+new Date(s.date).toLocaleString()}).join('\n');
-        var idx = prompt('选择要恢复的快照：\n'+str+'\n\n输入序号（1-'+snaps.length+'）');
-        if(!idx) return;
-        var n = parseInt(idx)-1;
-        if(n<0||n>=snaps.length){alert('序号无效');return;}
-        var snap = snaps[n];
-        if(!confirm('确定恢复 '+new Date(snap.date).toLocaleString()+' 的快照吗？')) return;
-        kanbanLs.set('values',snap.values); kanbanLs.set('order',snap.order);
-        kanbanLs.set('title',snap.title); kanbanLs.set('memo',snap.memo);
-        kanbanPrevStats = {}; kanbanRender(); alert('快照已恢复');
-    }
-
-    /* ═══ 清零 ═══ */
-    function kanbanClearData(){
-        if(!confirm('确定清空所有数据吗？此操作不可恢复。')) return;
-        var z = {};
-        Object.keys(kanbanDefaultValues).forEach(function(k){z[k]=kanbanDefaultValues[k]});
-        kanbanCards.forEach(function(c){z[c.key]=0});
-        kanbanLs.set('values',z); kanbanLs.set('memo','');
-        kanbanPrevStats = {}; kanbanRender(); alert('数据已清零');
-    }
-
-    /* ═══ 导出页面 ═══ */
-    function kanbanExportPage(){
-        var blob = new Blob([document.documentElement.outerHTML],{type:'text/html'});
-        var a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = '圆机打样看板V3.html';
-        a.click(); URL.revokeObjectURL(a.href);
-    }
-
-    /* ═══ 拖拽 ═══ */
-    function kanbanInitDrag(){
-        var dragged = null, ph = null;
-        var grid = document.getElementById('kanbanGrid');
-
-        grid.addEventListener('dragstart', function(e) {
-            var c = e.target.closest('.kanban-card'); if(!c) return;
-            dragged = c; c.classList.add('dragging');
-            ph = document.createElement('div');
-            ph.className = 'kanban-card drag-placeholder';
-            ph.style.height = c.offsetHeight+'px';
-            setTimeout(function(){grid.insertBefore(ph,dragged)},0);
-        });
-        grid.addEventListener('dragend', function(){
-            if(!dragged) return;
-            dragged.classList.remove('dragging');
-            if(ph && ph.parentNode) ph.remove();
-            grid.querySelectorAll('.drop-target').forEach(function(e){e.classList.remove('drop-target')});
-            dragged = ph = null;
-        });
-        grid.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            var c = e.target.closest('.kanban-card');
-            if(!c||c===dragged) return;
-            grid.querySelectorAll('.drop-target').forEach(function(e){e.classList.remove('drop-target')});
-            c.classList.add('drop-target');
-        });
-        grid.addEventListener('dragleave', function(e) {
-            var c = e.target.closest('.kanban-card');
-            if(c&&!c.contains(e.relatedTarget)) c.classList.remove('drop-target');
-        });
-        grid.addEventListener('drop', function(e) {
-            e.preventDefault();
-            var after = e.target.closest('.kanban-card');
-            if(!after||!dragged||after===dragged) return;
-            var all = Array.from(grid.children).filter(function(c){return c.classList.contains('kanban-card')||c.classList.contains('drag-placeholder')});
-            var ai = all.indexOf(after), di = all.indexOf(dragged);
-            if(ph && ph.parentNode) ph.remove();
-            grid.insertBefore(dragged, ai>di ? after.nextSibling : after);
-            kanbanLs.set('order', Array.from(grid.children).filter(function(c){return c.classList.contains('kanban-card')}).map(function(c){return c.dataset.key}));
-            grid.querySelectorAll('.drop-target').forEach(function(e){e.classList.remove('drop-target')});
-        });
-
-        /* 触摸拖拽 */
-        var td = null, tph = null, sx = 0, sy = 0;
-        grid.addEventListener('touchstart', function(e) {
-            var c = e.target.closest('.kanban-card'); if(!c) return;
-            sx = e.touches[0].clientX; sy = e.touches[0].clientY; td = c;
-        },{passive:true});
-        grid.addEventListener('touchmove', function(e) {
-            if(!td) return;
-            var dx = Math.abs(e.touches[0].clientX-sx), dy = Math.abs(e.touches[0].clientY-sy);
-            if(dx>10||dy>10){
-                td.classList.add('dragging');
-                if(!tph){
-                    tph = document.createElement('div');
-                    tph.className = 'kanban-card drag-placeholder';
-                    tph.style.height = td.offsetHeight+'px';
-                    grid.insertBefore(tph, td);
-                }
-                var below = document.elementFromPoint(e.touches[0].clientX,e.touches[0].clientY);
-                if(below) below = below.closest('.kanban-card');
-                grid.querySelectorAll('.drop-target').forEach(function(e){e.classList.remove('drop-target')});
-                if(below&&below!==td){
-                    below.classList.add('drop-target');
-                    var all = Array.from(grid.children).filter(function(c){return c.classList.contains('kanban-card')||c.classList.contains('drag-placeholder')});
-                    var bi = all.indexOf(below), pi = all.indexOf(tph);
-                    grid.insertBefore(tph, bi<pi ? below : below.nextSibling);
-                }
-            }
-        },{passive:false});
-        grid.addEventListener('touchend', function(){
-            if(!td) return;
-            td.classList.remove('dragging');
-            if(tph&&tph.parentNode){
-                grid.insertBefore(td, tph); tph.remove();
-                kanbanLs.set('order', Array.from(grid.children).filter(function(c){return c.classList.contains('kanban-card')}).map(function(c){return c.dataset.key}));
-            }
-            grid.querySelectorAll('.drop-target').forEach(function(e){e.classList.remove('drop-target')});
-            td = tph = null;
-        });
-    }
-
-    /* ═══ 打印 ═══ */
-    function kanbanUpdatePrint(){
-        var now = new Date(), v = kanbanLs.get('values',kanbanDefaultValues);
-        var pd = document.getElementById('kanbanPrintDate');
-        var pr = document.getElementById('kanbanPrintDateRange');
-        var pt = document.getElementById('kanbanPrintTimestamp');
-        var pp = document.getElementById('kanbanPrintPageNum');
-        if(pd) pd.textContent = now.toLocaleDateString('zh-CN');
-        if(pr) pr.textContent = v.start + ' \u2014 ' + v.end;
-        if(pt) pt.textContent = now.toLocaleString('zh-CN');
-        if(pp) pp.textContent = '';
-        window.onbeforeprint = kanbanUpdatePrint;
-    }
-    (function(){ var s=document.createElement('style'); s.textContent='@page{counter-increment:page;}#kanbanPrintPageNum::before{content:counter(page);}'; document.head.appendChild(s); })();
-
-    /* ═══ 事件 ═══ */
-    function kanbanInitEvents(){
-        kanbanInitDrag();
-        document.addEventListener('input', function(e) {
-            if(e.target.matches('#kanbanGrid input[type=number]')){
-                var v = kanbanLs.get('values',kanbanDefaultValues);
-                v[e.target.dataset.key] = +e.target.value;
-                kanbanLs.set('values',v); kanbanRenderStats(v);
-            }
-            if(e.target.matches('#kanbanStart,#kanbanEnd')){var v=kanbanLs.get('values',kanbanDefaultValues);v[e.target.id.replace('kanban','').toLowerCase()]=e.target.value;kanbanLs.set('values',v);}
-            if(e.target.matches('#kanbanMemo')) kanbanLs.set('memo',e.target.value);
-            if(e.target.matches('#kanbanTitleEdit')) kanbanLs.set('title',e.target.value);
-        });
-        document.addEventListener('change', function(e) {
-            if(e.target.matches('#kanbanGrid input[type=number]')) kanbanRender();
-        });
-        kanbanUpdatePrint();
-    }
-
-    kanbanRender();
-    kanbanInitEvents();
-    </script>
+    </section>
+    </main>
 
 </body>
 </html>
