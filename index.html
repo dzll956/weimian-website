@@ -94,18 +94,16 @@
         .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
         .section-title { font-size: 18px; font-weight: 600; color: var(--text-1); }
         .section-desc { font-size: 13px; color: var(--text-3); }
-        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 740px; }
         .card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-4); padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
         .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), #6AA1FF); opacity: 0; transition: opacity 0.25s; }
         .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
         .card:hover::after { opacity: 1; }
         .card-icon { width: 44px; height: 44px; border-radius: var(--radius-3); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; flex-shrink: 0; }
         .card-icon.blue { background: #E8F3FF; }
-        .card-icon.purple { background: #F5E8FF; }
         .card-icon.orange { background: #FFF3E8; }
         .card-tag { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 12px; font-weight: 500; margin-bottom: 12px; width: fit-content; }
         .card-tag.blue { background: #E8F3FF; color: #165DFF; }
-        .card-tag.purple { background: #F5E8FF; color: #722ED1; }
         .card-tag.orange { background: #FFF3E8; color: #FF7D00; }
         .card h2 { font-size: 18px; font-weight: 600; color: var(--text-1); margin-bottom: 8px; letter-spacing: 1px; }
         .card p { color: var(--text-3); font-size: 14px; line-height: 1.6; flex-grow: 1; }
@@ -115,10 +113,6 @@
         .card-action svg { width: 14px; height: 14px; transition: transform 0.2s; }
         .card:hover .card-action svg { transform: translateX(2px); }
         .card-meta { font-size: 12px; color: var(--text-4); }
-
-        .footer { text-align: center; padding: 32px 40px; border-top: 1px solid var(--border); color: var(--text-4); font-size: 13px; }
-        .footer a { color: var(--text-3); text-decoration: none; transition: color 0.2s; }
-        .footer a:hover { color: var(--primary); }
 
         @media (max-width: 900px) {
             .card-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
@@ -146,7 +140,7 @@
     <section class="hero">
         <div class="hero-badge">作品集 Portfolio</div>
         <h1>用心呈现<span>每一个作品</span></h1>
-        <p>从建筑设计到 AI 协作指南，从生产管理到数据可视化 — 探索我们精心打造的数字作品。</p>
+        <p>从建筑设计到生产管理 — 探索我们精心打造的数字作品。</p>
     </section>
     <section class="section">
         <div class="section-header">
