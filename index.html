@@ -96,7 +96,7 @@
         .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
         .section-title { font-size: 18px; font-weight: 600; color: var(--text-1); }
         .section-desc { font-size: 13px; color: var(--text-3); }
-        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+        .card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 740px; margin: 0 auto; }
         .card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-4); padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
         .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), #6AA1FF); opacity: 0; transition: opacity 0.25s; }
         .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
@@ -141,6 +141,7 @@
             <a href="https://weimian.store/forbidden-city/">故宫</a>
             <a href="https://weimian.store/production-report/">生产汇报</a>
             <a href="https://weimian.store/kanban/">看板</a>
+            <a href="https://weimian.store/flight-order/">飞机单</a>
         </div>
     </nav>
     </header>
@@ -153,7 +154,7 @@
     <section class="section" aria-labelledby="works-title">
         <div class="section-header">
             <span class="section-title" id="works-title">全部作品</span>
-            <span class="section-desc" aria-live="polite">共 3 个项目</span>
+            <span class="section-desc" aria-live="polite">共 4 个项目</span>
         </div>
         <div class="card-grid" role="list">
             <a href="https://weimian.store/forbidden-city/" class="card" role="listitem" aria-label="故宫 — 中国古代建筑群之巅峰">
@@ -181,6 +182,16 @@
                 <span class="card-tag green">数据看板</span>
                 <h2>打样看板</h2>
                 <p>圆机打样生产数据看板 — 接单、生产、余单、回修、报废等核心数据实时录入，支持拖拽排序、Excel 导出与快照恢复。</p>
+                <div class="card-footer">
+                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                    <span class="card-meta">Web</span>
+                </div>
+            </a>
+            <a href="https://weimian.store/flight-order/" class="card" role="listitem" aria-label="飞机单数据表 — 飞行订单数据管理与追踪">
+                <div class="card-icon blue" aria-hidden="true">✈️</div>
+                <span class="card-tag blue">数据管理</span>
+                <h2>飞机单数据表</h2>
+                <p>飞行订单数据管理与追踪 — 结构化记录飞机单信息，支持数据录入、查询与导出。</p>
                 <div class="card-footer">
                     <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
                     <span class="card-meta">Web</span>
