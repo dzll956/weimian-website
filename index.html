@@ -3,192 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>微面 · 作品集</title>
-    <meta name="description" content="微面作品集 — 从建筑设计到生产管理，探索精心打造的数字作品。">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="微面 · 作品集">
-    <meta property="og:description" content="从建筑设计到生产管理 — 探索精心打造的数字作品。">
-    <meta property="og:url" content="https://weimian.store">
-    <meta property="og:site_name" content="微面">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="微面 · 作品集">
-    <meta name="twitter:description" content="从建筑设计到生产管理 — 探索精心打造的数字作品。">
-    <link rel="canonical" href="https://weimian.store">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23165DFF'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='sans-serif'>微</text></svg>">
-    <script>
-    (function(){
-        var _0x1a2b=['YWNjZXNz','c2Vzc2lvblN0b3JhZ2U=','Z2V0SXRlbQ==','c2V0SXRlbQ=='];
-        var k=atob('d2VpbWlhbmhhaGE=');
-        if(sessionStorage.getItem(atob(_0x1a2b[2]))!==atob(_0x1a2b[0])){
-        function init(){
-            var ov=document.createElement('div');ov.id='pw-overlay';
-            ov.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(29,33,41,0.6);display:flex;align-items:center;justify-content:center;z-index:99999;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif';
-            var b=document.createElement('div');b.style.cssText='background:#fff;border-radius:12px;padding:40px;text-align:center;box-shadow:0 12px 32px rgba(0,0,0,0.2);max-width:380px;width:90%';
-            var t=document.createElement('h2');t.style.cssText='color:#1D2129;font-size:20px;font-weight:600;margin-bottom:6px;letter-spacing:2px';t.textContent='微面';
-            var s=document.createElement('p');s.style.cssText='color:#86909C;font-size:14px;margin-bottom:24px';s.textContent='请输入访问密码';
-            var inp=document.createElement('input');inp.type='password';inp.placeholder='输入密码';inp.style.cssText='width:100%;padding:8px 12px;border:1px solid #E5E6EB;border-radius:6px;font-size:14px;outline:none;text-align:center;background:#F7F8FA;font-family:inherit;transition:border-color 0.2s';
-            inp.onfocus=function(){inp.style.borderColor='#165DFF'};inp.onblur=function(){inp.style.borderColor='#E5E6EB'};
-            var btn=document.createElement('button');btn.textContent='确认';btn.style.cssText='margin-top:16px;padding:8px 32px;background:#165DFF;color:#fff;border:none;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;transition:background 0.2s';
-            btn.onmouseenter=function(){btn.style.background='#4080FF'};btn.onmouseleave=function(){btn.style.background='#165DFF'};
-            var msg=document.createElement('p');msg.style.cssText='color:#F53F3F;font-size:12px;margin-top:12px;min-height:18px';
-            function tryPass(){if(inp.value===k){sessionStorage.setItem(atob(_0x1a2b[2]),atob(_0x1a2b[0]));ov.remove()}else{msg.textContent='密码错误，请重试';inp.value='';inp.focus()}}
-            btn.onclick=tryPass;inp.onkeydown=function(e){if(e.key==='Enter')tryPass()};
-            b.appendChild(t);b.appendChild(s);b.appendChild(inp);b.appendChild(btn);b.appendChild(msg);ov.appendChild(b);document.body.appendChild(ov);inp.focus();
-        }
-        if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-        }})();
-    </script>
+    <title>个人网站 - Modern Minimalist</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=DejaVu+Sans:wght@400;700&display=swap');
 
-        :root {
-            --primary: #165DFF;
-            --primary-light: #E8F3FF;
-            --text-1: #1D2129;
-            --text-2: #4E5969;
-            --text-3: #86909C;
-            --text-4: #C9CDD4;
-            --border: #E5E6EB;
-            --fill-2: #F2F3F5;
-            --bg-1: #FFFFFF;
-            --bg-2: #F7F8FA;
-            --shadow-2: 0 8px 16px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1);
-            --radius-2: 6px;
-            --radius-3: 8px;
-            --radius-4: 12px;
-            --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: var(--font-family);
-            background: var(--bg-2);
-            color: var(--text-1);
-            line-height: 1.5715;
+            font-family: 'DejaVu Sans', sans-serif;
+            color: #36454f;
+            background-color: #ffffff;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #d3d3d3;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #36454f;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #36454f;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #708090;
+        }
+
+        .hero {
             min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
         }
 
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; height: 60px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 40px; z-index: 100;
+        .hero h1 {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            color: #36454f;
+            margin-bottom: 1rem;
         }
-        .navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-1); }
-        .navbar-logo { width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), #6AA1FF); border-radius: var(--radius-2); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 16px; }
-        .navbar-title { font-size: 16px; font-weight: 600; letter-spacing: 1px; }
-        .navbar-subtitle { font-size: 13px; color: var(--text-3); margin-left: 8px; font-weight: 400; }
-        .navbar-links { display: flex; gap: 24px; }
-        .navbar-links a { color: var(--text-2); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-        .navbar-links a:hover { color: var(--primary); }
 
-        .hero { padding: 140px 40px 60px; text-align: center; max-width: 800px; margin: 0 auto; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 14px; background: var(--primary-light); color: var(--primary); border-radius: 100px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
-        .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
-        .hero h1 { font-size: 42px; font-weight: 700; color: var(--text-1); margin-bottom: 16px; letter-spacing: 2px; line-height: 1.3; }
-        .hero h1 span { background: linear-gradient(135deg, var(--primary), #6AA1FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero p { font-size: 16px; color: var(--text-3); max-width: 480px; margin: 0 auto; line-height: 1.7; }
-
-        .section { max-width: 1100px; margin: 0 auto; padding: 20px 40px 80px; }
-        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-        .section-title { font-size: 18px; font-weight: 600; color: var(--text-1); }
-        .section-desc { font-size: 13px; color: var(--text-3); }
-        .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
-        .card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius-4); padding: 28px 24px; text-decoration: none; color: inherit; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-        .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), #6AA1FF); opacity: 0; transition: opacity 0.25s; }
-        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: transparent; }
-        .card:hover::after { opacity: 1; }
-        .card-icon { width: 44px; height: 44px; border-radius: var(--radius-3); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; flex-shrink: 0; }
-        .card-icon.blue { background: #E8F3FF; }
-        .card-icon.orange { background: #FFF3E8; }
-        .card-icon.green { background: #E8FFF5; }
-        .card-tag { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 12px; font-weight: 500; margin-bottom: 12px; width: fit-content; }
-        .card-tag.blue { background: #E8F3FF; color: #165DFF; }
-        .card-tag.orange { background: #FFF3E8; color: #FF7D00; }
-        .card-tag.green { background: #E8FFF5; color: #0d9e7e; }
-        .card h2 { font-size: 18px; font-weight: 600; color: var(--text-1); margin-bottom: 8px; letter-spacing: 1px; }
-        .card p { color: var(--text-3); font-size: 14px; line-height: 1.6; flex-grow: 1; }
-        .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--fill-2); }
-        .card-action { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--primary); font-weight: 500; transition: gap 0.2s; }
-        .card:hover .card-action { gap: 8px; }
-        .card-action svg { width: 14px; height: 14px; transition: transform 0.2s; }
-        .card:hover .card-action svg { transform: translateX(2px); }
-        .card-meta { font-size: 12px; color: var(--text-4); }
-
-        @media (max-width: 900px) {
-            .card-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
-            .navbar { padding: 0 20px; }
-            .navbar-links { display: none; }
-            .hero { padding: 120px 20px 40px; }
-            .hero h1 { font-size: 30px; }
-            .section { padding: 20px 20px 60px; }
+        .hero p {
+            font-size: 1.2rem;
+            color: #708090;
+            margin-bottom: 2rem;
+            max-width: 600px;
         }
-        @media (max-width: 640px) { .navbar-subtitle { display: none; } }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #36454f;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #708090;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: #36454f;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background-color: #708090;
+        }
+
+        #about {
+            background-color: #f8f8f8;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: #708090;
+            margin-bottom: 1.5rem;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1.2rem;
+            background-color: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 20px;
+            color: #36454f;
+            font-size: 0.9rem;
+        }
+
+        #projects {
+            padding: 5rem 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background-color: #ffffff;
+            border: 1px solid #d3d3d3;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, #708090 0%, #36454f 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 2rem;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #36454f;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: #708090;
+            font-size: 0.9rem;
+        }
+
+        #contact {
+            background-color: #f8f8f8;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #708090;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: #36454f;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: 1px solid #d3d3d3;
+            border-radius: 4px;
+            font-family: 'DejaVu Sans', sans-serif;
+            color: #36454f;
+            background-color: #ffffff;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-form button {
+            padding: 1rem 2rem;
+            background-color: #36454f;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #708090;
+        }
+
+        footer {
+            background-color: #36454f;
+            color: #ffffff;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #d3d3d3;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-    <nav class="navbar" aria-label="主导航">
-        <a href="#" class="navbar-brand" aria-label="微面 - 返回首页">
-            <div class="navbar-logo" aria-hidden="true">微</div>
-            <span class="navbar-title">微面</span>
-            <span class="navbar-subtitle">weimian.store</span>
-        </a>
-        <div class="navbar-links" role="navigation">
-            <a href="https://weimian.store/forbidden-city/">故宫</a>
-            <a href="https://weimian.store/production-report/">生产汇报</a>
-            <a href="https://weimian.store/kanban/">看板</a>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">MY PROFILE</a>
+            <ul class="nav-links">
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目作品</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
         </div>
     </nav>
-    </header>
-    <main>
-    <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-badge" aria-hidden="true">作品集 Portfolio</div>
-        <h1 id="hero-title">用心呈现<span>每一个作品</span></h1>
-        <p>从建筑设计到生产管理 — 探索我们精心打造的数字作品。</p>
-    </section>
-    <section class="section" aria-labelledby="works-title">
-        <div class="section-header">
-            <span class="section-title" id="works-title">全部作品</span>
-            <span class="section-desc" aria-live="polite">共 3 个项目</span>
-        </div>
-        <div class="card-grid" role="list">
-            <a href="https://weimian.store/forbidden-city/" class="card" role="listitem" aria-label="故宫 — 中国古代建筑群之巅峰">
-                <div class="card-icon blue" aria-hidden="true">🏛️</div>
-                <span class="card-tag blue">建筑图解</span>
-                <h2>故宫</h2>
-                <p>中国古代建筑群之巅峰 — 紫禁城建筑图解网站，展示故宫的完整空间布局、建筑要素与规格数据。</p>
-                <div class="card-footer">
-                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-                    <span class="card-meta">Web</span>
-                </div>
-            </a>
-            <a href="https://weimian.store/production-report/" class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报">
-                <div class="card-icon orange" aria-hidden="true">📊</div>
-                <span class="card-tag orange">生产管理</span>
-                <h2>生产周汇报</h2>
-                <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
-                <div class="card-footer">
-                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-                    <span class="card-meta">Web</span>
-                </div>
-            </a>
-            <a href="https://weimian.store/kanban/" class="card" role="listitem" aria-label="打样看板 — 圆机打样生产数据看板">
-                <div class="card-icon green" aria-hidden="true">📋</div>
-                <span class="card-tag green">数据看板</span>
-                <h2>打样看板</h2>
-                <p>圆机打样生产数据看板 — 接单、生产、余单、回修、报废等核心数据实时录入，支持拖拽排序、Excel 导出与快照恢复。</p>
-                <div class="card-footer">
-                    <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-                    <span class="card-meta">Web</span>
-                </div>
-            </a>
-        </div>
-    </section>
-    </main>
 
+    <section class="hero">
+        <h1>你好，我是创作者</h1>
+        <p>专注于创造优雅的数字体验，将创意转化为卓越的产品</p>
+        <a href="#about" class="btn">了解更多</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">关于我</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>我是一名充满热情的设计师/开发者，拥有多年的行业经验。我致力于创造简洁、优雅且功能强大的数字产品。</p>
+                <p>我相信好的设计应该是隐形的，它应该自然而然地引导用户完成任务，同时带来愉悦的体验。</p>
+                <div class="skills">
+                    <span class="skill-tag">UI/UX 设计</span>
+                    <span class="skill-tag">前端开发</span>
+                    <span class="skill-tag">品牌设计</span>
+                    <span class="skill-tag">用户研究</span>
+                    <span class="skill-tag">原型设计</span>
+                </div>
+            </div>
+            <div class="about-image">
+                <div style="width: 300px; height: 300px; border-radius: 50%; background: linear-gradient(135deg, #708090 0%, #36454f 100%); display: flex; justify-content: center; align-items: center; color: white; font-size: 3rem;">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title">项目作品</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">电商平台</h3>
+                    <p class="project-description">为知名电商品牌打造的全新用户界面，提升转化率超过30%。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">移动应用</h3>
+                    <p class="project-description">跨平台移动应用设计，提供流畅的用户体验。</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">数据可视化</h3>
+                    <p class="project-description">企业级数据仪表盘，帮助用户快速洞察业务数据。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title">联系方式</h2>
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>北京市朝阳区科技园区</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>hello@example.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+86 138 0000 0000</span>
+                </div>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="您的姓名" required>
+                <input type="email" placeholder="您的邮箱" required>
+                <textarea placeholder="留言内容" required></textarea>
+                <button type="submit">发送消息</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>&copy; 2024 我的个人网站. 保留所有权利.</p>
+    </footer>
 </body>
 </html>
