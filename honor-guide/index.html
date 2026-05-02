@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王者荣耀 - 辅助意识教学</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a1628;
+            --secondary: #1a2f4a;
+            --accent: #ff6b00;
+            --gold: #ffd700;
+            --blue: #00d4ff;
+            --purple: #8b5cf6;
+            --green: #10b981;
+            --red: #ef4444;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 107, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+            animation: bgRotate 30s linear infinite;
+        }
+
+        @keyframes bgRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 8s infinite;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% { opacity: 0; transform: translateY(100vh) scale(0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(10, 22, 40, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        main {
+            position: relative;
+            z-index: 10;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero {
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: var(--primary);
+            border: none;
+            box-shadow: 0 4px 30px rgba(255, 107, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px rgba(255, 107, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--text-muted);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero-decoration {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.2) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 0, 0.2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-top: -1rem;
+        }
+
+        .section-title .highlight {
+            color: var(--gold);
+        }
+
+        .section-intro {
+            max-width: 800px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            padding: 1.5rem 2rem;
+            background: rgba(26, 47, 74, 0.3);
+            border-radius: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(26, 47, 74, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 60px rgba(255, 107, 0, 0.2);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card-detail {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-detail p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 107, 0, 0.1));
+            border: 1px solid var(--gold);
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .tip-box h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-box ul {
+            list-style: none;
+        }
+
+        .tip-box li {
+            padding: 0.5rem 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .tip-box li::before {
+            content: '▸';
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .case-study {
+            background: rgba(26, 47, 74, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .case-study h4 {
+            color: var(--blue);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .case-study p {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .case-study .scenario {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 3px solid var(--blue);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .case-study .action {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .steps-container {
+            display: flex;
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .step:nth-child(1) .step-number {
+            background: linear-gradient(135deg, var(--accent), #ff8c00);
+            box-shadow: 0 0 40px rgba(255, 107, 0, 0.4);
+        }
+
+        .step:nth-child(2) .step-number {
+            background: linear-gradient(135deg, var(--blue), #0099cc);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .step:nth-child(3) .step-number {
+            background: linear-gradient(135deg, var(--purple), #6d28d9);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--gold);
+        }
+
+        .step p {
+            color: var(--text-muted);
+        }
+
+        .step-detail {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .step-detail p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .step-arrow {
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--gold);
+            opacity: 0.5;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .comparison-card {
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid;
+        }
+
+        .comparison-card.good {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--green);
+        }
+
+        .comparison-card.bad {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--red);
+        }
+
+        .comparison-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-card.good h3 {
+            color: var(--green);
+        }
+
+        .comparison-card.bad h3 {
+            color: var(--red);
+        }
+
+        .comparison-card ul {
+            list-style: none;
+        }
+
+        .comparison-card li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-card li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-detail {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .comparison-detail p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .priority-list {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .priority-item {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.5rem 2rem;
+            background: rgba(26, 47, 74, 0.5);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .priority-item:hover {
+            transform: translateX(10px);
+            background: rgba(26, 47, 74, 0.8);
+        }
+
+        .priority-item:nth-child(1) { border-color: var(--gold); }
+        .priority-item:nth-child(2) { border-color: var(--accent); }
+        .priority-item:nth-child(3) { border-color: var(--blue); }
+        .priority-item:nth-child(4) { border-color: var(--text-muted); }
+
+        .priority-rank {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            width: 60px;
+            text-align: center;
+        }
+
+        .priority-item:nth-child(1) .priority-rank { color: var(--gold); }
+        .priority-item:nth-child(2) .priority-rank { color: var(--accent); }
+        .priority-item:nth-child(3) .priority-rank { color: var(--blue); }
+        .priority-item:nth-child(4) .priority-rank { color: var(--text-muted); }
+
+        .priority-content h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .priority-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .priority-skill {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .priority-skill strong {
+            color: var(--gold);
+        }
+
+        .priority-role {
+            margin-left: auto;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .priority-item:nth-child(1) .priority-role {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--gold);
+        }
+
+        .priority-item:nth-child(2) .priority-role {
+            background: rgba(255, 107, 0, 0.2);
+            color: var(--accent);
+        }
+
+        .priority-item:nth-child(3) .priority-role {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--blue);
+        }
+
+        .priority-item:nth-child(4) .priority-role {
+            background: rgba(148, 163, 184, 0.2);
+            color: var(--text-muted);
+        }
+
+        .type-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .type-card {
+            background: rgba(26, 47, 74, 0.5);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: scale(1.02);
+        }
+
+        .type-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .type-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .type-card:nth-child(1) .type-badge {
+            background: linear-gradient(135deg, var(--primary), #1e3a5f);
+            color: var(--gold);
+        }
+
+        .type-card:nth-child(2) .type-badge {
+            background: linear-gradient(135deg, #0c4a6e, #0284c7);
+            color: var(--blue);
+        }
+
+        .type-card:nth-child(3) .type-badge {
+            background: linear-gradient(135deg, #7c2d12, #ea580c);
+            color: var(--accent);
+        }
+
+        .type-card:nth-child(4) .type-badge {
+            background: linear-gradient(135deg, #1f2937, #374151);
+            color: var(--text);
+        }
+
+        .type-card h4 {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .type-style {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            margin-top: 1rem;
+        }
+
+        .type-detail {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .type-detail p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .hero-detail {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .hero-detail strong {
+            color: var(--gold);
+        }
+
+        .mistakes-list {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .mistake-item {
+            display: flex;
+            align-items: stretch;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(26, 47, 74, 0.5);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .mistake-text {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid var(--red);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mistake-text p {
+            color: var(--red);
+            font-weight: 500;
+        }
+
+        .mistake-explain {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .mistake-arrow {
+            font-size: 1.5rem;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+        }
+
+        .fix-text {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid var(--green);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .fix-text p {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .fix-detail {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .skill-timeline {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid rgba(255, 215, 0, 0.3);
+            margin-left: 1rem;
+        }
+
+        .timeline-item:last-child {
+            border-left-color: transparent;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -0.5rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .timeline-content {
+            background: rgba(26, 47, 74, 0.5);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .timeline-content h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .summary-section {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .summary-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(10px);
+        }
+
+        .summary-icon {
+            font-size: 2rem;
+        }
+
+        .summary-text {
+            font-size: 1.2rem;
+        }
+
+        .summary-text .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .summary-text .compare {
+            color: var(--text-muted);
+        }
+
+        .flow-diagram {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .flow-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: rgba(26, 47, 74, 0.5);
+            border-radius: 10px;
+            margin: 0.5rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .flow-arrow {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--secondary);
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        footer p {
+            color: var(--text-muted);
+        }
+
+        footer .highlight {
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--red);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .warning-box h4 {
+            color: var(--red);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .warning-box ul {
+            list-style: none;
+        }
+
+        .warning-box li {
+            padding: 0.5rem 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .warning-box li::before {
+            content: '⚠';
+            color: var(--red);
+        }
+
+        .progress-section {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .progress-stage {
+            display: flex;
+            align-items: stretch;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .progress-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .progress-stage:nth-child(1) .progress-icon {
+            background: linear-gradient(135deg, #64748b, #94a3b8);
+            box-shadow: 0 0 20px rgba(148, 163, 184, 0.3);
+        }
+
+        .progress-stage:nth-child(2) .progress-icon {
+            background: linear-gradient(135deg, var(--blue), #0099cc);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .progress-stage:nth-child(3) .progress-icon {
+            background: linear-gradient(135deg, var(--accent), #ff8c00);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+        }
+
+        .progress-stage:nth-child(4) .progress-icon {
+            background: linear-gradient(135deg, var(--gold), #ffaa00);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .progress-content h4 {
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+
+        .progress-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .progress-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .progress-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .mistake-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .mistake-arrow {
+                transform: rotate(90deg);
+            }
+
+            .priority-item {
+                flex-wrap: wrap;
+            }
+
+            .priority-role {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+
+            .progress-stage {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <nav>
+        <div class="logo">HONOR OF KINGS</div>
+        <ul class="nav-links">
+            <li><a href="#intro">核心定位</a></li>
+            <li><a href="#opening">开局思路</a></li>
+            <li><a href="#roam">游走支援</a></li>
+            <li><a href="#teamfight">团战站位</a></li>
+            <li><a href="#priority">保护优先</a></li>
+            <li><a href="#vision">视野布控</a></li>
+            <li><a href="#types">辅助类型</a></li>
+            <li><a href="#mistakes">常见错误</a></li>
+            <li><a href="#growth">成长路线</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-decoration"></div>
+            <div class="hero-content">
+                <span class="hero-badge">新赛季深度攻略</span>
+                <h1>
+                    王者荣耀<br>
+                    <span class="highlight">辅助意识教学</span>
+                </h1>
+                <p class="hero-subtitle">辅助玩家的必修课 · 从入门到精通</p>
+                <div class="hero-cta">
+                    <a href="#intro" class="btn btn-primary">
+                        开始学习
+                        <span>→</span>
+                    </a>
+                    <a href="#summary" class="btn btn-secondary">
+                        查看总结
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="intro">
+            <div class="section-header fade-in">
+                <div class="section-number">01</div>
+                <h2 class="section-title">辅助的<span class="highlight">核心定位</span>与职责</h2>
+            </div>
+            <p class="section-intro fade-in">
+                辅助是团队的"隐形核心"，虽然不直接输出伤害，但却是整个团队运转的润滑剂。一个优秀的辅助能够通过视野、控制、保护来扭转战局，是决定团队上限的关键角色。
+            </p>
+            <div class="card-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">🛡️</div>
+                    <h3>保护核心输出</h3>
+                    <p>射手和法师是团队的主要输出点，辅助的首要任务是确保他们的安全</p>
+                    <div class="card-detail">
+                        <p>团战时，辅助的站位应当始终在己方脆皮和敌方刺客之间。当敌方刺客（如李白、阿轲、兰陵王）消失在视野中时，要格外警惕，随时准备用控制技能打断其突进。保护核心的关键在于预判，而不是等队友被攻击后才反应。</p>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">⚡</div>
+                    <h3>提供控制与开团</h3>
+                    <p>在合适的时机使用控制技能，为团队创造输出空间或发起团战</p>
+                    <div class="card-detail">
+                        <p>开团的时机选择至关重要。优先开敌方走位失误或落单的英雄；团战前等待敌方关键技能（如东皇太一大招、妲己技能）的CD；开团后要立即跟进后续控制，避免敌方逃脱。</p>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">👁️</div>
+                    <h3>布控视野</h3>
+                    <p>掌握敌情，为团队提供信息优势，预防敌方gank和埋伏</p>
+                    <div class="card-detail">
+                        <p>视野是团队的信息来源。在龙坑、中路草丛、河道等关键位置放置视野，能够让团队提前预判敌方动向。软辅优先用技能探草，硬辅可以直接进草丛脸探。</p>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">💪</div>
+                    <h3>承受伤害</h3>
+                    <p>在关键时刻挺身而出，为队友创造输出空间和逃生机会</p>
+                    <div class="card-detail">
+                        <p>辅助是团队中最"不怕死"的位置，但要死得有价值。判断团战局势，如果己方C位能够继续输出，辅助应当尽可能拖延时间吸引火力；如果C位已经被秒，则可以选择性撤退保存实力。</p>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">🗺️</div>
+                    <h3>游走支援</h3>
+                    <p>配合打野进行地图游走，帮助各路建立优势</p>
+                    <div class="card-detail">
+                        <p>游走不是盲目乱跑，而是有目的性地帮助队友建立优势。中路抢线后配合打野入侵野区、反蹲敌方游走英雄；或者保护射手快速推塔、建立对线优势。</p>
+                    </div>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">📢</div>
+                    <h3>指挥与沟通</h3>
+                    <p>辅助是团队的大脑，需要及时传递信息和指挥决策</p>
+                    <div class="card-detail">
+                        <p>辅助因为不专注于操作，有更多精力观察全局。及时报点"敌方打野在中路"、"准备开龙"、"可以团了"等指令，能够让队友做出更好的决策。良好的沟通是团队配合的基础。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box fade-in">
+                <h4>💡 核心思维</h4>
+                <ul>
+                    <li>辅助不是躺，是整个团队的润滑剂和守护者</li>
+                    <li>辅助的价值不在于击杀数，而在于创造多少有效击杀机会</li>
+                    <li>辅助的每一次牺牲，都应该是为了换取更大的团队优势</li>
+                    <li>视野做得好，比拿十个人头更有用</li>
+                </ul>
+            </div>
+            <div class="case-study fade-in">
+                <h4>🎯 实战案例分析</h4>
+                <div class="scenario">
+                    <strong>场景：</strong>后期团战，敌方兰陵王消失。你方后羿正在输出，作为辅助张飞，你应该怎么做？
+                </div>
+                <p><span class="action">正确做法：</span>立即靠近后羿，将一技能护盾保持在手边，大招随时准备喷开切入的兰陵王。即使兰陵王从后方切入，也要第一时间用大招将其吼开，保护后羿的输出环境。</p>
+                <p style="margin-top: 0.5rem;"><span class="action">错误做法：</span>站在前排等待开团，没有注意到后方兰陵王的动向，导致后羿被秒杀后团战失败。</p>
+            </div>
+        </section>
+
+        <section id="opening">
+            <div class="section-header fade-in">
+                <div class="section-number">02</div>
+                <h2 class="section-title">开局思路与<span class="highlight">开局技巧</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                开局的前30秒往往决定了前期的节奏走向。一个好的开局能够帮助团队建立前期优势，为中后期的团战奠定基础。辅助需要在开局时快速判断局势，做出最有利的选择。
+            </p>
+            <div class="steps-container fade-in">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>帮打野看野区</h3>
+                    <p>30秒内确认对面打野开法</p>
+                    <div class="step-detail">
+                        <p>开局第一时间去敌方红/蓝buff区查看打野动向。站在buff草丛边缘观察而不进入，看到敌方打野位置后立即返回。如果敌方打野30秒时还未出现红蓝buff，说明他在另一个buff开。</p>
+                    </div>
+                    <span class="step-arrow">→</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>中路抢线</h3>
+                    <p>配合法师快速清线</p>
+                    <div class="step-detail">
+                        <p>抢完视野后快速回到中路，帮助法师清理第一波兵线。抢线成功后可以：配合打野入侵野区、反蹲敌方游走、或者保护射手快速推塔。</p>
+                    </div>
+                    <span class="step-arrow">→</span>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>选择支援方向</h3>
+                    <p>根据打野动向选择策略</p>
+                    <div class="step-detail">
+                        <p>如果打野准备入侵野区，辅助应该跟随；如果打野选择gank，辅助可以选择反蹲或配合；如果双方和平开局，优先帮助射手建立对线优势。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box fade-in">
+                <h4>🎮 开局黄金法则</h4>
+                <ul>
+                    <li><strong>不要盲目跟射手：</strong>开局阶段射手对线尚未开始，辅助应该先把视野和抢线做好</li>
+                    <li><strong>关注小地图：</strong>开局30秒内敌方打野位置是核心信息，及时报点</li>
+                    <li><strong>沟通是关键：</strong>开局前用语音或快捷消息告诉队友你的计划</li>
+                    <li><strong>灵活应变：</strong>根据敌方阵容和己方打野动向随时调整策略</li>
+                    <li><strong>保护自己：</strong>开局探视野时不要走太深，避免被敌方多人包夹</li>
+                </ul>
+            </div>
+            <div class="case-study fade-in">
+                <h4>📋 开局决策流程图</h4>
+                <div class="flow-diagram">
+                    <div class="flow-box">开局 → 看打野位置</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box">抢中路线权</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-box">判断支援方向</div>
+                    <br><br>
+                    <div class="flow-box" style="background: rgba(16, 185, 129, 0.2);">打野入侵 → 配合入侵</div>
+                    <span class="flow-arrow">或</span>
+                    <div class="flow-box" style="background: rgba(0, 212, 255, 0.2);">打野gank → 配合反蹲</div>
+                    <span class="flow-arrow">或</span>
+                    <div class="flow-box" style="background: rgba(255, 215, 0, 0.2);">和平开局 → 保射手</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="roam">
+            <div class="section-header fade-in">
+                <div class="section-number">03</div>
+                <h2 class="section-title">游走支援的<span class="highlight">时机判断</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                游走是辅助建立优势的核心手段，但盲目游走会导致射手被击杀、节奏崩盘。掌握游走的时机，是辅助进阶的关键技能。
+            </p>
+            <div class="comparison fade-in">
+                <div class="comparison-card good">
+                    <h3>✅ 适合游走的时机</h3>
+                    <ul>
+                        <li>✓ 射手安全清线时（塔下收兵，无压力）</li>
+                        <li>✓ 己方兵线优势时（兵线推到敌方塔下）</li>
+                        <li>✓ 打野准备入侵/gank时</li>
+                        <li>✓ 敌方关键技能交完后（如敌方射手刚交闪）</li>
+                    </ul>
+                    <div class="comparison-detail">
+                        <p><strong>判断标准：</strong>游走前看一眼小地图，确保三件事——射手位置安全、敌方打野不在附近、游走路线没有暴露风险。</p>
+                    </div>
+                </div>
+                <div class="comparison-card bad">
+                    <h3>❌ 不宜游走的时机</h3>
+                    <ul>
+                        <li>✗ 射手被压线/推塔时（塔即将被拆）</li>
+                        <li>✗ 敌方打野消失（可能有埋伏）</li>
+                        <li>✗ 龙即将刷新（30秒内）</li>
+                        <li>✗ 己方血量不健康时（容易被反杀）</li>
+                    </ul>
+                    <div class="comparison-detail">
+                        <p><strong>危险信号：</strong>如果不确定是否应该游走，那就留下来保护射手。保守的打法不会让你背锅。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box fade-in">
+                <h4>🎯 游走路线选择</h4>
+                <ul>
+                    <li><strong>中路河道游走：</strong>最常用路线，经过河道草丛时用技能探草</li>
+                    <li><strong>己方野区绕行：</strong>如果敌方可能有埋伏，从己方野区绕行更安全</li>
+                    <li><strong>配合打野入侵：</strong>入侵时保持与打野视野范围，不要单独行动</li>
+                    <li><strong>反蹲策略：</strong>如果判断敌方可能来gank，可以在草丛反蹲等待机会</li>
+                </ul>
+            </div>
+            <div class="case-study fade-in">
+                <h4>🎮 游走成功案例</h4>
+                <div class="scenario">
+                    <strong>场景：</strong>己方后羿和敌方鲁班七号对线，兵线在敌方塔下。你的大乔准备游走支援中路。
+                </div>
+                <p><span class="action">操作流程：</span></p>
+                <p>1. 确认后羿塔下收兵安全 → 2. 从河道快速移动到中路 → 3. 配合法师击杀敌方小乔 → 4. 利用大乔技能快速回线 → 5. 后羿已经推掉敌方一塔</p>
+                <p style="margin-top: 0.5rem;"><span class="action">结果：</span>成功帮助中路建立优势，同时没有让射手掉塔，实现双赢。</p>
+            </div>
+            <div class="warning-box fade-in">
+                <h4>⚠️ 游走注意事项</h4>
+                <ul>
+                    <li>游走后第一时间用信号通知射手，让他注意敌方游走</li>
+                    <li>游走时间不宜过长，超过10秒没有机会就立即回线</li>
+                    <li>软辅游走时要保持与队友的技能覆盖范围，以便随时支援</li>
+                    <li>如果游走失败导致射手死亡，这波游走就是亏的</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="teamfight">
+            <div class="section-header fade-in">
+                <div class="section-number">04</div>
+                <h2 class="section-title">团战站位与<span class="highlight">技能释放</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                团战是游戏中最激烈的时刻，辅助的站位和技能释放直接决定团战的走向。每一个控制技能、每一次保护，都可能成为团战胜负的关键。
+            </p>
+            <div class="comparison fade-in">
+                <div class="comparison-card" style="border-color: var(--blue); background: rgba(0, 212, 255, 0.05);">
+                    <h3 style="color: var(--blue);">📍 站位原则</h3>
+                    <ul>
+                        <li>1. 始终处于己方脆皮和敌方刺客之间</li>
+                        <li>2. 与队友保持适当距离（技能覆盖范围）</li>
+                        <li>3. 不要站在最前方承受不明伤害</li>
+                        <li>4. 团战开始前抢占有利地形</li>
+                    </ul>
+                    <div class="comparison-detail">
+                        <p><strong>地形利用：</strong>利用草丛、墙壁等地形，让敌方难以接近己方脆皮。团战时背靠墙壁可以防止被敌方突进绕后。</p>
+                    </div>
+                </div>
+                <div class="comparison-card" style="border-color: var(--accent); background: rgba(255, 107, 0, 0.05);">
+                    <h3 style="color: var(--accent);">⚡ 技能释放时机</h3>
+                    <ul>
+                        <li><strong style="color: var(--accent);">控制技能：</strong>等敌方关键人物出现再交</li>
+                        <li><strong style="color: var(--accent);">保护技能：</strong>己方脆皮被切时第一时间交</li>
+                        <li><strong style="color: var(--accent);">增益技能：</strong>己方输出准备输出时交</li>
+                        <li><strong style="color: var(--accent);">收割技能：</strong>敌方残血时交给打野收割</li>
+                    </ul>
+                    <div class="comparison-detail">
+                        <p><strong>关键原则：</strong>控制技能不要交给敌方前排，留给敌方核心输出或突进的刺客。保护技能要在伤害到来前交，而不是等队友残血才交。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-grid fade-in" style="margin-top: 2rem;">
+                <div class="card" style="background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), rgba(255, 215, 0, 0.05));">
+                    <div class="card-icon">🎯</div>
+                    <h3>硬辅团战策略</h3>
+                    <div class="card-detail">
+                        <p><strong>开团型：</strong>寻找敌方走位失误，用控制技能开团，团战开始后留在前排吸收伤害，为队友创造输出环境。</p>
+                        <p style="margin-top: 0.5rem;"><strong>保护型：</strong>紧跟己方脆皮，敌方刺客切入时立即用控制技能打断，保护后排输出。</p>
+                    </div>
+                </div>
+                <div class="card" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(139, 92, 246, 0.05));">
+                    <div class="card-icon">🔮</div>
+                    <h3>软辅团战策略</h3>
+                    <div class="card-detail">
+                        <p><strong>增益型：</strong>保持与核心输出在技能范围内，持续提供增益效果。利用手长优势在安全位置输出和控制。</p>
+                        <p style="margin-top: 0.5rem;"><strong>拉扯型：</strong>不要与敌方近身，利用技能拉扯阵型，边打边退，寻找输出空间。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study fade-in">
+                <h4>🎮 团战技能释放时机详解</h4>
+                <div class="scenario">
+                    <strong>场景：</strong>团战即将爆发，敌方有关羽、娜可露露、妲己。己方有后羿、小乔、张飞。
+                </div>
+                <p><span class="action">分析：</span></p>
+                    <p>• <strong>关羽</strong>是最大威胁，会绕后推人，需要提前预留控制</p>
+                    <p>• <strong>娜可露露</strong>会直接突进后排，需要重点保护</p>
+                    <p>• <strong>妲己</strong>控制+爆发一套秒人，要等妲己先手后再交保命技能</p>
+                <p style="margin-top: 0.5rem;"><span class="action">正确操作：</span>等妲己先手控住后羿后，张飞立即开大喷开娜可露露，同时给后羿套盾。一技能等待关羽切入时打断其冲锋。</p>
+            </div>
+        </section>
+
+        <section id="priority">
+            <div class="section-header fade-in">
+                <div class="section-number">05</div>
+                <h2 class="section-title">保护后排的<span class="highlight">优先级</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                团战中辅助不可能同时保护所有人，需要根据英雄特性和团战局势判断保护优先级。正确的保护优先级能够让团队输出最大化。
+            </p>
+            <div class="priority-list fade-in">
+                <div class="priority-item">
+                    <div class="priority-rank">①</div>
+                    <div class="priority-content">
+                        <h4>射手</h4>
+                        <p>团战持续输出的保障</p>
+                        <div class="priority-skill">
+                            <strong>保护要点：</strong>射手通常需要4-5秒持续输出来击杀前排，如果被切第一时间交保护技能
+                        </div>
+                    </div>
+                    <span class="priority-role">核心输出</span>
+                </div>
+                <div class="priority-item">
+                    <div class="priority-rank">②</div>
+                    <div class="priority-content">
+                        <h4>法师</h4>
+                        <p>团控 + 高额AOE伤害</p>
+                        <div class="priority-skill">
+                            <strong>保护要点：</strong>法师通常有范围伤害技能，存活下来可以持续输出AOE，注意敌方刺客
+                        </div>
+                    </div>
+                    <span class="priority-role">爆发输出</span>
+                </div>
+                <div class="priority-item">
+                    <div class="priority-rank">③</div>
+                    <div class="priority-content">
+                        <h4>打野</h4>
+                        <p>需要空间完成收割</p>
+                        <div class="priority-skill">
+                            <strong>保护要点：</strong>打野通常有收割能力，但前期较脆，如果打野有保命技能可适当放养
+                        </div>
+                    </div>
+                    <span class="priority-role">切后担当</span>
+                </div>
+                <div class="priority-item">
+                    <div class="priority-rank">④</div>
+                    <div class="priority-content">
+                        <h4>战士/坦克</h4>
+                        <p>有续航和自保能力</p>
+                        <div class="priority-skill">
+                            <strong>保护要点：</strong>战士和坦克本身有一定坦度，除非被集火否则优先保脆皮
+                        </div>
+                    </div>
+                    <span class="priority-role">前排</span>
+                </div>
+            </div>
+            <div class="tip-box fade-in">
+                <h4>⚡ 特殊情况处理</h4>
+                <ul>
+                    <li><strong>当我方射手被秒杀时：</strong>立即转移保护正在输出的队友（可能是法师或打野）</li>
+                    <li><strong>当我方射手有复活甲时：</strong>优先保护其他脆皮，给射手站起来反打的机会</li>
+                    <li><strong>当我方射手是大神时：</strong>即使牺牲自己也要保住核心输出</li>
+                    <li><strong>当敌方有真实伤害时：</strong>坦克的保命能力下降，需要更多保护</li>
+                </ul>
+            </div>
+            <div class="warning-box fade-in">
+                <h4>⚠️ 保护优先级判断陷阱</h4>
+                <ul>
+                    <li>不要为了保护残血射手而交掉所有保护技能，导致后续无人可保</li>
+                    <li>如果己方射手已经被秒且无法救回，不要强行保护浪费技能</li>
+                    <li>保护时注意自己的位置，不要为了救人把自己也送掉</li>
+                    <li>团战中保护优先级是动态变化的，需要实时判断</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="vision">
+            <div class="section-header fade-in">
+                <div class="section-number">06</div>
+                <h2 class="section-title">视野布控的<span class="highlight">艺术</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                视野是团队的信息来源，好的视野布控能够让团队提前预判敌方动向，做出最优决策。辅助是团队的主要视野提供者，需要养成良好的做视野习惯。
+            </p>
+            <div class="comparison fade-in">
+                <div class="comparison-card" style="border-color: var(--blue); background: rgba(0, 212, 255, 0.05);">
+                    <h3 style="color: var(--blue);">👁️ 关键视野点</h3>
+                    <ul>
+                        <li>• <strong>龙坑周围的草丛</strong>：判断敌方开龙或准备抢龙</li>
+                        <li>• <strong>河道草丛</strong>：敌方游走支援的主要路线</li>
+                        <li>• <strong>己方野区入口</strong>：预防敌方入侵和gank</li>
+                        <li>• <strong>敌方野区buff草丛</strong>：判断敌方打野动向和节奏</li>
+                        <li>• <strong>中路两侧草丛</strong>：敌方中路游走的必经之路</li>
+                    </ul>
+                    <div class="comparison-detail">
+                        <p><strong>视野优先级：</strong>龙坑视野 > 河道视野 > 野区视野。关键资源点附近的视野最为重要。</p>
+                    </div>
+                </div>
+                <div class="comparison-card" style="border-color: var(--green); background: rgba(16, 185, 129, 0.05);">
+                    <h3 style="color: var(--green);">⏰ 布眼时机</h3>
+                    <ul>
+                        <li>• <strong>每次回家前</strong>：确保关键草丛有眼再走</li>
+                        <li>• <strong>团战前</strong>：提前布置进攻视野</li>
+                        <li>• <strong>龙刷新前30秒</strong>：开始布控龙坑视野</li>
+                        <li>• <strong>推塔时</strong>：在敌方野区做进攻视野</li>
+                        <li>• <strong>队友单带时</strong>：在单带路线做保护视野</li>
+                    </ul>
+                    <div class="comparison-detail">
+                        <p><strong>习惯养成：</strong>每次死亡后复活，先做视野再支援。养成习惯比临时抱佛脚更有效。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box fade-in">
+                <h4>🎮 探草技巧</h4>
+                <ul>
+                    <li><strong>软辅：</strong>利用远程技能探草（如孙膑一技能、小明链子）</li>
+                    <li><strong>硬辅：</strong>可以直接脸探草丛，利用护盾或霸体承受伤害</li>
+                    <li><strong>瑶：</strong>附身时可以用一技能远程探草</li>
+                    <li><strong>大乔：</strong>可以在草丛放技能沉默范围探测</li>
+                    <li><strong>鬼谷子：</strong>利用一技能加速进草探测</li>
+                </ul>
+            </div>
+            <div class="card-grid fade-in" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-icon">🗺️</div>
+                    <h3>不同阶段的视野策略</h3>
+                    <div class="card-detail">
+                        <p><strong>前期（0-4分钟）：</strong>重点关注敌方打野位置和中路河道，防止gank。</p>
+                        <p style="margin-top: 0.5rem;"><strong>中期（4-10分钟）：</strong>重点关注龙坑视野和敌方野区，判断敌方发育情况。</p>
+                        <p style="margin-top: 0.5rem;"><strong>后期（10分钟+）：</strong>重点关注龙坑和敌方高地附近视野，获取团战优势信息。</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💀</div>
+                    <h3>视野被反蹲怎么办</h3>
+                    <div class="card-detail">
+                        <p><strong>预防措施：</strong>做视野时不要一个人，从己方野区绕行，让队友知道你的位置。</p>
+                        <p style="margin-top: 0.5rem;"><strong>被抓后的应对：</strong>立即向队友发送"敌人消失"信号，让他们及时撤退或反打。</p>
+                        <p style="margin-top: 0.5rem;"><strong>注意：</strong>做视野牺牲比被突然抓单损失小，必要时可以换掉敌方一个核心。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="types">
+            <div class="section-header fade-in">
+                <div class="section-number">07</div>
+                <h2 class="section-title">不同辅助的<span class="highlight">玩法差异</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                辅助根据技能特性可以分为多种类型，每种类型有不同的打法思路。了解自己使用的辅助类型，能够让你更好地发挥英雄特点。
+            </p>
+            <div class="type-cards fade-in">
+                <div class="type-card">
+                    <div class="type-card-header">
+                        <span class="type-badge">硬辅</span>
+                    </div>
+                    <h4>张飞、牛魔、盾山、廉颇</h4>
+                    <span class="type-style">开团 + 保护</span>
+                    <div class="type-detail">
+                        <p><strong>特点：</strong>拥有强大的控制技能和坦度，是团队的前排担当。</p>
+                        <p style="margin-top: 0.5rem;"><strong>打法：</strong>开团时寻找敌方走位失误，保护时紧跟脆皮。硬辅可以主动脸探草丛，为团队开视野。</p>
+                    </div>
+                    <div class="hero-detail">
+                        <strong>代表英雄技巧：</strong>
+                        <p>• 张飞：大招尽量喷到更多人，一技能护盾看准时机给</p>
+                        <p>• 牛魔：大招蓄力时观察地形，可以配合闪现使用</p>
+                        <p>• 盾山：一技能举盾挡飞行物，二闪开团</p>
+                    </div>
+                </div>
+                <div class="type-card">
+                    <div class="type-card-header">
+                        <span class="type-badge">软辅</span>
+                    </div>
+                    <h4>大乔、孙膑、瑶、桑启</h4>
+                    <span class="type-style">增益 + 拉扯</span>
+                    <div class="type-detail">
+                        <p><strong>特点：</strong>拥有强大的增益效果和保护能力，擅长拉扯作战。</p>
+                        <p style="margin-top: 0.5rem;"><strong>打法：</strong>保持与队友的技能范围，利用增益效果帮助队友建立优势。不要与敌方近身作战。</p>
+                    </div>
+                    <div class="hero-detail">
+                        <strong>代表英雄技巧：</strong>
+                        <p>• 大乔：电梯流打法，回城后立即返回战场</p>
+                        <p>• 孙膑：二技能抬血加速，大招沉默打断敌方技能</p>
+                        <p>• 瑶：附身时注意盾的厚度，及时下来挡技能</p>
+                    </div>
+                </div>
+                <div class="type-card">
+                    <div class="type-card-header">
+                        <span class="type-badge">法辅</span>
+                    </div>
+                    <h4>姜子牙、太乙真人、西施</h4>
+                    <span class="type-style">速刷 + 爆发</span>
+                    <div class="type-detail">
+                        <p><strong>特点：</strong>拥有强大的增益效果和范围伤害，团队经济来源。</p>
+                        <p style="margin-top: 0.5rem;"><strong>打法：</strong>利用被动技能帮助队友快速发育，团战中提供范围伤害和控制。</p>
+                    </div>
+                    <div class="hero-detail">
+                        <strong>代表英雄技巧：</strong>
+                        <p>• 姜子牙：被动加速全队发育，大闪收割</p>
+                        <p>• 太乙：大招复活看准时机，一技能蓄力晕人</p>
+                        <p>• 西施：一技能拉人，二技能范围伤害</p>
+                    </div>
+                </div>
+                <div class="type-card">
+                    <div class="type-card-header">
+                        <span class="type-badge">坦辅</span>
+                    </div>
+                    <h4>猪八戒、苏烈、钟无艳</h4>
+                    <span class="type-style">承伤 + 控制</span>
+                    <div class="type-detail">
+                        <p><strong>特点：</strong>拥有高额的生命值和护盾，擅长吸收伤害和控制。</p>
+                        <p style="margin-top: 0.5rem;"><strong>打法：</strong>站在前排吸收伤害，为队友创造输出空间。技能有控制效果，可以用来开团或保护。</p>
+                    </div>
+                    <div class="hero-detail">
+                        <strong>代表英雄技巧：</strong>
+                        <p>• 猪八戒：残血时利用技能回血，换血能力强</p>
+                        <p>• 苏烈：大招蓄力接闪现，二技能推人</p>
+                        <p>• 钟无艳：石化控制，伤害高可以一套秒脆皮</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box fade-in">
+                <h4>📋 辅助选人建议</h4>
+                <ul>
+                    <li><strong>己方脆皮多：</strong>选择硬辅或坦辅，提供前排坦度和保护</li>
+                    <li><strong>己方战士多：</strong>选择软辅，提供增益和拉扯能力</li>
+                    <li><strong>敌方突进多：</strong>选择控制型辅助，重点保护后排</li>
+                    <li><strong>己方需要发育：</strong>选择法辅，利用被动加速团队经济</li>
+                    <li><strong>敌方有姜子牙：</strong>己方一定要选法辅对冲被动</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="mistakes">
+            <div class="section-header fade-in">
+                <div class="section-number">08</div>
+                <h2 class="section-title">常见错误与<span class="highlight">改正方法</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                了解常见的辅助错误，能够帮助你避免踩坑，快速提升游戏水平。以下是辅助玩家最容易犯的错误，以及正确的改正方法。
+            </p>
+            <div class="mistakes-list fade-in">
+                <div class="mistake-item">
+                    <div class="mistake-text">
+                        <p>一直跟着射手不游走</p>
+                        <p class="mistake-explain">开局就死跟射手，忽略其他路支援和视野</p>
+                    </div>
+                    <span class="mistake-arrow">→</span>
+                    <div class="fix-text">
+                        <p>学会判断游走时机</p>
+                        <p class="fix-detail">射手安全清线时立即游走支援中路或配合打野，解放射手的同时帮助其他路建立优势</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <div class="mistake-text">
+                        <p>盲目开团不懂保护</p>
+                        <p class="mistake-explain">只顾着开团，忽略了后排保护</p>
+                    </div>
+                    <span class="mistake-arrow">→</span>
+                    <div class="fix-text">
+                        <p>根据局势选择开团或保护</p>
+                        <p class="fix-detail">己方脆皮多时以保护为主，己方战士多时可以开团。团战中根据敌方突进情况灵活切换角色</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <div class="mistake-text">
+                        <p>视野布控不到位</p>
+                        <p class="mistake-explain">不做视野或做的视野位置不好</p>
+                    </div>
+                    <span class="mistake-arrow">→</span>
+                    <div class="fix-text">
+                        <p>养成习惯性放眼的习惯</p>
+                        <p class="fix-detail">每次回家前确保关键草丛有眼，龙刷新前30秒开始布控视野。养成主动做视野的习惯</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <div class="mistake-text">
+                        <p>技能乱交不保留</p>
+                        <p class="mistake-explain">团战中技能随便交，关键时刻没技能</p>
+                    </div>
+                    <span class="mistake-arrow">→</span>
+                    <div class="fix-text">
+                        <p>关键技能留给关键目标</p>
+                        <p class="fix-detail">控制技能留给敌方核心输出或突进的刺客，保护技能等队友被切时再交，不要提前浪费</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <div class="mistake-text">
+                        <p>不关注小地图</p>
+                        <p class="mistake-explain">只盯着自己的位置，不知道全局情况</p>
+                    </div>
+                    <span class="mistake-arrow">→</span>
+                    <div class="fix-text">
+                        <p>养成每3秒看一次的习惯</p>
+                        <p class="fix-detail">每3秒扫一眼小地图，了解敌方位置和动向。辅助不专注操作，有更多精力观察全局</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <div class="mistake-text">
+                        <p>不会主动探草</p>
+                        <p class="mistake-explain">怕死不敢进草丛，队友被蹲也不管</p>
+                    </div>
+                    <span class="mistake-arrow">→</span>
+                    <div class="fix-text">
+                        <p>用技能或身体探草</p>
+                        <p class="fix-detail">软辅用技能探草，硬辅可以直接脸探草丛。牺牲自己换队友安全是值得的</p>
+                    </div>
+                </div>
+                <div class="mistake-item">
+                    <div class="mistake-text">
+                        <p>不会报点和沟通</p>
+                        <p class="mistake-explain">看到敌人也不说话，默默单机</p>
+                    </div>
+                    <span class="mistake-arrow">→</span>
+                    <div class="fix-text">
+                        <p>主动报点，让队友知道信息</p>
+                        <p class="fix-detail">看到敌方打野位置立即报点"打野在中"，准备开龙时发信号"准备开龙"。良好的沟通是胜利的基础</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth">
+            <div class="section-header fade-in">
+                <div class="section-number">09</div>
+                <h2 class="section-title">辅助玩家的<span class="highlight">成长路线</span></h2>
+            </div>
+            <p class="section-intro fade-in">
+                辅助意识的提升是一个循序渐进的过程。从基础保护到高级指挥，每个阶段都有不同的学习重点。以下是辅助玩家的四个成长阶段：
+            </p>
+            <div class="progress-section fade-in">
+                <div class="progress-stage">
+                    <div class="progress-icon">🌱</div>
+                    <div class="progress-content">
+                        <h4>第一阶段：青铜~白银 - 基础保护</h4>
+                        <p>学会基本的保护后排，不乱跑，跟紧队友</p>
+                        <div class="progress-tags">
+                            <span class="progress-tag">跟紧射手</span>
+                            <span class="progress-tag">不送人头</span>
+                            <span class="progress-tag">放技能保护</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-stage">
+                    <div class="progress-icon">🚀</div>
+                    <div class="progress-content">
+                        <h4>第二阶段：黄金~铂金 - 视野与游走</h4>
+                        <p>学会做视野，了解游走时机，开始主动支援</p>
+                        <div class="progress-tags">
+                            <span class="progress-tag">主动做视野</span>
+                            <span class="progress-tag">判断游走时机</span>
+                            <span class="progress-tag">配合队友</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-stage">
+                    <div class="progress-icon">⚔️</div>
+                    <div class="progress-content">
+                        <h4>第三阶段：钻石~星耀 - 开团与节奏</h4>
+                        <p>学会开团时机，掌握团队节奏，指挥决策</p>
+                        <div class="progress-tags">
+                            <span class="progress-tag">开团时机</span>
+                            <span class="progress-tag">团队节奏</span>
+                            <span class="progress-tag">指挥决策</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-stage">
+                    <div class="progress-icon">👑</div>
+                    <div class="progress-content">
+                        <h4>第四阶段：王者~荣耀 - 全局意识</h4>
+                        <p>了解每个英雄特性，预判敌方行动，成为团队大脑</p>
+                        <div class="progress-tags">
+                            <span class="progress-tag">英雄理解</span>
+                            <span class="progress-tag">预判能力</span>
+                            <span class="progress-tag">全局指挥</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tip-box fade-in">
+                <h4>📈 快速提升建议</h4>
+                <ul>
+                    <li><strong>多看小地图：</strong>这是辅助最重要的习惯，养成每3秒扫一眼的习惯</li>
+                    <li><strong>学会报点：</strong>看到敌方位置立即发信号，让队友知道信息</li>
+                    <li><strong>复盘思考：</strong>每局结束后思考自己哪里做得不好，下次如何改进</li>
+                    <li><strong>学习对线：</strong>了解射手和法师的对线技巧，才能更好地保护他们</li>
+                    <li><strong>观看教学：</strong>多看高水平辅助玩家的直播或视频，学习他们的意识</li>
+                </ul>
+            </div>
+            <div class="case-study fade-in">
+                <h4>🎯 辅助进阶核心：全局思维</h4>
+                <div class="scenario">
+                    <strong>核心理念：</strong>辅助是团队的眼睛和大脑，不是操作的执行者。
+                </div>
+                <p>高水平辅助与低水平辅助的最大区别在于：</p>
+                <p>• <strong>低水平辅助：</strong>等队友被打了才反应过来，看到敌人不知道该干嘛</p>
+                <p>• <strong>高水平辅助：</strong>提前预判敌方动向，主动创造机会，让队友在安全环境下输出</p>
+                <p style="margin-top: 0.5rem;"><span class="action">关键转变：</span>从"保护队友"到"让队友安全"——不是等队友被打了才保护，而是让队友根本不会被攻击。</p>
+            </div>
+        </section>
+
+        <section id="summary" class="summary-section">
+            <div class="section-header fade-in">
+                <div class="section-number">∞</div>
+                <h2 class="section-title">辅助意识<span class="highlight">核心总结</span></h2>
+            </div>
+            <p class="section-intro fade-in" style="background: rgba(255, 215, 0, 0.1); border-color: var(--gold);">
+                记住这五大核心原则，让你从普通辅助晋升为团队核心：
+            </p>
+            <div class="summary-grid fade-in">
+                <div class="summary-item">
+                    <span class="summary-icon">🛡️</span>
+                    <span class="summary-text"><span class="highlight">保护后排</span> <span class="compare">></span> 开团冲动</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">👁️</span>
+                    <span class="summary-text"><span class="highlight">视野布控</span> <span class="compare">></span> 站桩输出</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">🗺️</span>
+                    <span class="summary-text"><span class="highlight">游走支援</span> <span class="compare">></span> 赖线发育</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">📢</span>
+                    <span class="summary-text"><span class="highlight">沟通报点</span> <span class="compare">></span> 默默单机</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">🧠</span>
+                    <span class="summary-text"><span class="highlight">观察小地图</span> <span class="compare">></span> 只看眼前</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-icon">⏱️</span>
+                    <span class="summary-text"><span class="highlight">技能时机</span> <span class="compare">></span> 乱交技能</span>
+                </div>
+            </div>
+            <div class="tip-box fade-in" style="background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 107, 0, 0.15)); border-color: var(--gold);">
+                <h4>🌟 最终寄语</h4>
+                <p style="color: var(--text); font-size: 1.1rem; line-height: 1.8;">
+                    辅助是团队中最容易被低估的位置，但也是最能给团队带来胜利的位置。<br><br>
+                    一个优秀的辅助，能够让队友在安全的环境下全力输出；<br>
+                    一个顶级的辅助，能够提前预判一切，让敌方根本没有进攻的机会。<br><br>
+                    <strong style="color: var(--gold);">愿你在辅助的道路上越走越远，成为队友最信赖的守护者！</strong>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="highlight">祝大家早日上分顺利！🎮</p>
+        <p style="margin-top: 1rem;">王者荣耀辅助意识教学 · 新赛季深度攻略</p>
+    </footer>
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                
+                const colors = ['#ffd700', '#ff6b00', '#00d4ff', '#8b5cf6'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+            }
+        }
+
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            elements.forEach(el => observer.observe(el));
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            handleScrollAnimation();
+        });
+    </script>
+</body>
+</html>
