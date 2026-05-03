@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>微面 · 作品集</title>
-    <meta name="description" content="微面作品集 — 从建筑设计到生产管理，探索精心打造的数字作品。">
+    <meta name="description" content="微面作品集 - 从生产管理到数据可视化，探索精心打造的数字作品。包括生产周汇报、打样看板、飞机单数据管理等实用工具。">
+    <meta name="keywords" content="微面,作品集,生产管理,数据看板,打样,飞机单,王者荣耀">
+    <meta name="author" content="微面">
+    <meta name="robots" content="index, follow">
     <meta property="og:type" content="website">
     <meta property="og:title" content="微面 · 作品集">
     <meta property="og:description" content="从生产管理到数据可视化 — 探索精心打造的数字作品。">
     <meta property="og:url" content="https://weimian.store">
     <meta property="og:site_name" content="微面">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:locale" content="zh_CN">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="微面 · 作品集">
     <meta name="twitter:description" content="从生产管理到数据可视化 — 探索精心打造的数字作品。">
     <link rel="canonical" href="https://weimian.store">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23165DFF'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='sans-serif'>微</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23165DFF'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='PingFang SC, Microsoft YaHei, sans-serif'>微</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23165DFF'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='PingFang SC, Microsoft YaHei, sans-serif'>微</text></svg>">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -37,6 +42,26 @@
             --radius-3: 8px;
             --radius-4: 12px;
             --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* 深色主题变量 */
+        [data-theme="dark"] {
+            --primary: #5C9CFF;
+            --primary-light: rgba(92, 156, 255, 0.1);
+            --primary-gradient: linear-gradient(135deg, #5C9CFF, #165DFF);
+            --text-1: #F7F8FA;
+            --text-2: #C9CDD4;
+            --text-3: #86909C;
+            --text-4: #4E5969;
+            --border: #3D424C;
+            --fill-2: #2D3139;
+            --bg-1: #1D2129;
+            --bg-2: #111317;
+        }
+
+        /* 平滑过渡所有主题相关属性 */
+        * {
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         html { scroll-behavior: smooth; }
@@ -109,6 +134,195 @@
         .navbar-links a:hover { 
             color: var(--primary); 
             background: var(--primary-light);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 16px 8px 40px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-3);
+            background: var(--bg-1);
+            color: var(--text-1);
+            font-size: 14px;
+            width: 200px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 280px;
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-3);
+        }
+
+        .card.hidden {
+            display: none !important;
+        }
+
+        /* 主题切换按钮样式 */
+        .theme-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-1);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-2);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-3);
+        }
+
+        /* 统计卡片样式 */
+        .stats-cards {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 24px auto 48px;
+            max-width: 800px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        }
+
+        .stat-card {
+            background: var(--bg-1);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-4);
+            padding: 24px 32px;
+            text-align: center;
+            min-width: 160px;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-2);
+            border-color: transparent;
+        }
+
+        .stat-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-3);
+        }
+
+        /* 点赞按钮样式 */
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .like-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: var(--radius-3);
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .like-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .like-btn.liked {
+            background: var(--primary-light);
+        }
+
+        .like-icon {
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+
+        .like-btn:hover .like-icon {
+            transform: scale(1.2);
+        }
+
+        .like-btn.liked .like-icon {
+            animation: heartBeat 0.4s ease-out;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.3); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .like-count {
+            font-weight: 600;
+            color: var(--text-2);
+            min-width: 20px;
+        }
+
+        /* 分享按钮样式 */
+        .share-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .share-label {
+            font-size: 13px;
+            color: var(--text-3);
+        }
+
+        .share-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-1);
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .share-btn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            transform: scale(1.1);
         }
 
         .hero {
@@ -538,7 +752,11 @@
                 <a href="https://weimian.store/kanban/">看板</a>
                 <a href="https://weimian.store/flight-order/">飞机单</a>
             </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="搜索项目..." class="search-input">
+            </div>
         </nav>
+        <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
     </header>
 
     <main>
@@ -566,6 +784,23 @@
                     <div class="stat-label">持续更新</div>
                 </div>
             </div>
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-number" id="visitCount">0</div>
+                    <div class="stat-label">总访问量</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📁</div>
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">项目数量</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💎</div>
+                    <div class="stat-number" id="totalLikes">0</div>
+                    <div class="stat-label">总点赞数</div>
+                </div>
+            </div>
         </section>
 
         <section class="section" aria-labelledby="works-title">
@@ -574,46 +809,66 @@
                 <span class="section-desc" aria-live="polite">共 4 个项目</span>
             </div>
             <div class="card-grid" role="list">
-                <a href="https://weimian.store/production-report/" class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报">
-                    <div class="card-icon orange" aria-hidden="true">📊</div>
-                    <span class="card-tag orange">生产管理</span>
-                    <h2>生产周汇报</h2>
-                    <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
+                <div class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报" style="display: flex; flex-direction: column; text-decoration: none; color: inherit;">
+                    <a href="https://weimian.store/production-report/" style="flex-grow: 1; text-decoration: none; color: inherit;">
+                        <div class="card-icon orange" aria-hidden="true">📊</div>
+                        <span class="card-tag orange">生产管理</span>
+                        <h2>生产周汇报</h2>
+                        <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
+                    </a>
                     <div class="card-footer">
-                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
-                        <span class="card-meta">在线</span>
+                        <a href="https://weimian.store/production-report/" class="card-action" style="text-decoration: none;">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+                        <button class="like-btn" data-project="生产周汇报" title="点赞">
+                            <span class="like-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
-                </a>
-                <a href="https://weimian.store/kanban/" class="card" role="listitem" aria-label="打样看板 — 圆机打样生产数据看板">
-                    <div class="card-icon green" aria-hidden="true">📋</div>
-                    <span class="card-tag green">数据看板</span>
-                    <h2>打样看板</h2>
-                    <p>圆机打样生产数据看板 — 接单、生产、余单、回修、报废等核心数据实时录入，支持拖拽排序、Excel 导出与快照恢复。</p>
+                </div>
+                <div class="card" role="listitem" aria-label="打样看板 — 圆机打样生产数据看板" style="display: flex; flex-direction: column; text-decoration: none; color: inherit;">
+                    <a href="https://weimian.store/kanban/" style="flex-grow: 1; text-decoration: none; color: inherit;">
+                        <div class="card-icon green" aria-hidden="true">📋</div>
+                        <span class="card-tag green">数据看板</span>
+                        <h2>打样看板</h2>
+                        <p>圆机打样生产数据看板 — 接单、生产、余单、回修、报废等核心数据实时录入，支持拖拽排序、Excel 导出与快照恢复。</p>
+                    </a>
                     <div class="card-footer">
-                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
-                        <span class="card-meta">在线</span>
+                        <a href="https://weimian.store/kanban/" class="card-action" style="text-decoration: none;">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+                        <button class="like-btn" data-project="打样看板" title="点赞">
+                            <span class="like-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
-                </a>
-                <a href="https://weimian.store/flight-order/" class="card" role="listitem" aria-label="飞机单数据表 — 飞行订单数据管理与追踪">
-                    <div class="card-icon blue" aria-hidden="true">✈️</div>
-                    <span class="card-tag blue">数据管理</span>
-                    <h2>飞机单数据表</h2>
-                    <p>飞行订单数据管理与追踪 — 结构化记录飞机单信息，支持数据录入、查询与导出。</p>
+                </div>
+                <div class="card" role="listitem" aria-label="飞机单数据表 — 飞行订单数据管理与追踪" style="display: flex; flex-direction: column; text-decoration: none; color: inherit;">
+                    <a href="https://weimian.store/flight-order/" style="flex-grow: 1; text-decoration: none; color: inherit;">
+                        <div class="card-icon blue" aria-hidden="true">✈️</div>
+                        <span class="card-tag blue">数据管理</span>
+                        <h2>飞机单数据表</h2>
+                        <p>飞行订单数据管理与追踪 — 结构化记录飞机单信息，支持数据录入、查询与导出。</p>
+                    </a>
                     <div class="card-footer">
-                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
-                        <span class="card-meta">在线</span>
+                        <a href="https://weimian.store/flight-order/" class="card-action" style="text-decoration: none;">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+                        <button class="like-btn" data-project="飞机单数据表" title="点赞">
+                            <span class="like-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
-                </a>
-                <a href="https://weimian.store/honor-guide/" class="card" role="listitem" aria-label="王者荣耀辅助意识教学 — 新赛季深度攻略">
-                    <div class="card-icon blue" aria-hidden="true">🎮</div>
-                    <span class="card-tag blue">游戏攻略</span>
-                    <h2>王者荣耀辅助意识教学</h2>
-                    <p>新赛季深度攻略 — 辅助玩家的必修课，涵盖核心定位、开局思路、游走支援、团战站位等完整教学内容。</p>
+                </div>
+                <div class="card" role="listitem" aria-label="王者荣耀辅助意识教学 — 新赛季深度攻略" style="display: flex; flex-direction: column; text-decoration: none; color: inherit;">
+                    <a href="https://weimian.store/honor-guide/" style="flex-grow: 1; text-decoration: none; color: inherit;">
+                        <div class="card-icon blue" aria-hidden="true">🎮</div>
+                        <span class="card-tag blue">游戏攻略</span>
+                        <h2>王者荣耀辅助意识教学</h2>
+                        <p>新赛季深度攻略 — 辅助玩家的必修课，涵盖核心定位、开局思路、游走支援、团战站位等完整教学内容。</p>
+                    </a>
                     <div class="card-footer">
-                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
-                        <span class="card-meta">在线</span>
+                        <a href="https://weimian.store/honor-guide/" class="card-action" style="text-decoration: none;">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+                        <button class="like-btn" data-project="王者荣耀辅助意识教学" title="点赞">
+                            <span class="like-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
-                </a>
+                </div>
             </div>
         </section>
     </main>
@@ -633,10 +888,164 @@
                 <a href="https://weimian.store/flight-order/">飞机单</a>
                 <a href="https://weimian.store/honor-guide/">王者荣耀</a>
             </div>
+            <div class="share-section">
+                <span class="share-label">分享网站：</span>
+                <button class="share-btn" data-platform="twitter" title="分享到Twitter">🐦</button>
+                <button class="share-btn" data-platform="weibo" title="分享到微博">📢</button>
+                <button class="share-btn" data-platform="copy" title="复制链接">🔗</button>
+            </div>
         </div>
         <div class="footer-copyright">
             © 2024 <a href="https://weimian.store">微面</a> · 用心呈现每一个作品
         </div>
     </footer>
+
+    <script>
+        // 主题切换功能
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('weimian-theme');
+
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('weimian-theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // 搜索功能
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.card');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+
+            cards.forEach(card => {
+                const title = card.querySelector('h2')?.textContent.toLowerCase() || '';
+                const description = card.querySelector('p')?.textContent.toLowerCase() || '';
+                const tag = card.querySelector('.card-tag')?.textContent.toLowerCase() || '';
+
+                const matches = title.includes(searchTerm) ||
+                               description.includes(searchTerm) ||
+                               tag.includes(searchTerm);
+
+                if (searchTerm === '' || matches) {
+                    card.classList.remove('hidden');
+                    card.style.animation = 'fadeInUp 0.4s ease-out';
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+
+        // 动画数字
+        function animateNumber(element, target, duration = 1000) {
+            const start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(start + (target - start) * easeOutQuart);
+                element.textContent = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // 访问统计
+        let visitCount = parseInt(localStorage.getItem('weimian-visits')) || 0;
+        visitCount++;
+        localStorage.setItem('weimian-visits', visitCount);
+
+        // 点赞统计
+        let totalLikes = parseInt(localStorage.getItem('weimian-total-likes')) || 0;
+
+        // 初始化统计
+        document.addEventListener('DOMContentLoaded', () => {
+            animateNumber(document.getElementById('visitCount'), visitCount);
+            animateNumber(document.getElementById('totalLikes'), totalLikes);
+        });
+
+        // 点赞功能
+        const likeBtns = document.querySelectorAll('.like-btn');
+
+        likeBtns.forEach(btn => {
+            const projectName = btn.dataset.project;
+            const likeKey = `weimian-like-${projectName}`;
+            const countKey = `weimian-like-count-${projectName}`;
+
+            let isLiked = localStorage.getItem(likeKey) === 'true';
+            let likeCount = parseInt(localStorage.getItem(countKey)) || Math.floor(Math.random() * 50) + 10;
+
+            if (isLiked) {
+                btn.classList.add('liked');
+            }
+            btn.querySelector('.like-count').textContent = likeCount;
+
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                isLiked = !isLiked;
+
+                if (isLiked) {
+                    btn.classList.add('liked');
+                    likeCount++;
+                    totalLikes++;
+                } else {
+                    btn.classList.remove('liked');
+                    likeCount--;
+                    totalLikes--;
+                }
+
+                localStorage.setItem(likeKey, isLiked);
+                localStorage.setItem(countKey, likeCount);
+                localStorage.setItem('weimian-total-likes', totalLikes);
+
+                btn.querySelector('.like-count').textContent = likeCount;
+                document.getElementById('totalLikes').textContent = totalLikes.toLocaleString();
+            });
+        });
+
+        // 分享功能
+        const shareBtns = document.querySelectorAll('.share-btn');
+        const shareUrl = window.location.href;
+        const shareTitle = document.title;
+
+        shareBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const platform = btn.dataset.platform;
+                let shareLink;
+
+                switch(platform) {
+                    case 'twitter':
+                        shareLink = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareTitle)}`;
+                        window.open(shareLink, '_blank');
+                        break;
+                    case 'weibo':
+                        shareLink = `https://service.weibo.com/share/share.php?url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(shareTitle)}`;
+                        window.open(shareLink, '_blank');
+                        break;
+                    case 'copy':
+                        navigator.clipboard.writeText(shareUrl).then(() => {
+                            btn.textContent = '✅';
+                            setTimeout(() => btn.textContent = '🔗', 2000);
+                        });
+                        break;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

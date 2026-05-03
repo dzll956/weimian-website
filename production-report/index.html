@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231B3A5C'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='sans-serif'>微</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23165DFF'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='sans-serif'>微</text></svg>">
     <title>微面 · 生产周汇报</title>
     <meta name="description" content="长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。">
     <meta property="og:type" content="website">
@@ -29,8 +29,27 @@
             --ind-warning: #F39C12;
             --ind-danger: #E74C3C;
             --ind-info: #3498DB;
+            --ind-border: #D5DAE0;
+            --ind-table-even: #F8F9FB;
+            --ind-toc-bg: rgba(255,255,255,0.92);
+        }
+        [data-theme="dark"] {
+            --ind-primary: #5C9CFF;
+            --ind-primary-dark: #165DFF;
+            --ind-secondary: #FFA726;
+            --ind-accent: #4FC3F7;
+            --ind-neutral: #9E9E9E;
+            --ind-background: #121212;
+            --ind-surface: #1E1E1E;
+            --ind-light: #2D2D2D;
+            --ind-text: #E0E0E0;
+            --ind-text-secondary: #BDBDBD;
+            --ind-border: #424242;
+            --ind-table-even: #252525;
+            --ind-toc-bg: rgba(30,30,30,0.92);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { transition: background-color 0.3s, color 0.3s, border-color 0.3s; }
         body {
             font-family: 'Noto Sans SC', 'Inter', sans-serif;
             line-height: 1.6;
@@ -87,9 +106,9 @@
             align-items: center;
             gap: 6px;
             padding: 6px 14px;
-            background: rgba(255,255,255,0.9);
+            background: var(--ind-toc-bg);
             backdrop-filter: blur(8px);
-            border: 1px solid #E5E6EB;
+            border: 1px solid var(--ind-border);
             border-radius: 20px;
             text-decoration: none;
             color: var(--ind-text-secondary);
@@ -100,6 +119,50 @@
         }
         .back-home:hover { color: var(--ind-primary); border-color: var(--ind-primary); }
         .back-home svg { flex-shrink: 0; }
+
+        /* ===== Breadcrumb ===== */
+        .breadcrumb {
+            background: var(--ind-surface);
+            padding: 12px 20px;
+            margin: -24px 0 24px;
+            font-size: 13px;
+            color: var(--ind-text-secondary);
+            border-bottom: 1px solid var(--ind-border);
+        }
+        .breadcrumb a {
+            color: var(--ind-primary);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        /* ===== Theme Toggle ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 999;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--ind-surface);
+            border: 1px solid var(--ind-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--ind-primary);
+        }
 
         /* ===== Section ===== */
         .section {
@@ -112,7 +175,7 @@
         .section-header {
             background: var(--ind-light);
             padding: 24px 30px;
-            border-bottom: 1px solid #D5DAE0;
+            border-bottom: 1px solid var(--ind-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -122,12 +185,13 @@
         .section-content { padding: 30px; }
 
         /* ===== Executive Summary ===== */
-        .executive-summary { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left: 5px solid var(--ind-primary); }
+        .executive-summary { background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(232,236,241,0.8) 100%); border-left: 5px solid var(--ind-primary); }
+        [data-theme="dark"] .executive-summary { background: linear-gradient(135deg, rgba(45,45,45,0.8) 0%, rgba(30,30,30,0.9) 100%); }
 
         /* ===== Key Findings / Cards ===== */
         .key-findings { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin: 20px 0; }
         .finding-card {
-            background: white;
+            background: var(--ind-surface);
             padding: 20px;
             border-radius: 10px;
             border-left: 4px solid var(--ind-primary);
@@ -168,25 +232,31 @@
         /* ===== Data Table ===== */
         .table-wrap { overflow-x: auto; margin: 16px 0; }
         .data-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-        .data-table th, .data-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #E2E6EA; }
+        .data-table th, .data-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--ind-border); }
         .data-table thead th { background: var(--ind-light); font-weight: 600; color: var(--ind-text); white-space: nowrap; position: sticky; top: 0; z-index: 1; }
-        .data-table tbody tr:nth-child(even) { background: #F8F9FB; }
-        .data-table tbody tr:hover { background: rgba(27,58,92,0.04); }
+        .data-table tbody tr:nth-child(even) { background: var(--ind-table-even); }
+        .data-table tbody tr:hover { background: rgba(27,58,92,0.08); }
+        [data-theme="dark"] .data-table tbody tr:hover { background: rgba(92,156,255,0.1); }
         .data-table tr.total-row { background: var(--ind-light) !important; font-weight: 600; }
         .data-table tr.total-row td { border-top: 2px solid var(--ind-primary); }
 
         /* ===== Tags ===== */
         .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.78rem; font-weight: 600; margin-right: 4px; }
-        .tag-positive { background: #e8f5e9; color: #2e7d32; }
-        .tag-negative { background: #ffebee; color: #c62828; }
-        .tag-neutral { background: #fff8e1; color: #f57f17; }
-        .tag-info { background: #e3f2fd; color: #1565c0; }
+        .tag-positive { background: rgba(39, 174, 96, 0.15); color: #2e7d32; }
+        .tag-negative { background: rgba(231, 76, 60, 0.15); color: #ef5350; }
+        .tag-neutral { background: rgba(243, 156, 18, 0.15); color: #f57f17; }
+        .tag-info { background: rgba(52, 152, 219, 0.15); color: #42a5f5; }
+        [data-theme="dark"] .tag-positive { background: rgba(39, 174, 96, 0.2); color: #66bb6a; }
+        [data-theme="dark"] .tag-negative { background: rgba(231, 76, 60, 0.2); color: #e57373; }
+        [data-theme="dark"] .tag-neutral { background: rgba(243, 156, 18, 0.2); color: #ffb74d; }
+        [data-theme="dark"] .tag-info { background: rgba(52, 152, 219, 0.2); color: #64b5f6; }
 
         /* ===== Risk / Methodology / Action ===== */
-        .risk-warning { background: #fff8e1; border: 1px solid #ffe082; border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
+        .risk-warning { background: rgba(243, 156, 18, 0.1); border: 1px solid rgba(243, 156, 18, 0.3); border-radius: 8px; padding: 16px 20px; margin: 16px 0; }
         .risk-warning h4 { color: #e65100; margin-bottom: 8px; font-size: 0.95rem; }
+        [data-theme="dark"] .risk-warning h4 { color: #ff9800; }
         .risk-warning p { font-size: 0.9rem; color: var(--ind-text-secondary); }
-        .methodology { background: #f8f9fa; border-radius: 8px; padding: 16px 20px; margin: 16px 0; border-left: 4px solid var(--ind-accent); font-size: 0.9rem; color: var(--ind-text-secondary); }
+        .methodology { background: rgba(46, 134, 193, 0.1); border-radius: 8px; padding: 16px 20px; margin: 16px 0; border-left: 4px solid var(--ind-accent); font-size: 0.9rem; color: var(--ind-text-secondary); }
         .methodology h4 { color: var(--ind-accent); margin-bottom: 6px; }
 
         /* ===== Progress Bar ===== */
@@ -221,21 +291,23 @@
         .progress-fill.animated .progress-pct { opacity: 1; }
 
         /* ===== Issue / Equipment / Training ===== */
-        .issue-indicator { display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: #fff5f5; border-radius: 8px; margin-bottom: 10px; }
+        .issue-indicator { display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: rgba(231, 76, 60, 0.1); border-radius: 8px; margin-bottom: 10px; }
         .issue-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
         .issue-dot.danger { background: var(--ind-danger); }
-        .action-note { padding: 12px 16px; background: #f8f9fa; border-left: 3px solid var(--ind-warning); border-radius: 0 8px 8px 0; margin-top: 10px; font-size: 0.9rem; color: var(--ind-text-secondary); }
-        .equipment-card { display: flex; align-items: center; gap: 16px; padding: 20px; background: linear-gradient(135deg, rgba(27,58,92,0.04) 0%, rgba(232,119,34,0.04) 100%); border-radius: 10px; border: 1px solid #E2E6EA; }
+        .action-note { padding: 12px 16px; background: var(--ind-light); border-left: 3px solid var(--ind-warning); border-radius: 0 8px 8px 0; margin-top: 10px; font-size: 0.9rem; color: var(--ind-text-secondary); }
+        .equipment-card { display: flex; align-items: center; gap: 16px; padding: 20px; background: linear-gradient(135deg, rgba(27,58,92,0.06) 0%, rgba(232,119,34,0.06) 100%); border-radius: 10px; border: 1px solid var(--ind-border); }
         .equipment-icon { width: 48px; height: 48px; background: var(--ind-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; color: white; flex-shrink: 0; }
         .equipment-info { flex: 1; }
         .equipment-info h4 { font-size: 1rem; margin-bottom: 4px; }
         .equipment-info p { font-size: 0.88rem; color: var(--ind-text-secondary); }
         .status-badge { padding: 4px 14px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
-        .status-badge.pending { background: #fff8e1; color: #e65100; }
-        .status-badge.done { background: #e8f5e9; color: #2e7d32; }
-        .empty-state { text-align: center; padding: 30px; background: #f0fdf4; border-radius: 8px; color: var(--ind-success); font-size: 1rem; }
+        .status-badge.pending { background: rgba(243, 156, 18, 0.15); color: #e65100; }
+        .status-badge.done { background: rgba(39, 174, 96, 0.15); color: #2e7d32; }
+        [data-theme="dark"] .status-badge.pending { background: rgba(243, 156, 18, 0.2); color: #ffb74d; }
+        [data-theme="dark"] .status-badge.done { background: rgba(39, 174, 96, 0.2); color: #66bb6a; }
+        .empty-state { text-align: center; padding: 30px; background: rgba(39, 174, 96, 0.1); border-radius: 8px; color: var(--ind-success); font-size: 1rem; }
         .empty-state .icon { font-size: 2rem; margin-bottom: 8px; }
-        .training-card { padding: 20px; background: linear-gradient(135deg, rgba(46,134,193,0.06) 0%, rgba(46,134,193,0.02) 100%); border-radius: 10px; border-left: 4px solid var(--ind-accent); }
+        .training-card { padding: 20px; background: linear-gradient(135deg, rgba(46,134,193,0.1) 0%, rgba(46,134,193,0.05) 100%); border-radius: 10px; border-left: 4px solid var(--ind-accent); }
         .training-card h4 { font-size: 1rem; margin-bottom: 6px; color: var(--ind-text); }
         .training-card p { font-size: 0.9rem; color: var(--ind-text-secondary); margin-bottom: 10px; }
 
@@ -270,6 +342,7 @@
             margin-top: 24px;
             font-size: 0.85rem;
         }
+        [data-theme="dark"] footer { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); }
         footer p { opacity: 0.8; }
 
         /* ===== Fixed Buttons ===== */
@@ -325,9 +398,9 @@
             display: flex;
             flex-direction: column;
             gap: 2px;
-            background: rgba(255,255,255,0.92);
+            background: var(--ind-toc-bg);
             backdrop-filter: blur(10px);
-            border: 1px solid #E2E6EA;
+            border: 1px solid var(--ind-border);
             border-radius: 10px;
             padding: 8px 6px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.06);
@@ -401,6 +474,9 @@
         微面首页
     </a>
 
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+
     <!-- TOC Sidebar -->
     <nav class="toc" id="toc">
         <a class="toc-item active" data-target="sec-core"><span class="toc-dot"></span>核心数据</a>
@@ -416,6 +492,15 @@
     </nav>
 
     <header><div class="container"><h1>长兴生产周会工作汇报</h1><p class="subtitle">汇报周期：2025年3月27日 — 4月9日</p><span class="badge">生产管理 · 圆机车间 · 质量管控</span></div></header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="https://weimian.store">首页</a>
+            <span>/</span>
+            <span>生产周汇报</span>
+        </div>
+    </div>
 
     <div class="container">
         <!-- 核心数据 -->
@@ -585,6 +670,26 @@
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="返回顶部">↑</button>
 
     <script>
+        /* ===== Theme Toggle ===== */
+        (function initTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            const savedTheme = localStorage.getItem('weimian-theme');
+
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('weimian-theme', newTheme);
+                themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            });
+        })();
+
         /* ===== Number Animation (optimized easing) ===== */
         function animateNumbers() {
             document.querySelectorAll('.finding-number[data-target]').forEach(el => {

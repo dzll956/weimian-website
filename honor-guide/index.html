@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="王者荣耀辅助意识教学 - 老玩家带新玩家">
+    <meta name="theme-color" content="#e74c3c">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231f2937'/%3E%3Ccircle cx='50' cy='50' r='30' fill='%233b82f6'/%3E%3C/svg%3E">
     <title>王者荣耀 - 辅助意识教学</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -27,6 +30,32 @@
             --purple-light: #f5eef8;
         }
 
+        [data-theme="dark"] {
+            --bg: #121212;
+            --bg-card: #1e1e1e;
+            --bg-section: #2d2d2d;
+            --text: #e0e0e0;
+            --text-secondary: #bdbdbd;
+            --text-muted: #757575;
+            --border: #424242;
+            --border-light: #333333;
+            --accent: #ff6b6b;
+            --accent-light: rgba(255, 107, 107, 0.1);
+            --blue: #64b5f6;
+            --blue-light: rgba(100, 181, 246, 0.1);
+            --green: #81c784;
+            --green-light: rgba(129, 199, 132, 0.1);
+            --gold: #ffb74d;
+            --gold-light: rgba(255, 183, 77, 0.1);
+            --purple: #b39ddb;
+            --purple-light: rgba(179, 157, 219, 0.1);
+        }
+
+        /* 平滑过渡 */
+        *, *::before, *::after {
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -46,20 +75,24 @@
         }
 
         nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            transition: transform 0.3s ease;
-        }
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    [data-theme="dark"] nav {
+        background: rgba(30, 30, 30, 0.95);
+    }
 
         .logo {
             font-size: 1.3rem;
@@ -111,6 +144,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, #1f1f1f 0%, #1e1e1e 50%, #1a1a2e 100%);
         }
 
         .hero-content {
@@ -1024,9 +1062,102 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* 主题切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            top: 80px;
+            right: 24px;
+            z-index: 1001;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--accent);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        /* 面包屑导航 */
+        .breadcrumb {
+            background: var(--bg-card);
+            padding: 12px 24px;
+            margin-bottom: 24px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breadcrumb a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+        }
+
+        /* 返回首页按钮更新 */
+        .back-home {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 200;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .back-home:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                right: 16px;
+                top: auto;
+                bottom: 24px;
+            }
+        }
     </style>
 </head>
 <body>
+    <a href="https://weimian.store" class="back-home">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        微面首页
+    </a>
+
+    <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+
     <nav>
         <div class="logo">王者<span>辅助</span>教学</div>
         <ul class="nav-links">
@@ -1041,6 +1172,13 @@
             <li><a href="#growth">怎么变强</a></li>
         </ul>
     </nav>
+
+    <!-- 面包屑导航 -->
+    <div class="breadcrumb">
+        <a href="https://weimian.store">首页</a>
+        <span>/</span>
+        <span>王者荣耀辅助教学</span>
+    </div>
 
     <main>
         <section class="hero">
@@ -1785,6 +1923,26 @@
     </footer>
 
     <script>
+        // 主题切换功能
+        (function initTheme() {
+            const themeToggle = document.getElementById('themeToggle');
+            const savedTheme = localStorage.getItem('weimian-theme');
+            
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+            }
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('weimian-theme', newTheme);
+                themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            });
+        })();
+
         function handleScrollAnimation() {
             const elements = document.querySelectorAll('.fade-in');
             

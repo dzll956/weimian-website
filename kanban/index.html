@@ -10,6 +10,7 @@
     <meta property="og:url" content="https://weimian.store/kanban/">
     <meta property="og:site_name" content="微面">
     <link rel="canonical" href="https://weimian.store/kanban/">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23165DFF'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='sans-serif'>微</text></svg>">
 <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -57,6 +58,42 @@
   /* 字体 */
   --font-ui: "Noto Sans SC", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
   --font-mono: "Avenir", "Avenir Next", -apple-system, "Segoe UI", sans-serif;
+}
+
+/* 深色主题 */
+[data-theme="dark"] {
+  /* 主色 */
+  --mint: #46d6b7;
+  --mint-dim: rgba(70,214,183,0.1);
+  --mint-glow: rgba(70,214,183,0.2);
+
+  /* 语义色 */
+  --amber: #f0b040;
+  --amber-dim: rgba(240,176,64,0.1);
+  --coral: #ff6b6b;
+  --coral-dim: rgba(255,107,107,0.1);
+  --sky: #64b5f6;
+  --sky-dim: rgba(100,181,246,0.1);
+  --violet: #b388ff;
+  --violet-dim: rgba(179,136,255,0.1);
+  --rose: #f48fb1;
+  --rose-dim: rgba(244,143,177,0.1);
+
+  /* 深色中性 */
+  --bg: #121212;
+  --bg-raised: #1e1e1e;
+  --bg-overlay: #2d2d2d;
+  --bg-hover: #3a3a3a;
+  --text-1: #e0e0e0;
+  --text-2: #bdbdbd;
+  --text-3: #757575;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.15);
+}
+
+/* 平滑过渡 */
+*, *::before, *::after {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -567,6 +604,56 @@ header {
   .card input { font-size: 26px; }
   .stat-value { font-size: 18px; }
 }
+/* 主题切换按钮 */
+.theme-toggle {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 2000;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.08);
+  border-color: var(--mint);
+}
+
+/* 面包屑导航 */
+.breadcrumb {
+  background: var(--bg-raised);
+  padding: 12px 24px;
+  margin-bottom: 24px;
+  font-size: 13px;
+  color: var(--text-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r3);
+}
+
+.breadcrumb a {
+  color: var(--mint);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb span {
+  margin: 0 8px;
+}
+
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -577,19 +664,30 @@ header {
   .fab { width: 42px; height: 42px; }
   .fab-btn { width: 38px; height: 38px; }
   .card, .fab-btn { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+  .theme-toggle { right: 16px; top: auto; bottom: 120px; }
 }
 </style>
 </head>
 <body>
-<a href="https://weimian.store" style="position:fixed;top:16px;left:16px;z-index:2001;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:20px;text-decoration:none;color:var(--text-2);font-size:13px;font-weight:500;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06);font-family:var(--font-ui);" onmouseover="this.style.color='var(--mint)';this.style.borderColor='var(--mint)'" onmouseout="this.style.color='var(--text-2)';this.style.borderColor='var(--border)'">
+<a href="https://weimian.store" style="position:fixed;top:16px;left:16px;z-index:2001;display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:var(--bg-raised);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:20px;text-decoration:none;color:var(--text-2);font-size:13px;font-weight:500;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.06);font-family:var(--font-ui);" onmouseover="this.style.color='var(--mint)';this.style.borderColor='var(--mint)'" onmouseout="this.style.color='var(--text-2)';this.style.borderColor='var(--border)'">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
     微面首页
 </a>
+
+<!-- 主题切换按钮 -->
+<button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
 
 <div class="print-header">
   <span>打印日期：<span id="printDate"></span></span>
   <span>|</span>
   <span>数据周期：<span id="printDateRange"></span></span>
+</div>
+
+<!-- 面包屑导航 -->
+<div class="breadcrumb">
+  <a href="https://weimian.store">首页</a>
+  <span>/</span>
+  <span>打样看板</span>
 </div>
 
 <header>
@@ -664,6 +762,26 @@ header {
 </div>
 
 <script>
+/* ── 主题切换 ── */
+(function initTheme() {
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('weimian-theme');
+
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('weimian-theme', newTheme);
+    themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+  });
+})();
+
 /* ── 工具栏控制 ── */
 let fabOpen = false;
 function toggleFab() {
