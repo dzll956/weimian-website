@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微面 · 作品集</title>
+    <meta name="description" content="微面作品集 — 从建筑设计到生产管理，探索精心打造的数字作品。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="微面 · 作品集">
+    <meta property="og:description" content="从生产管理到数据可视化 — 探索精心打造的数字作品。">
+    <meta property="og:url" content="https://weimian.store">
+    <meta property="og:site_name" content="微面">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="微面 · 作品集">
+    <meta name="twitter:description" content="从生产管理到数据可视化 — 探索精心打造的数字作品。">
+    <link rel="canonical" href="https://weimian.store">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23165DFF'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='18' font-weight='700' font-family='sans-serif'>微</text></svg>">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #165DFF;
+            --primary-light: #E8F3FF;
+            --primary-gradient: linear-gradient(135deg, #165DFF, #6AA1FF);
+            --text-1: #1D2129;
+            --text-2: #4E5969;
+            --text-3: #86909C;
+            --text-4: #C9CDD4;
+            --border: #E5E6EB;
+            --fill-2: #F2F3F5;
+            --bg-1: #FFFFFF;
+            --bg-2: #F7F8FA;
+            --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.1);
+            --shadow-3: 0 16px 48px rgba(22, 93, 255, 0.12);
+            --radius-2: 6px;
+            --radius-3: 8px;
+            --radius-4: 12px;
+            --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--bg-2);
+            color: var(--text-1);
+            line-height: 1.5715;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; height: 64px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 48px; z-index: 100;
+            animation: slideDown 0.6s ease-out;
+        }
+        .navbar-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-1); }
+        .navbar-logo { 
+            width: 36px; height: 36px; 
+            background: var(--primary-gradient); 
+            border-radius: var(--radius-2); 
+            display: flex; align-items: center; justify-content: center; 
+            color: #fff; font-weight: 700; font-size: 18px;
+            box-shadow: 0 2px 8px rgba(22, 93, 255, 0.3);
+        }
+        .navbar-title { font-size: 17px; font-weight: 600; letter-spacing: 1px; }
+        .navbar-subtitle { font-size: 13px; color: var(--text-3); margin-left: 8px; font-weight: 400; }
+        .navbar-links { display: flex; gap: 8px; }
+        .navbar-links a { 
+            color: var(--text-2); 
+            text-decoration: none; 
+            font-size: 14px; 
+            padding: 8px 16px;
+            border-radius: var(--radius-3);
+            transition: all 0.25s;
+        }
+        .navbar-links a:hover { 
+            color: var(--primary); 
+            background: var(--primary-light);
+        }
+
+        .hero {
+            position: relative;
+            padding: 160px 48px 80px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 400px;
+            background: radial-gradient(ellipse at center, rgba(22, 93, 255, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-orbs {
+            position: absolute;
+            top: 100px; left: 0; right: 0;
+            height: 300px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 300px; height: 300px;
+            left: 10%; top: 20%;
+            background: radial-gradient(circle, rgba(22, 93, 255, 0.1) 0%, transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 200px; height: 200px;
+            right: 15%; top: 10%;
+            background: radial-gradient(circle, rgba(106, 161, 255, 0.1) 0%, transparent 70%);
+            animation-delay: -2s;
+        }
+
+        .orb-3 {
+            width: 150px; height: 150px;
+            left: 20%; top: 60%;
+            background: radial-gradient(circle, rgba(255, 125, 0, 0.06) 0%, transparent 70%);
+            animation-delay: -4s;
+        }
+
+        .hero-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            padding: 6px 18px; 
+            background: var(--primary-light); 
+            color: var(--primary); 
+            border-radius: 100px; 
+            font-size: 13px; 
+            font-weight: 500; 
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease-out;
+            border: 1px solid rgba(22, 93, 255, 0.1);
+        }
+        .hero-badge::before { 
+            content: ''; 
+            width: 8px; height: 8px; 
+            background: var(--primary); 
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .hero h1 { 
+            font-size: 52px; 
+            font-weight: 700; 
+            color: var(--text-1); 
+            margin-bottom: 20px; 
+            letter-spacing: 3px; 
+            line-height: 1.25;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+        .hero h1 span { 
+            background: var(--primary-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            background-clip: text;
+            position: relative;
+        }
+
+        .hero p { 
+            font-size: 17px; 
+            color: var(--text-3); 
+            max-width: 520px; 
+            margin: 0 auto; 
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 48px;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-3);
+            margin-top: 8px;
+        }
+
+        .section { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px 48px 100px; 
+        }
+
+        .section-header { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            margin-bottom: 32px;
+            animation: fadeIn 0.8s ease-out 0.4s backwards;
+        }
+        .section-title { 
+            font-size: 20px; 
+            font-weight: 600; 
+            color: var(--text-1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+        .section-desc { 
+            font-size: 14px; 
+            color: var(--text-3);
+            background: var(--bg-1);
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+        }
+
+        .card-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 24px;
+        }
+
+        .card { 
+            background: var(--bg-1); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius-4); 
+            padding: 32px 28px; 
+            text-decoration: none; 
+            color: inherit; 
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.5s; }
+        .card:nth-child(2) { animation-delay: 0.6s; }
+        .card:nth-child(3) { animation-delay: 0.7s; }
+
+        .card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; 
+            height: 4px; 
+            background: var(--primary-gradient); 
+            opacity: 0; 
+            transition: opacity 0.35s; 
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(22, 93, 255, 0.02) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.35s;
+            pointer-events: none;
+        }
+        .card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: var(--shadow-3); 
+            border-color: transparent;
+        }
+        .card:hover::before { opacity: 1; }
+        .card:hover::after { opacity: 1; }
+
+        .card-icon { 
+            width: 52px; height: 52px; 
+            border-radius: var(--radius-3); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 26px; 
+            margin-bottom: 20px; 
+            flex-shrink: 0;
+            transition: transform 0.35s;
+        }
+        .card:hover .card-icon {
+            transform: scale(1.1);
+        }
+        .card-icon.blue { background: #E8F3FF; }
+        .card-icon.orange { background: #FFF3E8; }
+        .card-icon.green { background: #E8FFF5; }
+
+        .card-tag { 
+            display: inline-block; 
+            padding: 4px 12px; 
+            border-radius: 100px; 
+            font-size: 12px; 
+            font-weight: 500; 
+            margin-bottom: 14px; 
+            width: fit-content;
+        }
+        .card-tag.blue { background: #E8F3FF; color: #165DFF; }
+        .card-tag.orange { background: #FFF3E8; color: #FF7D00; }
+        .card-tag.green { background: #E8FFF5; color: #0d9e7e; }
+
+        .card h2 { 
+            font-size: 19px; 
+            font-weight: 600; 
+            color: var(--text-1); 
+            margin-bottom: 10px; 
+            letter-spacing: 1px;
+            transition: color 0.25s;
+        }
+        .card:hover h2 {
+            color: var(--primary);
+        }
+
+        .card p { 
+            color: var(--text-3); 
+            font-size: 14px; 
+            line-height: 1.7; 
+            flex-grow: 1;
+        }
+
+        .card-footer { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            margin-top: 24px; 
+            padding-top: 18px; 
+            border-top: 1px solid var(--fill-2);
+        }
+        .card-action { 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            font-size: 14px; 
+            color: var(--primary); 
+            font-weight: 500; 
+            transition: all 0.25s;
+        }
+        .card:hover .card-action { gap: 10px; }
+        .card-action svg { 
+            width: 16px; height: 16px; 
+            transition: transform 0.25s;
+        }
+        .card:hover .card-action svg { transform: translateX(4px); }
+        .card-meta { 
+            font-size: 12px; 
+            color: var(--text-4);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .card-meta::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+
+        .footer {
+            background: var(--bg-1);
+            border-top: 1px solid var(--border);
+            padding: 48px;
+            animation: fadeIn 0.8s ease-out 0.8s backwards;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .footer-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-1);
+        }
+
+        .footer-domain {
+            font-size: 13px;
+            color: var(--text-3);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: var(--text-2);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--fill-2);
+            font-size: 13px;
+            color: var(--text-3);
+        }
+
+        .footer-copyright a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 1024px) {
+            .card-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card-grid { 
+                grid-template-columns: 1fr; 
+                max-width: 480px; 
+                margin: 0 auto; 
+            }
+            .navbar { padding: 0 24px; }
+            .navbar-links { display: none; }
+            .hero { padding: 140px 24px 60px; }
+            .hero h1 { font-size: 36px; letter-spacing: 2px; }
+            .hero p { font-size: 15px; }
+            .hero-stats { gap: 32px; }
+            .stat-value { font-size: 28px; }
+            .section { padding: 20px 24px 80px; }
+            .footer { padding: 32px 24px; }
+            .footer-content { flex-direction: column; gap: 24px; text-align: center; }
+            .footer-links { gap: 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .navbar-subtitle { display: none; }
+            .hero h1 { font-size: 30px; }
+            .hero-stats { flex-direction: column; gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar" aria-label="主导航">
+            <a href="#" class="navbar-brand" aria-label="微面 - 返回首页">
+                <div class="navbar-logo" aria-hidden="true">微</div>
+                <span class="navbar-title">微面</span>
+                <span class="navbar-subtitle">weimian.store</span>
+            </a>
+            <div class="navbar-links" role="navigation">
+                <a href="https://weimian.store/production-report/">生产汇报</a>
+                <a href="https://weimian.store/kanban/">看板</a>
+                <a href="https://weimian.store/flight-order/">飞机单</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-bg"></div>
+            <div class="hero-orbs">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="orb orb-3"></div>
+            </div>
+            <div class="hero-badge" aria-hidden="true">作品集 Portfolio</div>
+            <h1 id="hero-title">用心呈现<span>每一个作品</span></h1>
+            <p>从生产管理到数据可视化 — 探索我们精心打造的数字作品</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">精选项目</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">Web</div>
+                    <div class="stat-label">应用类型</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2024</div>
+                    <div class="stat-label">持续更新</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="works-title">
+            <div class="section-header">
+                <span class="section-title" id="works-title">全部作品</span>
+                <span class="section-desc" aria-live="polite">共 4 个项目</span>
+            </div>
+            <div class="card-grid" role="list">
+                <a href="https://weimian.store/production-report/" class="card" role="listitem" aria-label="生产周汇报 — 长兴圆机车间周会工作汇报">
+                    <div class="card-icon orange" aria-hidden="true">📊</div>
+                    <span class="card-tag orange">生产管理</span>
+                    <h2>生产周汇报</h2>
+                    <p>长兴圆机车间周会工作汇报 — 排单数据、开机率、质量管控、纱线仓库、首件执行、报废分析等核心生产指标一览。</p>
+                    <div class="card-footer">
+                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+                        <span class="card-meta">在线</span>
+                    </div>
+                </a>
+                <a href="https://weimian.store/kanban/" class="card" role="listitem" aria-label="打样看板 — 圆机打样生产数据看板">
+                    <div class="card-icon green" aria-hidden="true">📋</div>
+                    <span class="card-tag green">数据看板</span>
+                    <h2>打样看板</h2>
+                    <p>圆机打样生产数据看板 — 接单、生产、余单、回修、报废等核心数据实时录入，支持拖拽排序、Excel 导出与快照恢复。</p>
+                    <div class="card-footer">
+                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+                        <span class="card-meta">在线</span>
+                    </div>
+                </a>
+                <a href="https://weimian.store/flight-order/" class="card" role="listitem" aria-label="飞机单数据表 — 飞行订单数据管理与追踪">
+                    <div class="card-icon blue" aria-hidden="true">✈️</div>
+                    <span class="card-tag blue">数据管理</span>
+                    <h2>飞机单数据表</h2>
+                    <p>飞行订单数据管理与追踪 — 结构化记录飞机单信息，支持数据录入、查询与导出。</p>
+                    <div class="card-footer">
+                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+                        <span class="card-meta">在线</span>
+                    </div>
+                </a>
+                <a href="https://weimian.store/honor-guide/" class="card" role="listitem" aria-label="王者荣耀辅助意识教学 — 新赛季深度攻略">
+                    <div class="card-icon blue" aria-hidden="true">🎮</div>
+                    <span class="card-tag blue">游戏攻略</span>
+                    <h2>王者荣耀辅助意识教学</h2>
+                    <p>新赛季深度攻略 — 辅助玩家的必修课，涵盖核心定位、开局思路、游走支援、团战站位等完整教学内容。</p>
+                    <div class="card-footer">
+                        <span class="card-action">查看项目<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span>
+                        <span class="card-meta">在线</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">微</div>
+                <div class="footer-info">
+                    <span class="footer-name">微面 Weimian</span>
+                    <span class="footer-domain">weimian.store</span>
+                </div>
+            </div>
+            <div class="footer-links">
+                <a href="https://weimian.store/production-report/">生产汇报</a>
+                <a href="https://weimian.store/kanban/">看板</a>
+                <a href="https://weimian.store/flight-order/">飞机单</a>
+                <a href="https://weimian.store/honor-guide/">王者荣耀</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © 2024 <a href="https://weimian.store">微面</a> · 用心呈现每一个作品
+        </div>
+    </footer>
+</body>
+</html>
